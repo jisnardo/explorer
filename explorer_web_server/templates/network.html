@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="{{ data_locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+        <meta http-equiv="pragma" content="cache">
+        <script src="https://cdn.jsdelivr.net/npm/loadjs@latest/dist/loadjs.js">
+        </script>
+        <script src="./static/javascript/network.js">
+        </script>
+        <title>
+            network - Explorer
+        </title>
+    </head>
+    <body style="display: none;">
+        <nav id="nav" class="navbar navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-brand">
+                    <a class="navbar-brand" href="./default">
+                        Explorer
+                    </a>
+                    <span class="small">
+                        <i class="fa-solid fa-magnet">
+                        </i>
+                        <span id="info_hash_count" class="badge bg-secondary">
+                        </span>
+                        <i class="fa-solid fa-file">
+                        </i>
+                        <span id="file_size_count" class="badge bg-secondary">
+                        </span>
+                    </span>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_supported_content" aria-controls="navbar_supported_content" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                    </span>
+                </button>
+                <div id="navbar_supported_content" class="collapse navbar-collapse">
+                    <hr>
+                    <div class="d-grid">
+                        <div class="btn-group">
+                            <button id="about" class="btn btn-outline-primary" type="button">
+                                <i class="fa-solid fa-circle-question">
+                                </i>
+                                <span>
+                                    {{ about }}
+                                </span>
+                            </button>
+                            <button id="database" class="btn btn-outline-primary" type="button">
+                                <i class="fa-solid fa-database">
+                                </i>
+                                <span>
+                                    {{ database }}
+                                </span>
+                            </button>
+                            <button id="network" class="btn btn-outline-primary" type="button">
+                                <i class="fa-solid fa-globe">
+                                </i>
+                                <span>
+                                    {{ network }}
+                                </span>
+                            </button>
+                            <button id="setting" class="btn btn-outline-primary" type="button">
+                                <i class="fa-solid fa-gear">
+                                </i>
+                                <span>
+                                    {{ setting }}
+                                </span>
+                            </button>
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#upload_modal">
+                                <i class="fa-solid fa-file-arrow-up">
+                                </i>
+                                <span>
+                                    {{ upload_button }}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="d-flex">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-keyboard">
+                                </i>
+                            </span>
+                            <input id="search_input" name="search_input" type="text" placeholder="{{ search_input_title }}" title="{{ search_input_title }}" data-toggle="search_input_tooltip" data-placement="bottom" class="form-control">
+                            <button id="search_button" class="btn btn-primary" type="submit" title="{{ search_button_title }}" data-toggle="search_button_tooltip" data-placement="left">
+                                <i class="fa-solid fa-magnifying-glass">
+                                </i>
+                                <span>
+                                    {{ search_button }}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div id="row">
+                <div class="col-12">
+                    <div id="page">
+                        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="btn-group">
+                                                    <button id="page_back" class="btn btn-outline-primary" type="button">
+                                                        <i class="fa-solid fa-arrow-left">
+                                                        </i>
+                                                        <span>
+                                                            {{ back }}
+                                                        </span>
+                                                    </button>
+                                                    <button id="page_refresh" class="btn btn-outline-primary" type="button">
+                                                        <i class="fa-solid fa-arrow-rotate-right">
+                                                        </i>
+                                                        <span>
+                                                            {{ refresh }}
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="h5 text-center">
+                                                    <i class="fa-solid fa-globe">
+                                                    </i>
+                                                    {{ network }}
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-network-wired">
+                                    </i>
+                                    {{ dht_network_ipv4_information }}
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_krpc_v4_parameter_read"
+                                    data-auto-refresh="true"
+                                    data-locale="{{ data_locale }}"
+                                    data-method="post"
+                                    data-page-list="[10, 25, 50, 100, all]"
+                                    data-page-number="1"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-columns-toggle-all="true"
+                                    data-show-export="true"
+                                    data-show-extended-pagination="true"
+                                    data-show-fullscreen="true"
+                                    data-show-jump-to="true"
+                                    data-show-pagination-switch="true"
+                                    data-show-refresh="true"
+                                    data-show-search-button="true"
+                                    data-show-search-clear-button="true"
+                                    data-show-toggle="true"
+                                    data-side-pagination="client"
+                                    data-total-not-filtered-field="totalNotFiltered"
+                                    data-visible-search="true"
+                                    id="dht_network_ipv4_information_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id" data-halign="center" data-align="center" data-width="50">
+                                                {{ id }}
+                                            </th>
+                                            <th data-field="item" data-halign="center" data-align="center" data-width="150">
+                                                {{ item }}
+                                            </th>
+                                            <th data-field="value" data-halign="center" data-align="center" data-width="350">
+                                                {{ value }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-circle-nodes">
+                                    </i>
+                                    {{ dht_network_ipv4_router_table }}
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_krpc_v4_router_table_read"
+                                    data-auto-refresh="true"
+                                    data-locale="{{ data_locale }}"
+                                    data-show-refresh="true"
+                                    id="dht_network_ipv4_router_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="node_id" data-width="300">
+                                                {{ node_id }}
+                                            </th>
+                                            <th data-field="ip_address" data-width="200">
+                                                {{ ip_address }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-magnet">
+                                    </i>
+                                    {{ dht_network_ipv4_peer_database }}
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_krpc_v4_peer_database_read"
+                                    data-auto-refresh="true"
+                                    data-locale="{{ data_locale }}"
+                                    data-method="post"
+                                    data-page-list="[10, 25, 50, 100, all]"
+                                    data-page-number="1"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-columns-toggle-all="true"
+                                    data-show-export="true"
+                                    data-show-extended-pagination="true"
+                                    data-show-fullscreen="true"
+                                    data-show-jump-to="true"
+                                    data-show-pagination-switch="true"
+                                    data-show-refresh="true"
+                                    data-show-search-button="true"
+                                    data-show-search-clear-button="true"
+                                    data-show-toggle="true"
+                                    data-side-pagination="client"
+                                    data-total-not-filtered-field="totalNotFiltered"
+                                    data-visible-search="true"
+                                    id="dht_network_ipv4_peer_database_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="300">
+                                                {{ info_hash }}
+                                            </th>
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                {{ ip_address }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-network-wired">
+                                    </i>
+                                    {{ dht_network_ipv6_information }}
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_krpc_v6_parameter_read"
+                                    data-auto-refresh="true"
+                                    data-locale="{{ data_locale }}"
+                                    data-method="post"
+                                    data-page-list="[10, 25, 50, 100, all]"
+                                    data-page-number="1"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-columns-toggle-all="true"
+                                    data-show-export="true"
+                                    data-show-extended-pagination="true"
+                                    data-show-fullscreen="true"
+                                    data-show-jump-to="true"
+                                    data-show-pagination-switch="true"
+                                    data-show-refresh="true"
+                                    data-show-search-button="true"
+                                    data-show-search-clear-button="true"
+                                    data-show-toggle="true"
+                                    data-side-pagination="client"
+                                    data-total-not-filtered-field="totalNotFiltered"
+                                    data-visible-search="true"
+                                    id="dht_network_ipv6_information_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id" data-halign="center" data-align="center" data-width="50">
+                                                {{ id }}
+                                            </th>
+                                            <th data-field="item" data-halign="center" data-align="center" data-width="150">
+                                                {{ item }}
+                                            </th>
+                                            <th data-field="value" data-halign="center" data-align="center" data-width="350">
+                                                {{ value }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-circle-nodes">
+                                    </i>
+                                    {{ dht_network_ipv6_router_table }}
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_krpc_v6_router_table_read"
+                                    data-auto-refresh="true"
+                                    data-locale="{{ data_locale }}"
+                                    data-show-refresh="true"
+                                    id="dht_network_ipv6_router_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="node_id" data-width="300">
+                                                {{ node_id }}
+                                            </th>
+                                            <th data-field="ip_address" data-width="200">
+                                                {{ ip_address }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-magnet">
+                                    </i>
+                                    {{ dht_network_ipv6_peer_database }}
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_krpc_v6_peer_database_read"
+                                    data-auto-refresh="true"
+                                    data-locale="{{ data_locale }}"
+                                    data-method="post"
+                                    data-page-list="[10, 25, 50, 100, all]"
+                                    data-page-number="1"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-columns-toggle-all="true"
+                                    data-show-export="true"
+                                    data-show-extended-pagination="true"
+                                    data-show-fullscreen="true"
+                                    data-show-jump-to="true"
+                                    data-show-pagination-switch="true"
+                                    data-show-refresh="true"
+                                    data-show-search-button="true"
+                                    data-show-search-clear-button="true"
+                                    data-show-toggle="true"
+                                    data-side-pagination="client"
+                                    data-total-not-filtered-field="totalNotFiltered"
+                                    data-visible-search="true"
+                                    id="dht_network_ipv6_peer_database_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="300">
+                                                {{ info_hash }}
+                                            </th>
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                {{ ip_address }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <ul id="footer" class="nav bg-light navbar-light justify-content-center fixed-bottom">
+                <span class="navbar-text text-secondary">
+                    <span>
+                        Copyright
+                    </span>
+                    <i class="fa-solid fa-copyright">
+                    </i>
+                    <span>
+                        2019 - 2022
+                    </span>
+                    <span>
+                        Explorer
+                    </span>
+                </span>
+            </ul>
+        </footer>
+        <div id="upload_modal" class="modal fade">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            {{ upload_button }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="torrent_upload" name="torrent_data" type="file" accept=".torrent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.token = '{{ token }}';
+        </script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+{
+    "default_database": "mysql",
+    "mysql": {
+        "database": "explorer",
+        "host": "127.0.0.1",
+        "password": "root",
+        "port": 3306,
+        "user": "root"
+    }
+}

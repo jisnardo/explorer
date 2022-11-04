@@ -1,0 +1,14 @@
+{
+    "http_tracker_list": {
+        "0": "https://newtrackon.com/api/http",
+        "1": "https://trackerslist.com/http.txt",
+        "2": "https://ngosang.github.io/trackerslist/trackers_all_http.txt",
+        "3": "https://ngosang.github.io/trackerslist/trackers_all_https.txt"
+    },
+    "udp_tracker_list": {
+        "0": "https://newtrackon.com/api/udp",
+        "1": "https://ngosang.github.io/trackerslist/trackers_all_udp.txt",
+        "2": "https://at.raxianch.moe/ATline_all_udp.txt",
+        "3": "http://github.itzmx.com/1265578519/OpenTracker/master/tracker.txt"
+    }
+}

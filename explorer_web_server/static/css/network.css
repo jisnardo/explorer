@@ -1,0 +1,13 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.col-12 {
+    overflow: hidden;
+}
+
+.table {
+    display: table;
+    table-layout: fixed;
+    word-break: break-all;
+}

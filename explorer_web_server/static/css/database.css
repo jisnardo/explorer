@@ -1,0 +1,21 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.col-12 {
+    overflow: hidden;
+}
+
+.link-dark {
+    text-decoration: none;
+}
+
+.link-dark:hover {
+    text-decoration: underline;
+}
+
+.table {
+    display: table;
+    table-layout: fixed;
+    word-break: break-all;
+}

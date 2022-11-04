@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="{{ data_locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+        <meta http-equiv="pragma" content="cache">
+        <script src="https://cdn.jsdelivr.net/npm/loadjs@latest/dist/loadjs.js">
+        </script>
+        <script src="./static/javascript/default.js">
+        </script>
+        <title>
+            default - Explorer
+        </title>
+    </head>
+    <body style="display: none;">
+        <div class="container">
+            <div id="row" class="row d-flex justify-content-center align-items-center">
+                <div class="col-12">
+                    <div id="card" class="card shadow-lg p-3 mb-5 bg-white rounded">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="btn-group d-flex justify-content-center">
+                                            <button id="about" class="btn btn-outline-primary" type="button">
+                                                <i class="fa-solid fa-circle-question">
+                                                </i>
+                                                <span>
+                                                    {{ about }}
+                                                </span>
+                                            </button>
+                                            <button id="database" class="btn btn-outline-primary" type="button">
+                                                <i class="fa-solid fa-database">
+                                                </i>
+                                                <span>
+                                                    {{ database }}
+                                                </span>
+                                            </button>
+                                            <button id="network" class="btn btn-outline-primary" type="button">
+                                                <i class="fa-solid fa-globe">
+                                                </i>
+                                                <span>
+                                                    {{ network }}
+                                                </span>
+                                            </button>
+                                            <button id="setting" class="btn btn-outline-primary" type="button">
+                                                <i class="fa-solid fa-gear">
+                                                </i>
+                                                <span>
+                                                    {{ setting }}
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-8">
+                                        <h1 class="card-title text-center">
+                                            <span>
+                                                Explorer
+                                            </span>
+                                        </h1>
+                                        <h6 class="card-subtitle text-center">
+                                            <span>
+                                                {{ card_subtitle_1 }}
+                                            </span>
+                                            <br>
+                                            <span>
+                                                {{ card_subtitle_2 }}
+                                            </span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="text-center small">
+                                            <i class="fa-solid fa-magnet">
+                                            </i>
+                                            {{ info_hash }}
+                                            <span id="info_hash_count" class="badge bg-secondary">
+                                            </span>
+                                        </div>
+                                        <div class="text-center small">
+                                            <i class="fa-solid fa-file">
+                                            </i>
+                                            {{ file_size }}
+                                            <span id="file_size_count" class="badge bg-secondary">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <hr>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fa-solid fa-keyboard">
+                                                </i>
+                                            </span>
+                                            <input id="search_input" name="search_input" type="text" placeholder="{{ search_input_title }}" title="{{ search_input_title }}" data-toggle="search_input_tooltip" data-placement="top" class="form-control">
+                                            <button id="search_button" class="btn btn-primary" type="submit" title="{{ search_button_title }}" data-toggle="search_button_tooltip" data-placement="top">
+                                                <i class="fa-solid fa-magnifying-glass">
+                                                </i>
+                                                <span>
+                                                    {{ search_button }}
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <hr>
+                                        <div class="d-grid">
+                                            <button class="btn btn-outline-primary btn-block" type="button" data-bs-toggle="modal" data-bs-target="#upload_modal">
+                                                <i class="fa-solid fa-file-arrow-up">
+                                                </i>
+                                                <span>
+                                                    {{ upload_button }}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <ul class="nav bg-light navbar-light justify-content-center fixed-bottom">
+                <span class="navbar-text text-secondary">
+                    <span>
+                        Copyright
+                    </span>
+                    <i class="fa-solid fa-copyright">
+                    </i>
+                    <span>
+                        2019 - 2022
+                    </span>
+                    <span>
+                        Explorer
+                    </span>
+                </span>
+            </ul>
+        </footer>
+        <div id="upload_modal" class="modal fade">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            {{ upload_button }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="torrent_upload" name="torrent_data" type="file" accept=".torrent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.token = '{{ token }}';
+        </script>
+    </body>
+</html>
