@@ -132,7 +132,7 @@ class krpc_response_messages:
             'y': 'r',
             'r': {
                 'id': node_id,
-                'interval': 21600,
+                'interval': 14400,
                 'nodes': nodes,
                 'num': number,
                 'samples': samples,

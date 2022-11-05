@@ -53,7 +53,7 @@ class transmission:
                 if contract_number >= max_contract_number:
                     break
                 elif contract_number < max_contract_number:
-                    time.sleep(2)
+                    time.sleep(1)
             load_data = bytes()
             for j in range(0, all_piece_number):
                 load_data = load_data + piece[str(j)]

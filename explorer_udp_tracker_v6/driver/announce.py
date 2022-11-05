@@ -58,13 +58,13 @@ class announce:
                             new_peers6 = []
                             if len(peers6) > 0:
                                 for i in peers6:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)[:9]
+                                    peer6_ip_address = i[0]
+                                    peer6_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer6_ip_address).iptype()[:9]
                                     if ip_address_type == 'ALLOCATED':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer6_list = [ip_address, udp_port]
+                                        if 1 <= peer6_udp_port <= 65535:
+                                            if not wan_ip_address == peer6_ip_address:
+                                                peer6_list = [peer6_ip_address, peer6_udp_port]
                                                 peer6_list_result = False
                                                 for j in new_peers6:
                                                     if operator.eq(j, peer6_list) is True:
@@ -144,13 +144,13 @@ class announce:
                             new_peers6 = []
                             if len(peers6) > 0:
                                 for i in peers6:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)[:9]
+                                    peer6_ip_address = i[0]
+                                    peer6_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer6_ip_address).iptype()[:9]
                                     if ip_address_type == 'ALLOCATED':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer6_list = [ip_address, udp_port]
+                                        if 1 <= peer6_udp_port <= 65535:
+                                            if not wan_ip_address == peer6_ip_address:
+                                                peer6_list = [peer6_ip_address, peer6_udp_port]
                                                 peer6_list_result = False
                                                 for j in new_peers6:
                                                     if operator.eq(j, peer6_list) is True:
@@ -230,13 +230,13 @@ class announce:
                             new_peers6 = []
                             if len(peers6) > 0:
                                 for i in peers6:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)[:9]
+                                    peer6_ip_address = i[0]
+                                    peer6_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer6_ip_address).iptype()[:9]
                                     if ip_address_type == 'ALLOCATED':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer6_list = [ip_address, udp_port]
+                                        if 1 <= peer6_udp_port <= 65535:
+                                            if not wan_ip_address == peer6_ip_address:
+                                                peer6_list = [peer6_ip_address, peer6_udp_port]
                                                 peer6_list_result = False
                                                 for j in new_peers6:
                                                     if operator.eq(j, peer6_list) is True:
@@ -316,13 +316,13 @@ class announce:
                             new_peers6 = []
                             if len(peers6) > 0:
                                 for i in peers6:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)[:9]
+                                    peer6_ip_address = i[0]
+                                    peer6_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer6_ip_address).iptype()[:9]
                                     if ip_address_type == 'ALLOCATED':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer6_list = [ip_address, udp_port]
+                                        if 1 <= peer6_udp_port <= 65535:
+                                            if not wan_ip_address == peer6_ip_address:
+                                                peer6_list = [peer6_ip_address, peer6_udp_port]
                                                 peer6_list_result = False
                                                 for j in new_peers6:
                                                     if operator.eq(j, peer6_list) is True:

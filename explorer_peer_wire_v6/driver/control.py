@@ -26,21 +26,21 @@ class control:
         socket_server.settimeout(120)
         connection_connect_messages = connection().connect(socket_server, ip_address, tcp_port)
         if connection_connect_messages is True:
-            time.sleep(2)
+            time.sleep(1)
             connection_handshake_messages = connection().handshake(socket_server, info_hash)
             if connection_handshake_messages is not False:
                 peer_unanalysed_handshake_response_message = connection_handshake_messages
-                time.sleep(2)
+                time.sleep(1)
                 connection_extension_ut_metadata_messages = connection().extension_ut_metadata(socket_server, peer_unanalysed_handshake_response_message)
                 if connection_extension_ut_metadata_messages is not False:
-                    time.sleep(2)
+                    time.sleep(1)
                     connection_interested_messages = connection().interested(socket_server)
                     if connection_interested_messages is True:
                         ut_metadata = connection_extension_ut_metadata_messages[0]
                         metadata_size = connection_extension_ut_metadata_messages[1]
                         ipv4_address = connection_extension_ut_metadata_messages[2]
                         ipv4_udp_port = connection_extension_ut_metadata_messages[3]
-                        time.sleep(2)
+                        time.sleep(1)
                         transmission_extension_ut_metadata_messages = transmission().extension_ut_metadata(socket_server, ut_metadata, metadata_size, ipv4_address, ipv4_udp_port)
                         socket_server.close()
                         if transmission_extension_ut_metadata_messages is not False:

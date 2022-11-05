@@ -58,13 +58,13 @@ class announce:
                             new_peers = []
                             if len(peers) > 0:
                                 for i in peers:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)
+                                    peer_ip_address = i[0]
+                                    peer_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer_ip_address).iptype()
                                     if ip_address_type == 'PUBLIC':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer_list = [ip_address, udp_port]
+                                        if 1 <= peer_udp_port <= 65535:
+                                            if not wan_ip_address == peer_ip_address:
+                                                peer_list = [peer_ip_address, peer_udp_port]
                                                 peer_list_result = False
                                                 for j in new_peers:
                                                     if operator.eq(j, peer_list) is True:
@@ -144,13 +144,13 @@ class announce:
                             new_peers = []
                             if len(peers) > 0:
                                 for i in peers:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)
+                                    peer_ip_address = i[0]
+                                    peer_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer_ip_address).iptype()
                                     if ip_address_type == 'PUBLIC':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer_list = [ip_address, udp_port]
+                                        if 1 <= peer_udp_port <= 65535:
+                                            if not wan_ip_address == peer_ip_address:
+                                                peer_list = [peer_ip_address, peer_udp_port]
                                                 peer_list_result = False
                                                 for j in new_peers:
                                                     if operator.eq(j, peer_list) is True:
@@ -230,13 +230,13 @@ class announce:
                             new_peers = []
                             if len(peers) > 0:
                                 for i in peers:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)
+                                    peer_ip_address = i[0]
+                                    peer_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer_ip_address).iptype()
                                     if ip_address_type == 'PUBLIC':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer_list = [ip_address, udp_port]
+                                        if 1 <= peer_udp_port <= 65535:
+                                            if not wan_ip_address == peer_ip_address:
+                                                peer_list = [peer_ip_address, peer_udp_port]
                                                 peer_list_result = False
                                                 for j in new_peers:
                                                     if operator.eq(j, peer_list) is True:
@@ -316,13 +316,13 @@ class announce:
                             new_peers = []
                             if len(peers) > 0:
                                 for i in peers:
-                                    ip_address = i[0]
-                                    udp_port = i[1]
-                                    ip_address_type = IPy.IP().iptype(ip_address)
+                                    peer_ip_address = i[0]
+                                    peer_udp_port = i[1]
+                                    ip_address_type = IPy.IP(peer_ip_address).iptype()
                                     if ip_address_type == 'PUBLIC':
-                                        if 1 <= udp_port <= 65535:
-                                            if not wan_ip_address == ip_address:
-                                                peer_list = [ip_address, udp_port]
+                                        if 1 <= peer_udp_port <= 65535:
+                                            if not wan_ip_address == peer_ip_address:
+                                                peer_list = [peer_ip_address, peer_udp_port]
                                                 peer_list_result = False
                                                 for j in new_peers:
                                                     if operator.eq(j, peer_list) is True:

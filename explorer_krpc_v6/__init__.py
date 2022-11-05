@@ -326,8 +326,8 @@ def self_udp_port():
     return memory().udp_port
 
 driver_loader().launch()
-time.sleep(8)
+time.sleep(1)
 database_loader().launch()
-time.sleep(8)
+time.sleep(1)
 application_loader().launch()
-time.sleep(8)
+time.sleep(1)

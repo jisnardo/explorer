@@ -33,7 +33,7 @@ class indexer:
                     pass
                 finally:
                     locals().clear()
-            time.sleep(14400)
+            time.sleep(3600)
 
     def __eztvre(self):
         while True:
@@ -62,7 +62,7 @@ class indexer:
                     pass
                 finally:
                     locals().clear()
-            time.sleep(14400)
+            time.sleep(3600)
 
     def __ytsmx(self):
         while True:
@@ -92,7 +92,7 @@ class indexer:
                     pass
                 finally:
                     locals().clear()
-            time.sleep(14400)
+            time.sleep(3600)
 
     def start(self):
         explorer_spider_indexer_apibay_thread = threading.Thread(target = self.__apibay)
