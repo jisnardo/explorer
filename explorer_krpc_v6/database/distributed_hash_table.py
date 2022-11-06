@@ -177,7 +177,7 @@ class distributed_hash_table:
                             self.database_confirm_nodes_time_operators.put(
                                 ['append', [distributed_hash_table_keyword, k_bucket_name, k_bucket_node_place, int(time.time())]]
                             )
-            time.sleep(900)
+            time.sleep(60)
 
     def __confirm_nodes_time_check(self):
         while True:

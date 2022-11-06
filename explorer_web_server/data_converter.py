@@ -283,7 +283,10 @@ class data_conversion:
                 del krpc_v4_query_nodes_messages[str(i)]
         for i in krpc_v4_query_nodes_messages:
             for j in krpc_v4_query_nodes_messages[str(i)]:
-                krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] = time.strftime('%M:%S', time.gmtime(krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time())))
+                if krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time()) > 0:
+                    krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] = time.strftime('%M:%S', time.gmtime(krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time())))
+                else:
+                    krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] = '00:00'
         result.append({
             'k_bucket': user_language_data_config['k_bucket']
         })
@@ -336,7 +339,10 @@ class data_conversion:
                 del krpc_v6_query_nodes_messages[str(i)]
         for i in krpc_v6_query_nodes_messages:
             for j in krpc_v6_query_nodes_messages[str(i)]:
-                krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] = time.strftime('%M:%S', time.gmtime(krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time())))
+                if krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time()) > 0:
+                    krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] = time.strftime('%M:%S', time.gmtime(krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time())))
+                else:
+                    krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] = '00:00'
         result.append({
             'k_bucket': user_language_data_config['k_bucket']
         })
