@@ -45,16 +45,14 @@ class extension_ut_metadata:
                     info_hash = i[1]
                     ip_address = i[2]
                     tcp_port = i[3]
-                    self.application_extension_ut_metadata_messages_send.put(
-                        {
-                            'result': result,
-                            'header': {
-                                'info_hash': info_hash,
-                                'ip_address': ip_address,
-                                'tcp_port': tcp_port
-                            }
+                    self.application_extension_ut_metadata_messages_send.put({
+                        'result': result,
+                        'header': {
+                            'info_hash': info_hash,
+                            'ip_address': ip_address,
+                            'tcp_port': tcp_port
                         }
-                    )
+                    })
                     self.application_extension_ut_metadata_messages_operators.put(
                         ['remove', i]
                     )
