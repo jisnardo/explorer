@@ -327,6 +327,7 @@ def network():
                     setting = user_language_data_config['setting'],
                     spider = user_language_data_config['spider'],
                     token = webview.token,
+                    update_time = user_language_data_config['update_time'],
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
                 )
@@ -359,6 +360,7 @@ def network():
                     setting = user_language_data_config['setting'],
                     spider = user_language_data_config['spider'],
                     token = webview.token,
+                    update_time = user_language_data_config['update_time'],
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
                 )
@@ -391,6 +393,7 @@ def network():
                     setting = user_language_data_config['setting'],
                     spider = user_language_data_config['spider'],
                     token = webview.token,
+                    update_time = user_language_data_config['update_time'],
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
                 )

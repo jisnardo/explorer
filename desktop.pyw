@@ -33,8 +33,8 @@ memory.explorer_spider = explorer_spider
 webview.create_window(
     title = 'Explorer',
     url = application,
-    width = 800,
-    height = 600,
+    width = 1024,
+    height = 768,
     resizable = False,
     text_select = True
 )

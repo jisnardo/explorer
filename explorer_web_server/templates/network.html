@@ -194,16 +194,20 @@
                                 <table
                                     data-ajax="ajax_request_krpc_v4_router_table_read"
                                     data-auto-refresh="true"
+                                    data-auto-refresh-interval="2"
                                     data-locale="{{ data_locale }}"
                                     data-show-refresh="true"
                                     id="dht_network_ipv4_router_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="node_id" data-width="300">
+                                            <th data-field="node_id" data-width="250">
                                                 {{ node_id }}
                                             </th>
                                             <th data-field="ip_address" data-width="200">
                                                 {{ ip_address }}
+                                            </th>
+                                            <th data-field="update_time" data-width="100">
+                                                {{ update_time }}
                                             </th>
                                         </tr>
                                     </thead>
@@ -302,16 +306,20 @@
                                 <table
                                     data-ajax="ajax_request_krpc_v6_router_table_read"
                                     data-auto-refresh="true"
+                                    data-auto-refresh-interval="2"
                                     data-locale="{{ data_locale }}"
                                     data-show-refresh="true"
                                     id="dht_network_ipv6_router_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="node_id" data-width="300">
+                                            <th data-field="node_id" data-width="250">
                                                 {{ node_id }}
                                             </th>
                                             <th data-field="ip_address" data-width="200">
                                                 {{ ip_address }}
+                                            </th>
+                                            <th data-field="update_time" data-width="100">
+                                                {{ update_time }}
                                             </th>
                                         </tr>
                                     </thead>

@@ -241,7 +241,6 @@ document.onreadystatechange = function () {
                         if(columns && columns[0][1].visible) {
                             $('#dht_network_ipv4_router_table').treegrid({
                                 treeColumn: 0,
-                                initialState: 'collapsed',
                                 onChange: function () {
                                     $('#dht_network_ipv4_router_table').bootstrapTable('resetView');
                                 }
@@ -283,7 +282,6 @@ document.onreadystatechange = function () {
                         if(columns && columns[0][1].visible) {
                             $('#dht_network_ipv6_router_table').treegrid({
                                 treeColumn: 0,
-                                initialState: 'collapsed',
                                 onChange: function () {
                                     $('#dht_network_ipv6_router_table').bootstrapTable('resetView');
                                 }
@@ -378,19 +376,22 @@ function ajax_request_krpc_v4_router_table_read (params) {
         success: function (api_krpc_v4_router_table_read) {
             router_table_treegrid_contents = [];
             k_bucket = api_krpc_v4_router_table_read.data[0]['k_bucket'];
+            console.log(api_krpc_v4_router_table_read.data[1])
             for(var i in api_krpc_v4_router_table_read.data[1]) {
                 router_table_treegrid_contents.push({
                     'id': Number(i) + 1,
                     'pid': 0,
                     'node_id': k_bucket + ' (' + (Number(i) + 1).toString() + ') ' + '<span class=\'badge bg-secondary\'>' + (Object.keys(api_krpc_v4_router_table_read.data[1][i]).length) + '</span>',
-                    'ip_address': ''
+                    'ip_address': '',
+                    'update_time': ''
                 });
                 for(var j in api_krpc_v4_router_table_read.data[1][i]) {
                     router_table_treegrid_contents.push({
                         'id': router_table_treegrid_contents.length + 160,
                         'pid': Number(i) + 1,
                         'node_id': api_krpc_v4_router_table_read.data[1][i][j]['node_id'],
-                        'ip_address': api_krpc_v4_router_table_read.data[1][i][j]['ip_address'] + ':' + api_krpc_v4_router_table_read.data[1][i][j]['udp_port']
+                        'ip_address': api_krpc_v4_router_table_read.data[1][i][j]['ip_address'] + ':' + api_krpc_v4_router_table_read.data[1][i][j]['udp_port'],
+                        'update_time': '<span class=\'badge bg-secondary\'>' + api_krpc_v4_router_table_read.data[1][i][j]['update_time'] + '</span>'
                     });
                 };
             };
@@ -458,14 +459,16 @@ function ajax_request_krpc_v6_router_table_read (params) {
                     'id': Number(i) + 1,
                     'pid': 0,
                     'node_id': k_bucket + ' (' + (Number(i) + 1).toString() + ') ' + '<span class=\'badge bg-secondary\'>' + (Object.keys(api_krpc_v6_router_table_read.data[1][i]).length) + '</span>',
-                    'ip_address': ''
+                    'ip_address': '',
+                    'update_time': ''
                 });
                 for(var j in api_krpc_v6_router_table_read.data[1][i]) {
                     router_table_treegrid_contents.push({
                         'id': router_table_treegrid_contents.length + 160,
                         'pid': Number(i) + 1,
                         'node_id': api_krpc_v6_router_table_read.data[1][i][j]['node_id'],
-                        'ip_address': '[' + api_krpc_v6_router_table_read.data[1][i][j]['ip_address'] + ']:' + api_krpc_v6_router_table_read.data[1][i][j]['udp_port']
+                        'ip_address': '[' + api_krpc_v6_router_table_read.data[1][i][j]['ip_address'] + ']:' + api_krpc_v6_router_table_read.data[1][i][j]['udp_port'],
+                        'update_time': '<span class=\'badge bg-secondary\'>' + api_krpc_v6_router_table_read.data[1][i][j]['update_time'] + '</span>'
                     });
                 };
             };

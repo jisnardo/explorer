@@ -71,6 +71,7 @@
     "torrent_size": "Torrent Size",
     "udp_port": "UDP Port",
     "udp_tracker_api_url": "UDP Tracker API URL",
+    "update_time": "Update Time",
     "upload_button": "Upload Torrent Files",
     "upload_failure_1": "The requested file already exists in the database",
     "upload_failure_2": "The requested file is corrupted",

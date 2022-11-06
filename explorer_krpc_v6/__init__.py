@@ -216,11 +216,11 @@ def query_nodes():
 
         {
             '0': {
-                'update_time': 1666702844,
                 '0': {
                     'node_id': '59abaad8e68806ebac108bd69b13d7e9a38be5fb',
                     'ip_address': '2001:4860:4860::8844',
-                    'udp_port': 51413
+                    'udp_port': 51413,
+                    'update_time': 1666702844
                 },
             ...
             }

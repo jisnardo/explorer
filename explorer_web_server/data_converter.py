@@ -281,6 +281,9 @@ class data_conversion:
         for i in range(0, 160):
             if len(krpc_v4_query_nodes_messages[str(i)]) == 0:
                 del krpc_v4_query_nodes_messages[str(i)]
+        for i in krpc_v4_query_nodes_messages:
+            for j in krpc_v4_query_nodes_messages[str(i)]:
+                krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] = time.strftime('%M:%S', time.gmtime(krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time())))
         result.append({
             'k_bucket': user_language_data_config['k_bucket']
         })
@@ -331,6 +334,9 @@ class data_conversion:
         for i in range(0, 160):
             if len(krpc_v6_query_nodes_messages[str(i)]) == 0:
                 del krpc_v6_query_nodes_messages[str(i)]
+        for i in krpc_v6_query_nodes_messages:
+            for j in krpc_v6_query_nodes_messages[str(i)]:
+                krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] = time.strftime('%M:%S', time.gmtime(krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] + 900 - int(time.time())))
         result.append({
             'k_bucket': user_language_data_config['k_bucket']
         })

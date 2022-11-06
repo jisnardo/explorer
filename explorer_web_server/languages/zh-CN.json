@@ -71,6 +71,7 @@
     "torrent_size": "种子大小",
     "udp_port": "UDP 端口",
     "udp_tracker_api_url": "UDP Tracker API 超链接地址",
+    "update_time": "更新时间",
     "upload_button": "上传 Torrent 文件",
     "upload_failure_1": "请求的文件在数据库中已存在",
     "upload_failure_2": "请求的文件已经损坏",

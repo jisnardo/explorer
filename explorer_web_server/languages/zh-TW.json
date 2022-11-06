@@ -71,6 +71,7 @@
     "torrent_size": "洪流大小",
     "udp_port": "UDP 埠",
     "udp_tracker_api_url": "UDP Tracker API 超連結位址",
+    "update_time": "更新時間",
     "upload_button": "上傳 Torrent 檔案",
     "upload_failure_1": "請求的檔案在資料庫中已存在",
     "upload_failure_2": "請求的檔案已經損壞",
