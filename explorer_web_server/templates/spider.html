@@ -6,10 +6,10 @@
         <meta http-equiv="pragma" content="cache">
         <script src="https://cdn.jsdelivr.net/npm/loadjs@latest/dist/loadjs.js">
         </script>
-        <script src="./static/javascript/search.js">
+        <script src="./static/javascript/spider.js">
         </script>
         <title>
-            search - Explorer
+            spider - Explorer
         </title>
     </head>
     <body style="display: none;">
@@ -131,9 +131,9 @@
                                             </div>
                                             <div class="col-4">
                                                 <div class="h5 text-center">
-                                                    <i class="fa-solid fa-square-poll-horizontal">
+                                                    <i class="fa-solid fa-spider">
                                                     </i>
-                                                    {{ search_results }}
+                                                    {{ spider }}
                                                 </div>
                                             </div>
                                             <div class="col-4">
@@ -143,15 +143,16 @@
                                 </div>
                                 <hr>
                                 <p class="card-text">
-                                    <i class="fa-solid fa-arrow-circle-right">
+                                    <i class="fa-solid fa-bars-progress">
                                     </i>
                                     <span>
-                                        {{ sheet_name }}
+                                        {{ peer_wire_ipv4_ut_metadata_progress_table }}
                                     </span>
                                 </p>
                                 <table
-                                    data-ajax="ajax_request"
+                                    data-ajax="ajax_request_peer_wire_v4_ut_metadata_progress_table_read"
                                     data-auto-refresh="true"
+                                    data-auto-refresh-interval="2"
                                     data-locale="{{ data_locale }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
@@ -164,24 +165,74 @@
                                     data-show-fullscreen="true"
                                     data-show-jump-to="true"
                                     data-show-pagination-switch="true"
-                                    data-show-refresh="true"
                                     data-show-search-button="true"
                                     data-show-search-clear-button="true"
                                     data-show-toggle="true"
                                     data-side-pagination="client"
                                     data-total-not-filtered-field="totalNotFiltered"
                                     data-visible-search="true"
-                                    id="search_results_table">
+                                    id="peer_wire_ipv4_ut_metadata_progress_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="id" data-halign="center" data-align="center" data-sortable="true" data-width="100">
-                                                {{ id }}
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-sortable="true" data-width="200">
+                                                {{ info_hash }}
                                             </th>
-                                            <th data-field="torrent_name" data-halign="center" data-align="center" data-sortable="true" data-width="400" data-sorter="torrent_name_sorter">
-                                                {{ torrent_name }}
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-sortable="true" data-width="150">
+                                                {{ ip_address }}
                                             </th>
-                                            <th data-field="torrent_size" data-halign="center" data-align="center" data-sortable="true" data-width="100" data-sorter="torrent_size_sorter">
-                                                {{ torrent_size }}
+                                            <th data-field="progress" data-halign="center" data-align="center" data-sortable="true" data-width="80">
+                                                {{ progress }}
+                                            </th>
+                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="80">
+                                                {{ state }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <hr>
+                                <p class="card-text">
+                                    <i class="fa-solid fa-bars-progress">
+                                    </i>
+                                    <span>
+                                        {{ peer_wire_ipv6_ut_metadata_progress_table }}
+                                    </span>
+                                </p>
+                                <table
+                                    data-ajax="ajax_request_peer_wire_v6_ut_metadata_progress_table_read"
+                                    data-auto-refresh="true"
+                                    data-auto-refresh-interval="2"
+                                    data-locale="{{ data_locale }}"
+                                    data-method="post"
+                                    data-page-list="[10, 25, 50, 100, all]"
+                                    data-pagination="true"
+                                    data-search="true"
+                                    data-show-columns="true"
+                                    data-show-columns-toggle-all="true"
+                                    data-show-export="true"
+                                    data-show-extended-pagination="true"
+                                    data-show-fullscreen="true"
+                                    data-show-jump-to="true"
+                                    data-show-pagination-switch="true"
+                                    data-show-search-button="true"
+                                    data-show-search-clear-button="true"
+                                    data-show-toggle="true"
+                                    data-side-pagination="client"
+                                    data-total-not-filtered-field="totalNotFiltered"
+                                    data-visible-search="true"
+                                    id="peer_wire_ipv6_ut_metadata_progress_table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-sortable="true" data-width="200">
+                                                {{ info_hash }}
+                                            </th>
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-sortable="true" data-width="150">
+                                                {{ ip_address }}
+                                            </th>
+                                            <th data-field="progress" data-halign="center" data-align="center" data-sortable="true" data-width="80">
+                                                {{ progress }}
+                                            </th>
+                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="80">
+                                                {{ state }}
                                             </th>
                                         </tr>
                                     </thead>

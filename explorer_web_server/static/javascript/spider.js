@@ -7,7 +7,7 @@ document.onreadystatechange = function () {
             'css!https://cdn.jsdelivr.net/npm/bootstrap-fileinput@latest/css/fileinput.css',
             'css!https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/bootstrap-table.css',
             'css!https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.css',
-            'css!./static/css/database.css',
+            'css!./static/css/spider.css',
             'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.js',
             'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@latest/tableExport.min.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.js',
@@ -65,11 +65,9 @@ document.onreadystatechange = function () {
             'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/js/all.js',
             'https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/js/OverlayScrollbars.js',
             'https://cdn.jsdelivr.net/npm/validator@latest/validator.js',
-            'https://cdn.jsdelivr.net/npm/xbytes@latest/dist/index.js',
             'https://cdn.jsdelivr.net/npm/js-cookie@latest/dist/js.cookie.js',
             'https://cdn.jsdelivr.net/npm/moment@latest/moment.js',
-            'https://cdn.jsdelivr.net/npm/moment-timer@latest/lib/moment-timer.js',
-            'https://cdn.jsdelivr.net/npm/chart.js@latest/dist/chart.js'
+            'https://cdn.jsdelivr.net/npm/moment-timer@latest/lib/moment-timer.js'
         ], {
             async: false,
             error: function () {
@@ -228,144 +226,10 @@ document.onreadystatechange = function () {
                 $('#page_refresh').click(function () {
                     window.location.reload();
                 });
-                $('#discovery_of_the_day_number_table').bootstrapTable({
+                $('#peer_wire_ipv4_ut_metadata_progress_table').bootstrapTable({
                 });
-                if(Cookies.get('database_card_view') == undefined) {
-                    Cookies.set('database_card_view', false);
-                };
-                if(Cookies.get('database_page_number') == undefined) {
-                    Cookies.set('database_page_number', 1);
-                };
-                if(Cookies.get('database_page_size') == undefined) {
-                    Cookies.set('database_page_size', 10);
-                };
-                if(Cookies.get('database_search_text') == undefined) {
-                    Cookies.set('database_search_text', '');
-                };
-                if(Cookies.get('database_sort_name') == undefined) {
-                    Cookies.set('database_sort_name', '');
-                };
-                if(Cookies.get('database_sort_order') == undefined) {
-                    Cookies.set('database_sort_order', '');
-                };
-                var database_card_view = JSON.parse(Cookies.get('database_card_view'));
-                var database_page_number = Number(Cookies.get('database_page_number'));
-                var database_page_size = Cookies.get('database_page_size');
-                var database_search_text = Cookies.get('database_search_text');
-                var database_sort_name = Cookies.get('database_sort_name');
-                var database_sort_order = Cookies.get('database_sort_order');
-                $('#discovery_of_the_day_data_table').bootstrapTable({
-                    cardView: database_card_view,
-                    pageNumber: database_page_number,
-                    pageSize: database_page_size,
-                    searchText: database_search_text,
-                    sortName: database_sort_name,
-                    sortOrder: database_sort_order,
-                    onPageChange: function (pageNumber, pageSize) {
-                        Cookies.set('database_page_number', pageNumber);
-                        Cookies.set('database_page_size', pageSize);
-                    },
-                    onSearch: function (searchText) {
-                        Cookies.set('database_search_text', searchText);
-                    },
-                    onSort: function (sortName, sortOrder) {
-                        Cookies.set('database_sort_name', sortName);
-                        Cookies.set('database_sort_order', sortOrder);
-                    },
-                    onToggle: function (cardView) {
-                        Cookies.set('database_card_view', cardView);
-                    }
+                $('#peer_wire_ipv6_ut_metadata_progress_table').bootstrapTable({
                 });
-                var every_day_discovery_info_hash_number_chart_config = {
-                    type: 'line',
-                    data: {
-                        labels: [],
-                        datasets: [{
-                            label: '',
-                            backgroundColor: 'rgb(13, 110, 253)',
-                            borderColor: 'rgb(13, 110, 253)',
-                            data: []
-                        }]
-                    },
-                    options: {}
-                };
-                var every_day_discovery_info_hash_number_chart = new Chart(
-                    document.getElementById('every_day_discovery_info_hash_number_chart'),
-                    every_day_discovery_info_hash_number_chart_config
-                );
-                var every_day_discovery_info_hash_number_chart_timer = new moment.duration(180000).timer({loop: true, wait: 1000, executeAfterWait: true}, function () {
-                    $.ajax({
-                        async: true,
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            'token': window.token
-                        }),
-                        dataType: 'json',
-                        type: 'post',
-                        url: window.location.protocol + '//' + window.location.host + '/api_database_query_every_day_discovery_info_hash_number',
-                        success: function (api_database_query_every_day_discovery_info_hash_number) {
-                            var every_day_discovery_info_hash_labels = [];
-                            var every_day_discovery_info_hash_number = [];
-                            var every_day_discovery_info_hash_title = api_database_query_every_day_discovery_info_hash_number.data[0].title;
-                            for(var i = 1; i < api_database_query_every_day_discovery_info_hash_number.data.length; i = i + 1) {
-                                every_day_discovery_info_hash_labels.push(api_database_query_every_day_discovery_info_hash_number.data[i].day);
-                                every_day_discovery_info_hash_number.push(Number(api_database_query_every_day_discovery_info_hash_number.data[i].number));
-                            };
-                            every_day_discovery_info_hash_number_chart.data.labels = every_day_discovery_info_hash_labels;
-                            every_day_discovery_info_hash_number_chart.data.datasets.forEach((dataset) => {
-                                dataset.data = every_day_discovery_info_hash_number;
-                                dataset.label = every_day_discovery_info_hash_title;
-                            });
-                            every_day_discovery_info_hash_number_chart.update();
-                        }
-                    });
-                });
-                every_day_discovery_info_hash_number_chart_timer.start();
-                var monthly_discovery_info_hash_number_chart_config = {
-                    type: 'line',
-                    data: {
-                        labels: [],
-                        datasets: [{
-                            label: '',
-                            backgroundColor: 'rgb(13, 110, 253)',
-                            borderColor: 'rgb(13, 110, 253)',
-                            data: []
-                        }]
-                    },
-                    options: {}
-                };
-                var monthly_discovery_info_hash_number_chart = new Chart(
-                    document.getElementById('monthly_discovery_info_hash_number_chart'),
-                    monthly_discovery_info_hash_number_chart_config
-                );
-                var monthly_discovery_info_hash_number_chart_timer = new moment.duration(180000).timer({loop: true, wait: 1000, executeAfterWait: true}, function () {
-                    $.ajax({
-                        async: true,
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            'token': window.token
-                        }),
-                        dataType: 'json',
-                        type: 'post',
-                        url: window.location.protocol + '//' + window.location.host + '/api_database_query_monthly_discovery_info_hash_number',
-                        success: function (api_database_query_monthly_discovery_info_hash_number) {
-                            var monthly_discovery_info_hash_labels = [];
-                            var monthly_discovery_info_hash_number = [];
-                            var monthly_discovery_info_hash_title = api_database_query_monthly_discovery_info_hash_number.data[0].title;
-                            for(var i = 1; i < api_database_query_monthly_discovery_info_hash_number.data.length; i = i + 1) {
-                                monthly_discovery_info_hash_labels.push(api_database_query_monthly_discovery_info_hash_number.data[i].month);
-                                monthly_discovery_info_hash_number.push(Number(api_database_query_monthly_discovery_info_hash_number.data[i].number));
-                            };
-                            monthly_discovery_info_hash_number_chart.data.labels = monthly_discovery_info_hash_labels;
-                            monthly_discovery_info_hash_number_chart.data.datasets.forEach((dataset) => {
-                                dataset.data = monthly_discovery_info_hash_number;
-                                dataset.label = monthly_discovery_info_hash_title;
-                            });
-                            monthly_discovery_info_hash_number_chart.update();
-                        }
-                    });
-                });
-                monthly_discovery_info_hash_number_chart_timer.start();
             }
         });
     };
@@ -380,7 +244,7 @@ document.onreadystatechange = function () {
     };
 };
 
-function ajax_request_database_query_discovery_of_the_day_data (params) {
+function ajax_request_peer_wire_v4_ut_metadata_progress_table_read (params) {
     $.ajax({
         async: true,
         contentType: 'application/json',
@@ -389,9 +253,9 @@ function ajax_request_database_query_discovery_of_the_day_data (params) {
         }),
         dataType: 'json',
         type: 'post',
-        url: window.location.protocol + '//' + window.location.host + '/api_database_query_discovery_of_the_day_data',
-        success: function (api_database_query_discovery_of_the_day_data) {
-            params.success(api_database_query_discovery_of_the_day_data.data);
+        url: window.location.protocol + '//' + window.location.host + '/api_peer_wire_v4_ut_metadata_progress_table_read',
+        success: function (api_peer_wire_v4_ut_metadata_progress_table_read) {
+            params.success(api_peer_wire_v4_ut_metadata_progress_table_read.data);
         },
         error: function () {
             params.success([]);
@@ -399,7 +263,7 @@ function ajax_request_database_query_discovery_of_the_day_data (params) {
     });
 };
 
-function ajax_request_database_query_discovery_of_the_day_number (params) {
+function ajax_request_peer_wire_v6_ut_metadata_progress_table_read (params) {
     $.ajax({
         async: true,
         contentType: 'application/json',
@@ -408,24 +272,12 @@ function ajax_request_database_query_discovery_of_the_day_number (params) {
         }),
         dataType: 'json',
         type: 'post',
-        url: window.location.protocol + '//' + window.location.host + '/api_database_query_discovery_of_the_day_number',
-        success: function (api_database_query_discovery_of_the_day_number) {
-            params.success(api_database_query_discovery_of_the_day_number.data);
+        url: window.location.protocol + '//' + window.location.host + '/api_peer_wire_v6_ut_metadata_progress_table_read',
+        success: function (api_peer_wire_v6_ut_metadata_progress_table_read) {
+            params.success(api_peer_wire_v6_ut_metadata_progress_table_read.data);
         },
         error: function () {
             params.success([]);
         }
     });
-};
-
-function torrent_name_sorter (a, b) {
-    a = a.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
-    b = b.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
-    return a.localeCompare(b, navigator.language)
-};
-
-function torrent_size_sorter (a, b) {
-    var a = xbytes.parseSize(a);
-    var b = xbytes.parseSize(b);
-    return a - b
 };

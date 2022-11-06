@@ -10,4 +10,6 @@ class memory:
     explorer_database = ''
     explorer_krpc_v4 = ''
     explorer_krpc_v6 = ''
+    explorer_peer_wire_v4 = ''
+    explorer_peer_wire_v6 = ''
     explorer_spider = ''

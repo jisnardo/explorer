@@ -337,6 +337,30 @@ class data_conversion:
         result.append(krpc_v6_query_nodes_messages)
         return result
 
+    def explorer_peer_wire_v4_ut_metadata_progress_table_read(self):
+        peer_wire_v4_ut_metadata_progress_messages = memory.explorer_peer_wire_v4.ut_metadata_progress()
+        result = []
+        for i in peer_wire_v4_ut_metadata_progress_messages.keys():
+            result.append({
+                'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
+                'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
+                'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
+                'state': peer_wire_v4_ut_metadata_progress_messages[i]['state']
+            })
+        return result
+
+    def explorer_peer_wire_v6_ut_metadata_progress_table_read(self):
+        peer_wire_v6_ut_metadata_progress_messages = memory.explorer_peer_wire_v6.ut_metadata_progress()
+        result = []
+        for i in peer_wire_v6_ut_metadata_progress_messages.keys():
+            result.append({
+                'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
+                'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
+                'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
+                'state': peer_wire_v6_ut_metadata_progress_messages[i]['state']
+            })
+        return result
+
     def setting_database_config_json_read(self, user_language):
         user_language_data_config = self.__get_user_language_config(user_language)
         with open(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/explorer_database/database_config.json', mode = 'r', encoding = 'utf-8') as file:

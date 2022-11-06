@@ -27,6 +27,8 @@ gc.enable()
 memory.explorer_database = explorer_database
 memory.explorer_krpc_v4 = explorer_krpc_v4
 memory.explorer_krpc_v6 = explorer_krpc_v6
+memory.explorer_peer_wire_v4 = explorer_peer_wire_v4
+memory.explorer_peer_wire_v6 = explorer_peer_wire_v6
 memory.explorer_spider = explorer_spider
 webview.create_window(
     title = 'Explorer',

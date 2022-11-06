@@ -2,6 +2,8 @@ from .application import application_loader
 from .application.extension_ut_metadata import extension_ut_metadata
 from .driver import driver_loader
 from .driver.memory import memory
+from .driver.transmitter import transmission
+import copy
 import IPy
 import re
 
@@ -48,6 +50,32 @@ def ut_metadata(info_hash, ip_address, tcp_port):
                 )
                 result = extension_ut_metadata.application_extension_ut_metadata_messages_send.get()
                 return result
+
+def ut_metadata_progress():
+    '''
+
+    explorer_peer_wire_v6.ut_metadata_progress()
+
+    Args:
+        None
+
+    Returns:
+        For example:
+
+        {
+            '0': {
+                'info_hash': '99c82bb73505a3c0b453f9fa0e881d6e5a32a0c1',
+                'all_piece_number': 4,
+                'load_piece_number': 3,
+                'ip_address': '2001:4860:4860::8844',
+                'tcp_port': 51413,
+                'state': False,
+                'update_time': 1667672729
+            }
+        }
+
+    '''
+    return copy.deepcopy(transmission.driver_transmission_extension_ut_metadata_progress)
 
 def self_peer_id():
     '''

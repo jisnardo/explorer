@@ -85,6 +85,9 @@ document.onreadystatechange = function () {
                 $('#setting').click(function () {
                     window.location.href = window.location.protocol + '//' + window.location.host + '/setting';
                 });
+                $('#spider').click(function () {
+                    window.location.href = window.location.protocol + '//' + window.location.host + '/spider';
+                });
                 var nav_timer = new moment.duration(60000).timer({loop: true, wait: 1000, executeAfterWait: true}, function () {
                     $.ajax({
                         async: true,

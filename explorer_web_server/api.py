@@ -329,6 +329,42 @@ class api_krpc_v6_router_table_read(flask_restful.Resource):
                 'error': 'Authentication error'
             }
 
+class api_peer_wire_v4_ut_metadata_progress_table_read(flask_restful.Resource):
+    def post(self):
+        json_data = flask.request.get_json()
+        if 'token' in json_data:
+            if json_data['token'] == webview.token:
+                result = data_conversion().explorer_peer_wire_v4_ut_metadata_progress_table_read()
+                return {
+                    'data': result
+                }
+            else:
+                return {
+                    'error': 'Authentication error'
+                }
+        else:
+            return {
+                'error': 'Authentication error'
+            }
+
+class api_peer_wire_v6_ut_metadata_progress_table_read(flask_restful.Resource):
+    def post(self):
+        json_data = flask.request.get_json()
+        if 'token' in json_data:
+            if json_data['token'] == webview.token:
+                result = data_conversion().explorer_peer_wire_v6_ut_metadata_progress_table_read()
+                return {
+                    'data': result
+                }
+            else:
+                return {
+                    'error': 'Authentication error'
+                }
+        else:
+            return {
+                'error': 'Authentication error'
+            }
+
 class api_setting_database_config_json_read(flask_restful.Resource):
     def post(self):
         json_data = flask.request.get_json()
@@ -460,6 +496,8 @@ api.add_resource(api_krpc_v4_router_table_read, '/api_krpc_v4_router_table_read'
 api.add_resource(api_krpc_v6_parameter_read, '/api_krpc_v6_parameter_read')
 api.add_resource(api_krpc_v6_peer_database_read, '/api_krpc_v6_peer_database_read')
 api.add_resource(api_krpc_v6_router_table_read, '/api_krpc_v6_router_table_read')
+api.add_resource(api_peer_wire_v4_ut_metadata_progress_table_read, '/api_peer_wire_v4_ut_metadata_progress_table_read')
+api.add_resource(api_peer_wire_v6_ut_metadata_progress_table_read, '/api_peer_wire_v6_ut_metadata_progress_table_read')
 api.add_resource(api_setting_database_config_json_read, '/api_setting_database_config_json_read')
 api.add_resource(api_setting_database_config_json_write, '/api_setting_database_config_json_write')
 api.add_resource(api_setting_save_torrent_files_folder_config_json_read, '/api_setting_save_torrent_files_folder_config_json_read')

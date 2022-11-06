@@ -127,6 +127,9 @@ document.onreadystatechange = function () {
                 $('#setting').click(function () {
                     window.location.href = window.location.protocol + '//' + window.location.host + '/setting';
                 });
+                $('#spider').click(function () {
+                    window.location.href = window.location.protocol + '//' + window.location.host + '/spider';
+                });
                 $('#upload_modal').overlayScrollbars({
                     className: 'os-theme-light'
                 });

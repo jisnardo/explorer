@@ -41,13 +41,20 @@ class control:
                         ipv6_address = connection_extension_ut_metadata_messages[2]
                         ipv6_udp_port = connection_extension_ut_metadata_messages[3]
                         time.sleep(1)
-                        transmission_extension_ut_metadata_messages = transmission().extension_ut_metadata(socket_server, ut_metadata, metadata_size, ipv6_address, ipv6_udp_port)
+                        transmission.driver_transmission_extension_ut_metadata_messages_recvfrom.put(
+                            [socket_server, info_hash, ip_address, tcp_port, ut_metadata, metadata_size, ipv6_address, ipv6_udp_port, application_extension_ut_metadata_keyword]
+                        )
+                        transmission_extension_ut_metadata_messages = transmission.driver_transmission_extension_ut_metadata_messages_send.get()
+                        torrent_data = transmission_extension_ut_metadata_messages[0]
+                        socket_server = transmission_extension_ut_metadata_messages[1]
+                        info_hash = transmission_extension_ut_metadata_messages[2]
+                        application_extension_ut_metadata_keyword = transmission_extension_ut_metadata_messages[3]
                         socket_server.close()
-                        if transmission_extension_ut_metadata_messages is not False:
-                            result = check().extension_ut_metadata(transmission_extension_ut_metadata_messages, info_hash)
+                        if torrent_data is not False:
+                            result = check().extension_ut_metadata(torrent_data, info_hash)
                             if result is True:
                                 self.driver_control_extension_ut_metadata_messages_send.put(
-                                    [transmission_extension_ut_metadata_messages, application_extension_ut_metadata_keyword]
+                                    [torrent_data, application_extension_ut_metadata_keyword]
                                 )
                             else:
                                 self.driver_control_extension_ut_metadata_messages_send.put(

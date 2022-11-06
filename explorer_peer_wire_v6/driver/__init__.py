@@ -1,5 +1,6 @@
 from ..driver.control import control
 from ..driver.memory import memory
+from ..driver.transmitter import transmission
 import random
 
 class driver_loader:
@@ -21,3 +22,4 @@ class driver_loader:
     def launch(self):
         memory.peer_id = self.__get_self_peer_id()
         control().start()
+        transmission().start()

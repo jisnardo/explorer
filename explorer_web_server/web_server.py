@@ -46,6 +46,7 @@ def about():
                     setting = user_language_data_config['setting'],
                     source_code = user_language_data_config['source_code'],
                     source_code_url = user_language_data_config['source_code_url'],
+                    spider = user_language_data_config['spider'],
                     supported_protocols_information = user_language_data_config['supported_protocols_information'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
@@ -80,6 +81,7 @@ def about():
                     setting = user_language_data_config['setting'],
                     source_code = user_language_data_config['source_code'],
                     source_code_url = user_language_data_config['source_code_url'],
+                    spider = user_language_data_config['spider'],
                     supported_protocols_information = user_language_data_config['supported_protocols_information'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
@@ -114,6 +116,7 @@ def about():
                     setting = user_language_data_config['setting'],
                     source_code = user_language_data_config['source_code'],
                     source_code_url = user_language_data_config['source_code_url'],
+                    spider = user_language_data_config['spider'],
                     supported_protocols_information = user_language_data_config['supported_protocols_information'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
@@ -148,6 +151,7 @@ def database():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -174,6 +178,7 @@ def database():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -200,6 +205,7 @@ def database():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -232,6 +238,7 @@ def default():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button']
                 )
@@ -253,6 +260,7 @@ def default():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button']
                 )
@@ -274,6 +282,7 @@ def default():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button']
                 )
@@ -316,6 +325,7 @@ def network():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
@@ -347,6 +357,7 @@ def network():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
@@ -378,6 +389,7 @@ def network():
                     search_button_title = user_language_data_config['search_button_title'],
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
@@ -415,6 +427,7 @@ def report():
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
                     sheet_name = info_hash,
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
@@ -443,6 +456,7 @@ def report():
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
                     sheet_name = info_hash,
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
@@ -471,6 +485,7 @@ def report():
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
                     sheet_name = info_hash,
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     upload_button = user_language_data_config['upload_button'],
                     value = user_language_data_config['value']
@@ -503,6 +518,7 @@ def search():
                     search_results = user_language_data_config['search_results'],
                     setting = user_language_data_config['setting'],
                     sheet_name = search_input,
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -527,6 +543,7 @@ def search():
                     search_results = user_language_data_config['search_results'],
                     setting = user_language_data_config['setting'],
                     sheet_name = search_input,
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -551,6 +568,7 @@ def search():
                     search_results = user_language_data_config['search_results'],
                     setting = user_language_data_config['setting'],
                     sheet_name = search_input,
+                    spider = user_language_data_config['spider'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -579,6 +597,7 @@ def setting():
                 search_button_title = user_language_data_config['search_button_title'],
                 search_input_title = user_language_data_config['search_input_title'],
                 setting = user_language_data_config['setting'],
+                spider = user_language_data_config['spider'],
                 token = webview.token,
                 upload_button = user_language_data_config['upload_button']
             )
@@ -599,6 +618,7 @@ def setting():
                 search_button_title = user_language_data_config['search_button_title'],
                 search_input_title = user_language_data_config['search_input_title'],
                 setting = user_language_data_config['setting'],
+                spider = user_language_data_config['spider'],
                 token = webview.token,
                 upload_button = user_language_data_config['upload_button']
             )
@@ -619,6 +639,102 @@ def setting():
                 search_button_title = user_language_data_config['search_button_title'],
                 search_input_title = user_language_data_config['search_input_title'],
                 setting = user_language_data_config['setting'],
+                spider = user_language_data_config['spider'],
                 token = webview.token,
                 upload_button = user_language_data_config['upload_button']
             )
+
+@application.route('/spider', methods = ['GET'])
+def spider():
+    result = data_conversion().explorer_database_check()
+    if result is True:
+        user_language = flask.request.accept_languages.best_match(memory.application_support_languages)
+        if user_language is None:
+            with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/en-US.json', mode = 'r', encoding = 'utf-8') as file:
+                user_language_data_config = file.read()
+                user_language_data_config = json.loads(user_language_data_config)
+                return flask.render_template(
+                    'spider.html',
+                    about = user_language_data_config['about'],
+                    back = user_language_data_config['back'],
+                    data_locale = user_language,
+                    database = user_language_data_config['database'],
+                    id = user_language_data_config['id'],
+                    info_hash = user_language_data_config['info_hash'],
+                    ip_address = user_language_data_config['ip_address'],
+                    network = user_language_data_config['network'],
+                    peer_wire_ipv4_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv4_ut_metadata_progress_table'],
+                    peer_wire_ipv6_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv6_ut_metadata_progress_table'],
+                    progress = user_language_data_config['progress'],
+                    refresh = user_language_data_config['refresh'],
+                    search_button = user_language_data_config['search_button'],
+                    search_button_title = user_language_data_config['search_button_title'],
+                    search_input_title = user_language_data_config['search_input_title'],
+                    setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
+                    state = user_language_data_config['state'],
+                    token = webview.token,
+                    torrent_name = user_language_data_config['torrent_name'],
+                    torrent_size = user_language_data_config['torrent_size'],
+                    upload_button = user_language_data_config['upload_button']
+                )
+        elif os.path.exists(os.path.dirname(os.path.abspath(__file__)) + '/languages/' + user_language + '.json'):
+            with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/' + user_language + '.json', mode = 'r', encoding = 'utf-8') as file:
+                user_language_data_config = file.read()
+                user_language_data_config = json.loads(user_language_data_config)
+                return flask.render_template(
+                    'spider.html',
+                    about = user_language_data_config['about'],
+                    back = user_language_data_config['back'],
+                    data_locale = user_language,
+                    database = user_language_data_config['database'],
+                    id = user_language_data_config['id'],
+                    info_hash = user_language_data_config['info_hash'],
+                    ip_address = user_language_data_config['ip_address'],
+                    network = user_language_data_config['network'],
+                    peer_wire_ipv4_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv4_ut_metadata_progress_table'],
+                    peer_wire_ipv6_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv6_ut_metadata_progress_table'],
+                    progress = user_language_data_config['progress'],
+                    refresh = user_language_data_config['refresh'],
+                    search_button = user_language_data_config['search_button'],
+                    search_button_title = user_language_data_config['search_button_title'],
+                    search_input_title = user_language_data_config['search_input_title'],
+                    setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
+                    state = user_language_data_config['state'],
+                    token = webview.token,
+                    torrent_name = user_language_data_config['torrent_name'],
+                    torrent_size = user_language_data_config['torrent_size'],
+                    upload_button = user_language_data_config['upload_button']
+                )
+        else:
+            with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/en-US.json', mode = 'r', encoding = 'utf-8') as file:
+                user_language_data_config = file.read()
+                user_language_data_config = json.loads(user_language_data_config)
+                return flask.render_template(
+                    'spider.html',
+                    about = user_language_data_config['about'],
+                    back = user_language_data_config['back'],
+                    data_locale = user_language,
+                    database = user_language_data_config['database'],
+                    id = user_language_data_config['id'],
+                    info_hash = user_language_data_config['info_hash'],
+                    ip_address = user_language_data_config['ip_address'],
+                    network = user_language_data_config['network'],
+                    peer_wire_ipv4_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv4_ut_metadata_progress_table'],
+                    peer_wire_ipv6_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv6_ut_metadata_progress_table'],
+                    progress = user_language_data_config['progress'],
+                    refresh = user_language_data_config['refresh'],
+                    search_button = user_language_data_config['search_button'],
+                    search_button_title = user_language_data_config['search_button_title'],
+                    search_input_title = user_language_data_config['search_input_title'],
+                    setting = user_language_data_config['setting'],
+                    spider = user_language_data_config['spider'],
+                    state = user_language_data_config['state'],
+                    token = webview.token,
+                    torrent_name = user_language_data_config['torrent_name'],
+                    torrent_size = user_language_data_config['torrent_size'],
+                    upload_button = user_language_data_config['upload_button']
+                )
+    else:
+        return flask.redirect(flask.url_for('setting'))
