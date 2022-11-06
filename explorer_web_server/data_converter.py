@@ -347,6 +347,7 @@ class data_conversion:
                 'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
                 'state': peer_wire_v4_ut_metadata_progress_messages[i]['state']
             })
+        result.reverse()
         return result
 
     def explorer_peer_wire_v6_ut_metadata_progress_table_read(self):
@@ -359,6 +360,7 @@ class data_conversion:
                 'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
                 'state': peer_wire_v6_ut_metadata_progress_messages[i]['state']
             })
+        result.reverse()
         return result
 
     def setting_database_config_json_read(self, user_language):
