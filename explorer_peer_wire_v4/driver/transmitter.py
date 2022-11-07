@@ -17,6 +17,8 @@ class transmission:
             for i in list(self.driver_transmission_extension_ut_metadata_progress.keys()):
                 if self.driver_transmission_extension_ut_metadata_progress[i]['update_time'] < int(time.time()) - 300:
                     del self.driver_transmission_extension_ut_metadata_progress[i]
+            if self.driver_transmission_extension_ut_metadata_progress_key > 10000:
+                self.driver_transmission_extension_ut_metadata_progress_key = 0
             time.sleep(300)
 
     def __extension_ut_metadata_recvfrom(self):
@@ -40,7 +42,7 @@ class transmission:
             all_piece_number = math.ceil(metadata_size / 16384)
             contract_number = 0
             load_piece_number = 0
-            max_contract_number = all_piece_number * 2
+            max_contract_number = all_piece_number * 3
             piece = {}
             for i in range(0, all_piece_number):
                 piece.update({str(i): b''})
