@@ -45,7 +45,7 @@ class peer_database:
                 for j in self.database_info_hash_key[i]:
                     if j[2] < int(time.time()) - 14400:
                         self.database_info_hash_key[i].remove(j)
-            time.sleep(14400)
+            time.sleep(1800)
 
     def __check_empty_info_hashs(self):
         while True:

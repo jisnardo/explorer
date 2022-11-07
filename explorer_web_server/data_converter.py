@@ -264,9 +264,14 @@ class data_conversion:
         result = []
         for i in krpc_v4_query_info_hashes_messages.keys():
             for j in krpc_v4_query_info_hashes_messages[i]:
+                if j[2] + 14400 - int(time.time()) > 0:
+                    j[2] = time.strftime('%H:%M:%S', time.gmtime(j[2] + 14400 - int(time.time())))
+                else:
+                    j[2] = '00:00:00'
                 result.append({
                     'info_hash': i,
-                    'ip_address': j[0] + ':' + str(j[1])
+                    'ip_address': j[0] + ':' + str(j[1]),
+                    'update_time': '<span class=\'badge bg-secondary\'>' + j[2] + '</span>'
                 })
         return result
 
@@ -320,9 +325,14 @@ class data_conversion:
         result = []
         for i in krpc_v6_query_info_hashes_messages.keys():
             for j in krpc_v6_query_info_hashes_messages[i]:
+                if j[2] + 14400 - int(time.time()) > 0:
+                    j[2] = time.strftime('%H:%M:%S', time.gmtime(j[2] + 14400 - int(time.time())))
+                else:
+                    j[2] = '00:00:00'
                 result.append({
                     'info_hash': i,
-                    'ip_address': '[' + j[0] + ']:' + str(j[1])
+                    'ip_address': '[' + j[0] + ']:' + str(j[1]),
+                    'update_time': '<span class=\'badge bg-secondary\'>' + j[2] + '</span>'
                 })
         return result
 

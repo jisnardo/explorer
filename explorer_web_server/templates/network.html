@@ -202,10 +202,10 @@
                                             <th data-field="node_id" data-width="250">
                                                 {{ node_id }}
                                             </th>
-                                            <th data-field="ip_address" data-width="200">
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
                                                 {{ ip_address }}
                                             </th>
-                                            <th data-field="update_time" data-width="100">
+                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
                                                 {{ update_time }}
                                             </th>
                                         </tr>
@@ -220,6 +220,7 @@
                                 <table
                                     data-ajax="ajax_request_krpc_v4_peer_database_read"
                                     data-auto-refresh="true"
+                                    data-auto-refresh-interval="2"
                                     data-locale="{{ data_locale }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
@@ -233,7 +234,6 @@
                                     data-show-fullscreen="true"
                                     data-show-jump-to="true"
                                     data-show-pagination-switch="true"
-                                    data-show-refresh="true"
                                     data-show-search-button="true"
                                     data-show-search-clear-button="true"
                                     data-show-toggle="true"
@@ -243,11 +243,14 @@
                                     id="dht_network_ipv4_peer_database_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="300">
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
                                                 {{ info_hash }}
                                             </th>
                                             <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
                                                 {{ ip_address }}
+                                            </th>
+                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                {{ update_time }}
                                             </th>
                                         </tr>
                                     </thead>
@@ -313,10 +316,10 @@
                                             <th data-field="node_id" data-width="250">
                                                 {{ node_id }}
                                             </th>
-                                            <th data-field="ip_address" data-width="200">
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
                                                 {{ ip_address }}
                                             </th>
-                                            <th data-field="update_time" data-width="100">
+                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
                                                 {{ update_time }}
                                             </th>
                                         </tr>
@@ -331,6 +334,7 @@
                                 <table
                                     data-ajax="ajax_request_krpc_v6_peer_database_read"
                                     data-auto-refresh="true"
+                                    data-auto-refresh-interval="2"
                                     data-locale="{{ data_locale }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
@@ -344,7 +348,6 @@
                                     data-show-fullscreen="true"
                                     data-show-jump-to="true"
                                     data-show-pagination-switch="true"
-                                    data-show-refresh="true"
                                     data-show-search-button="true"
                                     data-show-search-clear-button="true"
                                     data-show-toggle="true"
@@ -354,11 +357,14 @@
                                     id="dht_network_ipv6_peer_database_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="300">
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
                                                 {{ info_hash }}
                                             </th>
                                             <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
                                                 {{ ip_address }}
+                                            </th>
+                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                {{ update_time }}
                                             </th>
                                         </tr>
                                     </thead>
