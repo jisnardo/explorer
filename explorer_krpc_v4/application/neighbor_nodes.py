@@ -46,7 +46,7 @@ class neighbor_nodes:
                     if i[0] == application_neighbor_nodes_keyword:
                         last_query_ip_address = i[2]
                         last_query_udp_port = i[3]
-                        distributed_hash_table.database_delete_node_messages.put(
+                        distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                             [last_query_ip_address, last_query_udp_port]
                         )
                         self.application_neighbor_nodes_operators.put(
@@ -97,11 +97,11 @@ class neighbor_nodes:
                                             nodes.remove(j)
                                 for j in nodes:
                                     nodes_node_id = j[0]
-                                    distributed_hash_table.database_query_node_messages_recvfrom.put(
+                                    distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
                                         nodes_node_id
                                     )
-                                    database_query_node_messages_send = distributed_hash_table.database_query_node_messages_send.get()
-                                    if database_query_node_messages_send is True:
+                                    database_query_node_with_node_id_messages_send = distributed_hash_table.database_query_node_with_node_id_messages_send.get()
+                                    if database_query_node_with_node_id_messages_send is True:
                                         if j in nodes:
                                             nodes.remove(j)
                                 for j in nodes:
@@ -112,7 +112,7 @@ class neighbor_nodes:
                                         [nodes_node_id, nodes_ip_address, nodes_udp_port]
                                     )
                             else:
-                                distributed_hash_table.database_delete_node_messages.put(
+                                distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                     [ip_address, udp_port]
                                 )
                                 distributed_hash_table.database_append_node_messages.put(
@@ -144,11 +144,11 @@ class neighbor_nodes:
                                             nodes.remove(j)
                                 for j in nodes:
                                     nodes_node_id = j[0]
-                                    distributed_hash_table.database_query_node_messages_recvfrom.put(
+                                    distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
                                         nodes_node_id
                                     )
-                                    database_query_node_messages_send = distributed_hash_table.database_query_node_messages_send.get()
-                                    if database_query_node_messages_send is True:
+                                    database_query_node_with_node_id_messages_send = distributed_hash_table.database_query_node_with_node_id_messages_send.get()
+                                    if database_query_node_with_node_id_messages_send is True:
                                         if j in nodes:
                                             nodes.remove(j)
                                 for j in nodes:
@@ -159,10 +159,10 @@ class neighbor_nodes:
                                         [nodes_node_id, nodes_ip_address, nodes_udp_port]
                                     )
                         else:
-                            distributed_hash_table.database_delete_node_messages.put(
+                            distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                 [ip_address, udp_port]
                             )
-                            distributed_hash_table.database_delete_node_messages.put(
+                            distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                 [last_query_ip_address, last_query_udp_port]
                             )
 

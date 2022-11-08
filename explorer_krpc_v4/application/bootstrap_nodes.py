@@ -72,11 +72,11 @@ class bootstrap_nodes:
                                     nodes.remove(j)
                         for j in nodes:
                             nodes_node_id = j[0]
-                            distributed_hash_table.database_query_node_messages_recvfrom.put(
+                            distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
                                 nodes_node_id
                             )
-                            database_query_node_messages_send = distributed_hash_table.database_query_node_messages_send.get()
-                            if database_query_node_messages_send is True:
+                            database_query_node_with_node_id_messages_send = distributed_hash_table.database_query_node_with_node_id_messages_send.get()
+                            if database_query_node_with_node_id_messages_send is True:
                                 if j in nodes:
                                     nodes.remove(j)
                         for j in nodes:

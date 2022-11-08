@@ -47,12 +47,13 @@ class ping:
                             ['remove', i]
                         )
             else:
+                node_id = database_ping_messages[0]
                 database_ping_keyword = database_ping_messages[7]
                 for i in self.database_ping_key:
                     if i[0] == database_ping_keyword:
                         distributed_hash_table_keyword = i[1]
                         self.database_ping_messages_send.put(
-                            [True, distributed_hash_table_keyword]
+                            [node_id, distributed_hash_table_keyword]
                         )
                         self.database_ping_operators.put(
                             ['remove', i]

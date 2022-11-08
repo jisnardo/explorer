@@ -11,7 +11,7 @@ class error:
             udp_port = driver_control_error_messages[4]
             ip_address_type = IPy.IP(ip_address).iptype()[:9]
             if ip_address_type == 'ALLOCATED':
-                distributed_hash_table.database_delete_node_messages.put(
+                distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                     [ip_address, udp_port]
                 )
 

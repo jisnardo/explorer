@@ -56,7 +56,7 @@ class get_peers:
                         if len(response_nodes) > 0:
                             ip_address = response_nodes[-1][1]
                             udp_port = response_nodes[-1][2]
-                            distributed_hash_table.database_delete_node_messages.put(
+                            distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                 [ip_address, udp_port]
                             )
                         for j in last_query_nodes:
@@ -184,11 +184,11 @@ class get_peers:
                                             nodes6.remove(j)
                                 for j in nodes6:
                                     nodes6_node_id = j[0]
-                                    distributed_hash_table.database_query_node_messages_recvfrom.put(
+                                    distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
                                         nodes6_node_id
                                     )
-                                    database_query_node_messages_send = distributed_hash_table.database_query_node_messages_send.get()
-                                    if database_query_node_messages_send is True:
+                                    database_query_node_with_node_id_messages_send = distributed_hash_table.database_query_node_with_node_id_messages_send.get()
+                                    if database_query_node_with_node_id_messages_send is True:
                                         if j in nodes6:
                                             nodes6.remove(j)
                                 for j in nodes6:
@@ -240,7 +240,7 @@ class get_peers:
                                                     [result, application_command_commander_keyword]
                                                 )
                             else:
-                                distributed_hash_table.database_delete_node_messages.put(
+                                distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                     [ip_address, udp_port]
                                 )
                                 distributed_hash_table.database_append_node_messages.put(
@@ -291,11 +291,11 @@ class get_peers:
                                             nodes6.remove(j)
                                 for j in nodes6:
                                     nodes6_node_id = j[0]
-                                    distributed_hash_table.database_query_node_messages_recvfrom.put(
+                                    distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
                                         nodes6_node_id
                                     )
-                                    database_query_node_messages_send = distributed_hash_table.database_query_node_messages_send.get()
-                                    if database_query_node_messages_send is True:
+                                    database_query_node_with_node_id_messages_send = distributed_hash_table.database_query_node_with_node_id_messages_send.get()
+                                    if database_query_node_with_node_id_messages_send is True:
                                         if j in nodes6:
                                             nodes6.remove(j)
                                 for j in nodes6:
@@ -347,16 +347,16 @@ class get_peers:
                                                     [result, application_command_commander_keyword]
                                                 )
                         else:
-                            distributed_hash_table.database_delete_node_messages.put(
+                            distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                 [ip_address, udp_port]
                             )
-                            distributed_hash_table.database_delete_node_messages.put(
+                            distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                 [last_query_ip_address, last_query_udp_port]
                             )
                             if len(response_nodes) > 0:
                                 ip_address = response_nodes[-1][1]
                                 udp_port = response_nodes[-1][2]
-                                distributed_hash_table.database_delete_node_messages.put(
+                                distributed_hash_table.database_delete_node_with_ip_address_messages.put(
                                     [ip_address, udp_port]
                                 )
                             for j in last_query_nodes:

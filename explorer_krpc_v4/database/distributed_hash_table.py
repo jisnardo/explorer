@@ -1,6 +1,7 @@
 from ..database.find_node import find_node
 from ..database.ping import ping
 from ..driver.memory import memory
+import collections
 import copy
 import IPy
 import math
@@ -21,10 +22,13 @@ class distributed_hash_table:
     database_binary_tree = {}
     database_confirm_nodes_time_key = []
     database_confirm_nodes_time_operators = queue.Queue()
-    database_delete_node_messages = queue.Queue()
+    database_delete_node_with_ip_address_messages = queue.Queue()
+    database_delete_node_with_node_id_messages = queue.Queue()
     database_prefix = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
-    database_query_node_messages_recvfrom = queue.Queue()
-    database_query_node_messages_send = queue.Queue()
+    database_query_node_with_ip_address_messages_recvfrom = queue.Queue()
+    database_query_node_with_ip_address_messages_send = queue.Queue()
+    database_query_node_with_node_id_messages_recvfrom = queue.Queue()
+    database_query_node_with_node_id_messages_send = queue.Queue()
     database_query_nodes_messages_recvfrom = queue.Queue()
     database_query_nodes_messages_send = queue.Queue()
     database_query_nodes_number_messages_recvfrom = queue.Queue()
@@ -49,27 +53,11 @@ class distributed_hash_table:
                                 k_bucket_name = 0
                             else:
                                 k_bucket_name = int(math.log2(distance))
-                            flag = False
-                            for i in range(0, 8):
-                                if self.database_binary_tree[str(k_bucket_name)][str(i)]['ip_address'] == ip_address:
-                                    flag = True
-                                    k_bucket_node_place = i
-                                    k_bucket_nodes_number = 0
-                                    for j in range(0, 8):
-                                        if not self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] == '':
-                                            k_bucket_nodes_number = k_bucket_nodes_number + 1
-                                    for k in range(k_bucket_node_place, k_bucket_nodes_number):
-                                        if k == k_bucket_nodes_number - 1:
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = match.group(0)
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = ip_address
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = udp_port
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = int(time.time())
-                                        else:
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['node_id']
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['ip_address']
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['udp_port']
-                                            self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['update_time']
-                            if flag is False:
+                            self.database_query_node_with_ip_address_messages_recvfrom.put(
+                                [ip_address, udp_port]
+                            )
+                            database_query_node_with_ip_address_messages_send = self.database_query_node_with_ip_address_messages_send.get()
+                            if database_query_node_with_ip_address_messages_send is False:
                                 k_bucket_nodes_number = 0
                                 for i in range(0, 8):
                                     if not self.database_binary_tree[str(k_bucket_name)][str(i)]['ip_address'] == '':
@@ -83,19 +71,36 @@ class distributed_hash_table:
                                         [temporary_ip_address, temporary_udp_port, distributed_hash_table_keyword]
                                     )
                                     self.database_append_node_operators.put(
-                                        ['append', [distributed_hash_table_keyword, k_bucket_name, k_bucket_node_place, match.group(0), ip_address, udp_port, int(time.time())]]
+                                        ['append', [distributed_hash_table_keyword, k_bucket_name, temporary_ip_address, temporary_udp_port, match.group(0), ip_address, udp_port, int(time.time())]]
                                     )
                                 else:
                                     self.database_binary_tree[str(k_bucket_name)][str(k_bucket_nodes_number)]['node_id'] = match.group(0)
                                     self.database_binary_tree[str(k_bucket_name)][str(k_bucket_nodes_number)]['ip_address'] = ip_address
                                     self.database_binary_tree[str(k_bucket_name)][str(k_bucket_nodes_number)]['udp_port'] = udp_port
                                     self.database_binary_tree[str(k_bucket_name)][str(k_bucket_nodes_number)]['update_time'] = int(time.time())
+                            else:
+                                k_bucket_node_place = database_query_node_with_ip_address_messages_send[1]
+                                k_bucket_nodes_number = 0
+                                for i in range(0, 8):
+                                    if not self.database_binary_tree[str(k_bucket_name)][str(i)]['ip_address'] == '':
+                                        k_bucket_nodes_number = k_bucket_nodes_number + 1
+                                for j in range(k_bucket_node_place, k_bucket_nodes_number):
+                                    if j == k_bucket_nodes_number - 1:
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['node_id'] = match.group(0)
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] = ip_address
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['udp_port'] = udp_port
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['update_time'] = int(time.time())
+                                    else:
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['node_id']
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['ip_address']
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['udp_port']
+                                        self.database_binary_tree[str(k_bucket_name)][str(j)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['update_time']
 
     def __append_node_check(self):
         while True:
             if len(self.database_append_node_key) > 0:
                 for i in self.database_append_node_key:
-                    if i[6] < int(time.time()) - 300:
+                    if i[7] < int(time.time()) - 300:
                         self.database_append_node_operators.put(
                             ['remove', i]
                         )
@@ -121,42 +126,98 @@ class distributed_hash_table:
                 for i in self.database_append_node_key:
                     if i[0] == distributed_hash_table_keyword:
                         k_bucket_name = i[1]
-                        node_id = i[3]
-                        ip_address = i[4]
-                        udp_port = i[5]
-                        for j in range(0, 7):
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['node_id']
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['ip_address']
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['udp_port']
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['update_time']
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['node_id'] = node_id
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['ip_address'] = ip_address
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['udp_port'] = udp_port
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['update_time'] = int(time.time())
+                        temporary_ip_address = i[2]
+                        temporary_udp_port = i[3]
+                        node_id = i[4]
+                        ip_address = i[5]
+                        udp_port = i[6]
+                        self.database_query_node_with_ip_address_messages_recvfrom.put(
+                            [ip_address, udp_port]
+                        )
+                        database_query_node_with_ip_address_messages_send = self.database_query_node_with_ip_address_messages_send.get()
+                        if database_query_node_with_ip_address_messages_send is False:
+                            self.database_query_node_with_ip_address_messages_recvfrom.put(
+                                [temporary_ip_address, temporary_udp_port]
+                            )
+                            database_query_node_with_ip_address_messages_send = self.database_query_node_with_ip_address_messages_send.get()
+                            if database_query_node_with_ip_address_messages_send is False:
+                                self.database_append_node_messages.put(
+                                    [node_id, ip_address, udp_port]
+                                )
+                            else:
+                                k_bucket_node_place = database_query_node_with_ip_address_messages_send[1]
+                                k_bucket_nodes_number = 0
+                                for j in range(0, 8):
+                                    if not self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] == '':
+                                        k_bucket_nodes_number = k_bucket_nodes_number + 1
+                                for k in range(k_bucket_node_place, k_bucket_nodes_number):
+                                    if k == k_bucket_nodes_number - 1:
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = node_id
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = ip_address
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = udp_port
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = int(time.time())
+                                    else:
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['node_id']
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['ip_address']
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['udp_port']
+                                        self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['update_time']
                         self.database_append_node_operators.put(
                             ['remove', i]
                         )
             else:
+                node_id = database_ping_messages_send[0]
                 distributed_hash_table_keyword = database_ping_messages_send[1]
                 for i in self.database_append_node_key:
                     if i[0] == distributed_hash_table_keyword:
                         k_bucket_name = i[1]
-                        k_bucket_node_place = i[2]
-                        node_id = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['node_id']
-                        ip_address = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['ip_address']
-                        udp_port = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['udp_port']
-                        for j in range(0, 7):
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['node_id']
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['ip_address']
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['udp_port']
-                            self.database_binary_tree[str(k_bucket_name)][str(j)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(j + 1)]['update_time']
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['node_id'] = node_id
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['ip_address'] = ip_address
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['udp_port'] = udp_port
-                        self.database_binary_tree[str(k_bucket_name)][str(7)]['update_time'] = int(time.time())
+                        temporary_ip_address = i[2]
+                        temporary_udp_port = i[3]
+                        self.database_query_node_with_ip_address_messages_recvfrom.put(
+                            [temporary_ip_address, temporary_udp_port]
+                        )
+                        database_query_node_with_ip_address_messages_send = self.database_query_node_with_ip_address_messages_send.get()
+                        if database_query_node_with_ip_address_messages_send is False:
+                            self.database_append_node_messages.put(
+                                [node_id, temporary_ip_address, temporary_udp_port]
+                            )
+                        else:
+                            k_bucket_node_place = database_query_node_with_ip_address_messages_send[1]
+                            node_id = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['node_id']
+                            ip_address = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['ip_address']
+                            udp_port = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['udp_port']
+                            k_bucket_nodes_number = 0
+                            for j in range(0, 8):
+                                if not self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] == '':
+                                    k_bucket_nodes_number = k_bucket_nodes_number + 1
+                            for k in range(k_bucket_node_place, k_bucket_nodes_number):
+                                if k == k_bucket_nodes_number - 1:
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = node_id
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = ip_address
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = udp_port
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = int(time.time())
+                                else:
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['node_id']
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['ip_address']
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['udp_port']
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['update_time']
                         self.database_append_node_operators.put(
                             ['remove', i]
                         )
+
+    def __check_database_binary_tree(self):
+        while True:
+            for i in range(0, 160):
+                node_id_list = []
+                for j in range(0, 8):
+                    if not self.database_binary_tree[str(i)][str(j)]['node_id'] == '':
+                        node_id_list.append(self.database_binary_tree[str(i)][str(j)]['node_id'])
+                node_id_dict = dict(collections.Counter(node_id_list))
+                for key, value in node_id_dict.items():
+                    if value > 1:
+                        self.database_delete_node_with_node_id_messages.put(
+                            key
+                        )
+            time.sleep(30)
 
     def __confirm_nodes_time(self):
         while True:
@@ -170,12 +231,11 @@ class distributed_hash_table:
                             udp_port = self.database_binary_tree[str(i)][str(j)]['udp_port']
                             distributed_hash_table_keyword = os.urandom(20).hex()
                             k_bucket_name = i
-                            k_bucket_node_place = j
                             find_node.database_find_node_messages_recvfrom.put(
                                 [memory.node_id[:39] + random.choice(database_new_prefix), ip_address, udp_port, distributed_hash_table_keyword]
                             )
                             self.database_confirm_nodes_time_operators.put(
-                                ['append', [distributed_hash_table_keyword, k_bucket_name, k_bucket_node_place, int(time.time())]]
+                                ['append', [distributed_hash_table_keyword, k_bucket_name, ip_address, udp_port, int(time.time())]]
                             )
             time.sleep(60)
 
@@ -183,7 +243,7 @@ class distributed_hash_table:
         while True:
             if len(self.database_confirm_nodes_time_key) > 0:
                 for i in self.database_confirm_nodes_time_key:
-                    if i[3] < int(time.time()) - 300:
+                    if i[4] < int(time.time()) - 300:
                         self.database_confirm_nodes_time_operators.put(
                             ['remove', i]
                         )
@@ -197,32 +257,41 @@ class distributed_hash_table:
                 for i in self.database_confirm_nodes_time_key:
                     if i[0] == distributed_hash_table_keyword:
                         k_bucket_name = i[1]
-                        k_bucket_node_place = i[2]
-                        k_bucket_nodes_number = 0
-                        for j in range(0, 8):
-                            if not self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] == '':
-                                k_bucket_nodes_number = k_bucket_nodes_number + 1
-                        for k in range(k_bucket_node_place, k_bucket_nodes_number):
-                            if k == k_bucket_nodes_number - 1:
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = ''
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = ''
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = ''
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = int(time.time())
-                            else:
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['node_id']
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['ip_address']
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['udp_port']
-                                self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['update_time']
+                        ip_address = i[2]
+                        udp_port = i[3]
+                        self.database_query_node_with_ip_address_messages_recvfrom.put(
+                            [ip_address, udp_port]
+                        )
+                        database_query_node_with_ip_address_messages_send = self.database_query_node_with_ip_address_messages_send.get()
+                        if database_query_node_with_ip_address_messages_send is not False:
+                            k_bucket_node_place = database_query_node_with_ip_address_messages_send[1]
+                            k_bucket_nodes_number = 0
+                            for j in range(0, 8):
+                                if not self.database_binary_tree[str(k_bucket_name)][str(j)]['ip_address'] == '':
+                                    k_bucket_nodes_number = k_bucket_nodes_number + 1
+                            for k in range(k_bucket_node_place, k_bucket_nodes_number):
+                                if k == k_bucket_nodes_number - 1:
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = ''
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = ''
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = ''
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = int(time.time())
+                                else:
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['node_id']
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['ip_address']
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['udp_port']
+                                    self.database_binary_tree[str(k_bucket_name)][str(k)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(k + 1)]['update_time']
                         self.database_confirm_nodes_time_operators.put(
                             ['remove', i]
                         )
             else:
-                nodes = database_find_node_messages_send[0]
-                distributed_hash_table_keyword = database_find_node_messages_send[1]
+                node_id = database_find_node_messages_send[0]
+                nodes = database_find_node_messages_send[1]
+                distributed_hash_table_keyword = database_find_node_messages_send[2]
                 for i in self.database_confirm_nodes_time_key:
                     if i[0] == distributed_hash_table_keyword:
                         k_bucket_name = i[1]
-                        k_bucket_node_place = i[2]
+                        ip_address = i[2]
+                        udp_port = i[3]
                         for j in nodes:
                             nodes_node_id = j[0]
                             nodes_ip_address = j[1]
@@ -230,24 +299,34 @@ class distributed_hash_table:
                             self.database_append_node_messages.put(
                                 [nodes_node_id, nodes_ip_address, nodes_udp_port]
                             )
-                        k_bucket_nodes_number = 0
-                        for k in range(0, 8):
-                            if not self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] == '':
-                                k_bucket_nodes_number = k_bucket_nodes_number + 1
-                        node_id = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['node_id']
-                        ip_address = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['ip_address']
-                        udp_port = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['udp_port']
-                        for l in range(k_bucket_node_place, k_bucket_nodes_number):
-                            if l == k_bucket_nodes_number - 1:
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['node_id'] = node_id
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['ip_address'] = ip_address
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['udp_port'] = udp_port
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['update_time'] = int(time.time())
-                            else:
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['node_id']
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['ip_address']
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['udp_port']
-                                self.database_binary_tree[str(k_bucket_name)][str(l)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['update_time']
+                        self.database_query_node_with_ip_address_messages_recvfrom.put(
+                            [ip_address, udp_port]
+                        )
+                        database_query_node_with_ip_address_messages_send = self.database_query_node_with_ip_address_messages_send.get()
+                        if database_query_node_with_ip_address_messages_send is False:
+                            self.database_append_node_messages.put(
+                                [node_id, ip_address, udp_port]
+                            )
+                        else:
+                            k_bucket_node_place = database_query_node_with_ip_address_messages_send[1]
+                            k_bucket_nodes_number = 0
+                            for k in range(0, 8):
+                                if not self.database_binary_tree[str(k_bucket_name)][str(k)]['ip_address'] == '':
+                                    k_bucket_nodes_number = k_bucket_nodes_number + 1
+                            node_id = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['node_id']
+                            ip_address = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['ip_address']
+                            udp_port = self.database_binary_tree[str(k_bucket_name)][str(k_bucket_node_place)]['udp_port']
+                            for l in range(k_bucket_node_place, k_bucket_nodes_number):
+                                if l == k_bucket_nodes_number - 1:
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['node_id'] = node_id
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['ip_address'] = ip_address
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['udp_port'] = udp_port
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['update_time'] = int(time.time())
+                                else:
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['node_id'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['node_id']
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['ip_address'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['ip_address']
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['udp_port'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['udp_port']
+                                    self.database_binary_tree[str(k_bucket_name)][str(l)]['update_time'] = self.database_binary_tree[str(k_bucket_name)][str(l + 1)]['update_time']
                         self.database_confirm_nodes_time_operators.put(
                             ['remove', i]
                         )
@@ -264,11 +343,11 @@ class distributed_hash_table:
                 if element in self.database_confirm_nodes_time_key:
                     self.database_confirm_nodes_time_key.remove(element)
 
-    def __delete_node(self):
+    def __delete_node_with_ip_address(self):
         while True:
-            database_delete_node_messages = self.database_delete_node_messages.get()
-            ip_address = database_delete_node_messages[0]
-            udp_port = database_delete_node_messages[1]
+            database_delete_node_with_ip_address_messages = self.database_delete_node_with_ip_address_messages.get()
+            ip_address = database_delete_node_with_ip_address_messages[0]
+            udp_port = database_delete_node_with_ip_address_messages[1]
             for i in range(0, 160):
                 for j in range(0, 8):
                     if self.database_binary_tree[str(i)][str(j)]['ip_address'] == ip_address and self.database_binary_tree[str(i)][str(j)]['udp_port'] == udp_port:
@@ -289,9 +368,50 @@ class distributed_hash_table:
                                 self.database_binary_tree[str(i)][str(l)]['udp_port'] = self.database_binary_tree[str(i)][str(l + 1)]['udp_port']
                                 self.database_binary_tree[str(i)][str(l)]['update_time'] = self.database_binary_tree[str(i)][str(l + 1)]['update_time']
 
-    def __query_node(self):
+    def __delete_node_with_node_id(self):
         while True:
-            node_id = self.database_query_node_messages_recvfrom.get()
+            node_id = self.database_delete_node_with_node_id_messages.get()
+            for i in range(0, 160):
+                for j in range(0, 8):
+                    if self.database_binary_tree[str(i)][str(j)]['node_id'] == node_id:
+                        k_bucket_node_place = j
+                        k_bucket_nodes_number = 0
+                        for k in range(0, 8):
+                            if not self.database_binary_tree[str(i)][str(k)]['ip_address'] == '':
+                                k_bucket_nodes_number = k_bucket_nodes_number + 1
+                        for l in range(k_bucket_node_place, k_bucket_nodes_number):
+                            if l == k_bucket_nodes_number - 1:
+                                self.database_binary_tree[str(i)][str(l)]['node_id'] = ''
+                                self.database_binary_tree[str(i)][str(l)]['ip_address'] = ''
+                                self.database_binary_tree[str(i)][str(l)]['udp_port'] = ''
+                                self.database_binary_tree[str(i)][str(l)]['update_time'] = int(time.time())
+                            else:
+                                self.database_binary_tree[str(i)][str(l)]['node_id'] = self.database_binary_tree[str(i)][str(l + 1)]['node_id']
+                                self.database_binary_tree[str(i)][str(l)]['ip_address'] = self.database_binary_tree[str(i)][str(l + 1)]['ip_address']
+                                self.database_binary_tree[str(i)][str(l)]['udp_port'] = self.database_binary_tree[str(i)][str(l + 1)]['udp_port']
+                                self.database_binary_tree[str(i)][str(l)]['update_time'] = self.database_binary_tree[str(i)][str(l + 1)]['update_time']
+
+    def __query_node_with_ip_address(self):
+        while True:
+            database_query_node_with_ip_address_messages_recvfrom = self.database_query_node_with_ip_address_messages_recvfrom.get()
+            ip_address = database_query_node_with_ip_address_messages_recvfrom[0]
+            udp_port = database_query_node_with_ip_address_messages_recvfrom[1]
+            flag = False
+            for i in range(0, 160):
+                for j in range(0, 8):
+                    if self.database_binary_tree[str(i)][str(j)]['ip_address'] == ip_address and self.database_binary_tree[str(i)][str(j)]['udp_port'] == udp_port:
+                        flag = True
+                        self.database_query_node_with_ip_address_messages_send.put(
+                            [i, j]
+                        )
+            if flag is False:
+                self.database_query_node_with_ip_address_messages_send.put(
+                    False
+                )
+
+    def __query_node_with_node_id(self):
+        while True:
+            node_id = self.database_query_node_with_node_id_messages_recvfrom.get()
             distance = int(node_id, 16) ^ int(memory.node_id, 16)
             if distance == 0:
                 k_bucket_name = 0
@@ -301,11 +421,11 @@ class distributed_hash_table:
             for i in range(0, 8):
                 if self.database_binary_tree[str(k_bucket_name)][str(i)]['node_id'] == node_id:
                     flag = True
-                    self.database_query_node_messages_send.put(
+                    self.database_query_node_with_node_id_messages_send.put(
                         True
                     )
             if flag is False:
-                self.database_query_node_messages_send.put(
+                self.database_query_node_with_node_id_messages_send.put(
                     False
                 )
 
@@ -718,6 +838,9 @@ class distributed_hash_table:
                 self.database_binary_tree[str(i)][str(j)].update({'udp_port': ''})
                 self.database_binary_tree[str(i)][str(j)].update({'update_time': int(time.time())})
         self.database_self_node_id = memory.node_id
+        explorer_krpc_v4_database_distributed_hash_table_append_node_thread = threading.Thread(target = self.__append_node)
+        explorer_krpc_v4_database_distributed_hash_table_append_node_thread.setDaemon(True)
+        explorer_krpc_v4_database_distributed_hash_table_append_node_thread.start()
         explorer_krpc_v4_database_distributed_hash_table_append_node_check_thread = threading.Thread(target = self.__append_node_check)
         explorer_krpc_v4_database_distributed_hash_table_append_node_check_thread.setDaemon(True)
         explorer_krpc_v4_database_distributed_hash_table_append_node_check_thread.start()
@@ -727,9 +850,9 @@ class distributed_hash_table:
         explorer_krpc_v4_database_distributed_hash_table_append_node_ping_thread = threading.Thread(target = self.__append_node_ping)
         explorer_krpc_v4_database_distributed_hash_table_append_node_ping_thread.setDaemon(True)
         explorer_krpc_v4_database_distributed_hash_table_append_node_ping_thread.start()
-        explorer_krpc_v4_database_distributed_hash_table_append_node_thread = threading.Thread(target = self.__append_node)
-        explorer_krpc_v4_database_distributed_hash_table_append_node_thread.setDaemon(True)
-        explorer_krpc_v4_database_distributed_hash_table_append_node_thread.start()
+        explorer_krpc_v4_database_distributed_hash_table_check_database_binary_tree_thread = threading.Thread(target = self.__check_database_binary_tree)
+        explorer_krpc_v4_database_distributed_hash_table_check_database_binary_tree_thread.setDaemon(True)
+        explorer_krpc_v4_database_distributed_hash_table_check_database_binary_tree_thread.start()
         explorer_krpc_v4_database_distributed_hash_table_confirm_nodes_time_check_thread = threading.Thread(target = self.__confirm_nodes_time_check)
         explorer_krpc_v4_database_distributed_hash_table_confirm_nodes_time_check_thread.setDaemon(True)
         explorer_krpc_v4_database_distributed_hash_table_confirm_nodes_time_check_thread.start()
@@ -742,12 +865,18 @@ class distributed_hash_table:
         explorer_krpc_v4_database_distributed_hash_table_confirm_nodes_time_thread = threading.Thread(target = self.__confirm_nodes_time)
         explorer_krpc_v4_database_distributed_hash_table_confirm_nodes_time_thread.setDaemon(True)
         explorer_krpc_v4_database_distributed_hash_table_confirm_nodes_time_thread.start()
-        explorer_krpc_v4_database_distributed_hash_table_delete_node_thread = threading.Thread(target = self.__delete_node)
-        explorer_krpc_v4_database_distributed_hash_table_delete_node_thread.setDaemon(True)
-        explorer_krpc_v4_database_distributed_hash_table_delete_node_thread.start()
-        explorer_krpc_v4_database_distributed_hash_table_query_node_thread = threading.Thread(target = self.__query_node)
-        explorer_krpc_v4_database_distributed_hash_table_query_node_thread.setDaemon(True)
-        explorer_krpc_v4_database_distributed_hash_table_query_node_thread.start()
+        explorer_krpc_v4_database_distributed_hash_table_delete_node_with_ip_address_thread = threading.Thread(target = self.__delete_node_with_ip_address)
+        explorer_krpc_v4_database_distributed_hash_table_delete_node_with_ip_address_thread.setDaemon(True)
+        explorer_krpc_v4_database_distributed_hash_table_delete_node_with_ip_address_thread.start()
+        explorer_krpc_v4_database_distributed_hash_table_delete_node_with_node_id_thread = threading.Thread(target = self.__delete_node_with_node_id)
+        explorer_krpc_v4_database_distributed_hash_table_delete_node_with_node_id_thread.setDaemon(True)
+        explorer_krpc_v4_database_distributed_hash_table_delete_node_with_node_id_thread.start()
+        explorer_krpc_v4_database_distributed_hash_table_query_node_with_ip_address_thread = threading.Thread(target = self.__query_node_with_ip_address)
+        explorer_krpc_v4_database_distributed_hash_table_query_node_with_ip_address_thread.setDaemon(True)
+        explorer_krpc_v4_database_distributed_hash_table_query_node_with_ip_address_thread.start()
+        explorer_krpc_v4_database_distributed_hash_table_query_node_with_node_id_thread = threading.Thread(target = self.__query_node_with_node_id)
+        explorer_krpc_v4_database_distributed_hash_table_query_node_with_node_id_thread.setDaemon(True)
+        explorer_krpc_v4_database_distributed_hash_table_query_node_with_node_id_thread.start()
         explorer_krpc_v4_database_distributed_hash_table_query_nodes_thread = threading.Thread(target = self.__query_nodes)
         explorer_krpc_v4_database_distributed_hash_table_query_nodes_thread.setDaemon(True)
         explorer_krpc_v4_database_distributed_hash_table_query_nodes_thread.start()

@@ -50,6 +50,7 @@ class find_node:
                             ['remove', i]
                         )
             else:
+                node_id = database_find_node_messages[0]
                 nodes6 = database_find_node_messages[1]
                 database_find_node_keyword = database_find_node_messages[7]
                 for i in self.database_find_node_key:
@@ -80,7 +81,7 @@ class find_node:
                                 if j in nodes6:
                                     nodes6.remove(j)
                         self.database_find_node_messages_send.put(
-                            [nodes6, distributed_hash_table_keyword]
+                            [node_id, nodes6, distributed_hash_table_keyword]
                         )
                         self.database_find_node_operators.put(
                             ['remove', i]
