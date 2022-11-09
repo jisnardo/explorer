@@ -142,233 +142,285 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-network-wired">
-                                    </i>
-                                    {{ dht_network_ipv4_information }}
-                                </p>
-                                <table
-                                    data-ajax="ajax_request_krpc_v4_parameter_read"
-                                    data-auto-refresh="true"
-                                    data-locale="{{ data_locale }}"
-                                    data-method="post"
-                                    data-page-list="[10, 25, 50, 100, all]"
-                                    data-page-number="1"
-                                    data-pagination="true"
-                                    data-search="true"
-                                    data-show-columns="true"
-                                    data-show-columns-toggle-all="true"
-                                    data-show-export="true"
-                                    data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
-                                    data-show-jump-to="true"
-                                    data-show-pagination-switch="true"
-                                    data-show-refresh="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
-                                    data-show-toggle="true"
-                                    data-side-pagination="client"
-                                    data-total-not-filtered-field="totalNotFiltered"
-                                    data-visible-search="true"
-                                    id="dht_network_ipv4_information_table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="id" data-halign="center" data-align="center" data-width="50">
-                                                {{ id }}
-                                            </th>
-                                            <th data-field="item" data-halign="center" data-align="center" data-width="150">
-                                                {{ item }}
-                                            </th>
-                                            <th data-field="value" data-halign="center" data-align="center" data-width="350">
-                                                {{ value }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <div>
+                                    <div id="accordion_ipv4" class="accordion">
+                                        <div class="accordion-item">
+                                            <h2 id="accordion_ipv4_heading_one" class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_one" aria-expanded="true" aria-controls="accordion_ipv4_collapse_one">
+                                                    <i class="fa-solid fa-network-wired">
+                                                    </i>
+                                                    {{ dht_network_ipv4_information }}
+                                                </button>
+                                            </h2>
+                                            <div id="accordion_ipv4_collapse_one" class="accordion-collapse collapse show" aria-labelledby="accordion_ipv4_heading_one" data-bs-parent="#accordion_ipv4">
+                                                <div class="accordion-body">
+                                                    <table
+                                                        data-ajax="ajax_request_krpc_v4_parameter_read"
+                                                        data-auto-refresh="true"
+                                                        data-locale="{{ data_locale }}"
+                                                        data-method="post"
+                                                        data-page-list="[10, 25, 50, 100, all]"
+                                                        data-page-number="1"
+                                                        data-pagination="true"
+                                                        data-search="true"
+                                                        data-show-columns="true"
+                                                        data-show-columns-toggle-all="true"
+                                                        data-show-export="true"
+                                                        data-show-extended-pagination="true"
+                                                        data-show-fullscreen="true"
+                                                        data-show-jump-to="true"
+                                                        data-show-pagination-switch="true"
+                                                        data-show-refresh="true"
+                                                        data-show-search-button="true"
+                                                        data-show-search-clear-button="true"
+                                                        data-show-toggle="true"
+                                                        data-side-pagination="client"
+                                                        data-total-not-filtered-field="totalNotFiltered"
+                                                        data-visible-search="true"
+                                                        id="dht_network_ipv4_information_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-field="id" data-halign="center" data-align="center" data-width="50">
+                                                                    {{ id }}
+                                                                </th>
+                                                                <th data-field="item" data-halign="center" data-align="center" data-width="150">
+                                                                    {{ item }}
+                                                                </th>
+                                                                <th data-field="value" data-halign="center" data-align="center" data-width="350">
+                                                                    {{ value }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 id="accordion_ipv4_heading_two" class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_two" aria-expanded="false" aria-controls="accordion_ipv4_collapse_two">
+                                                    <i class="fa-solid fa-circle-nodes">
+                                                    </i>
+                                                    {{ dht_network_ipv4_router_table }}
+                                                </button>
+                                            </h2>
+                                            <div id="accordion_ipv4_collapse_two" class="accordion-collapse collapse" aria-labelledby="accordion_ipv4_heading_two" data-bs-parent="#accordion_ipv4">
+                                                <div class="accordion-body">
+                                                    <table
+                                                        data-ajax="ajax_request_krpc_v4_router_table_read"
+                                                        data-auto-refresh="true"
+                                                        data-auto-refresh-interval="2"
+                                                        data-locale="{{ data_locale }}"
+                                                        id="dht_network_ipv4_router_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-field="node_id" data-width="250">
+                                                                    {{ node_id }}
+                                                                </th>
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                    {{ ip_address }}
+                                                                </th>
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                    {{ update_time }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 id="accordion_ipv4_heading_three" class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_three" aria-expanded="false" aria-controls="accordion_ipv4_collapse_three">
+                                                    <i class="fa-solid fa-magnet">
+                                                    </i>
+                                                    {{ dht_network_ipv4_peer_database }}
+                                                </button>
+                                            </h2>
+                                            <div id="accordion_ipv4_collapse_three" class="accordion-collapse collapse" aria-labelledby="accordion_ipv4_heading_three" data-bs-parent="#accordion_ipv4">
+                                                <div class="accordion-body">
+                                                    <table
+                                                        data-ajax="ajax_request_krpc_v4_peer_database_read"
+                                                        data-auto-refresh="true"
+                                                        data-auto-refresh-interval="2"
+                                                        data-locale="{{ data_locale }}"
+                                                        data-method="post"
+                                                        data-page-list="[10, 25, 50, 100, all]"
+                                                        data-page-number="1"
+                                                        data-pagination="true"
+                                                        data-search="true"
+                                                        data-show-columns="true"
+                                                        data-show-columns-toggle-all="true"
+                                                        data-show-export="true"
+                                                        data-show-extended-pagination="true"
+                                                        data-show-fullscreen="true"
+                                                        data-show-jump-to="true"
+                                                        data-show-pagination-switch="true"
+                                                        data-show-search-button="true"
+                                                        data-show-search-clear-button="true"
+                                                        data-show-toggle="true"
+                                                        data-side-pagination="client"
+                                                        data-total-not-filtered-field="totalNotFiltered"
+                                                        data-visible-search="true"
+                                                        id="dht_network_ipv4_peer_database_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
+                                                                    {{ info_hash }}
+                                                                </th>
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                    {{ ip_address }}
+                                                                </th>
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                    {{ update_time }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <hr>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-circle-nodes">
-                                    </i>
-                                    {{ dht_network_ipv4_router_table }}
-                                </p>
-                                <table
-                                    data-ajax="ajax_request_krpc_v4_router_table_read"
-                                    data-auto-refresh="true"
-                                    data-auto-refresh-interval="2"
-                                    data-locale="{{ data_locale }}"
-                                    id="dht_network_ipv4_router_table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="node_id" data-width="250">
-                                                {{ node_id }}
-                                            </th>
-                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
-                                                {{ ip_address }}
-                                            </th>
-                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
-                                                {{ update_time }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <hr>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-magnet">
-                                    </i>
-                                    {{ dht_network_ipv4_peer_database }}
-                                </p>
-                                <table
-                                    data-ajax="ajax_request_krpc_v4_peer_database_read"
-                                    data-auto-refresh="true"
-                                    data-auto-refresh-interval="2"
-                                    data-locale="{{ data_locale }}"
-                                    data-method="post"
-                                    data-page-list="[10, 25, 50, 100, all]"
-                                    data-page-number="1"
-                                    data-pagination="true"
-                                    data-search="true"
-                                    data-show-columns="true"
-                                    data-show-columns-toggle-all="true"
-                                    data-show-export="true"
-                                    data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
-                                    data-show-jump-to="true"
-                                    data-show-pagination-switch="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
-                                    data-show-toggle="true"
-                                    data-side-pagination="client"
-                                    data-total-not-filtered-field="totalNotFiltered"
-                                    data-visible-search="true"
-                                    id="dht_network_ipv4_peer_database_table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
-                                                {{ info_hash }}
-                                            </th>
-                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
-                                                {{ ip_address }}
-                                            </th>
-                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
-                                                {{ update_time }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <hr>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-network-wired">
-                                    </i>
-                                    {{ dht_network_ipv6_information }}
-                                </p>
-                                <table
-                                    data-ajax="ajax_request_krpc_v6_parameter_read"
-                                    data-auto-refresh="true"
-                                    data-locale="{{ data_locale }}"
-                                    data-method="post"
-                                    data-page-list="[10, 25, 50, 100, all]"
-                                    data-page-number="1"
-                                    data-pagination="true"
-                                    data-search="true"
-                                    data-show-columns="true"
-                                    data-show-columns-toggle-all="true"
-                                    data-show-export="true"
-                                    data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
-                                    data-show-jump-to="true"
-                                    data-show-pagination-switch="true"
-                                    data-show-refresh="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
-                                    data-show-toggle="true"
-                                    data-side-pagination="client"
-                                    data-total-not-filtered-field="totalNotFiltered"
-                                    data-visible-search="true"
-                                    id="dht_network_ipv6_information_table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="id" data-halign="center" data-align="center" data-width="50">
-                                                {{ id }}
-                                            </th>
-                                            <th data-field="item" data-halign="center" data-align="center" data-width="150">
-                                                {{ item }}
-                                            </th>
-                                            <th data-field="value" data-halign="center" data-align="center" data-width="350">
-                                                {{ value }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <hr>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-circle-nodes">
-                                    </i>
-                                    {{ dht_network_ipv6_router_table }}
-                                </p>
-                                <table
-                                    data-ajax="ajax_request_krpc_v6_router_table_read"
-                                    data-auto-refresh="true"
-                                    data-auto-refresh-interval="2"
-                                    data-locale="{{ data_locale }}"
-                                    id="dht_network_ipv6_router_table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="node_id" data-width="250">
-                                                {{ node_id }}
-                                            </th>
-                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
-                                                {{ ip_address }}
-                                            </th>
-                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
-                                                {{ update_time }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <hr>
-                                <p class="card-text">
-                                    <i class="fa-solid fa-magnet">
-                                    </i>
-                                    {{ dht_network_ipv6_peer_database }}
-                                </p>
-                                <table
-                                    data-ajax="ajax_request_krpc_v6_peer_database_read"
-                                    data-auto-refresh="true"
-                                    data-auto-refresh-interval="2"
-                                    data-locale="{{ data_locale }}"
-                                    data-method="post"
-                                    data-page-list="[10, 25, 50, 100, all]"
-                                    data-page-number="1"
-                                    data-pagination="true"
-                                    data-search="true"
-                                    data-show-columns="true"
-                                    data-show-columns-toggle-all="true"
-                                    data-show-export="true"
-                                    data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
-                                    data-show-jump-to="true"
-                                    data-show-pagination-switch="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
-                                    data-show-toggle="true"
-                                    data-side-pagination="client"
-                                    data-total-not-filtered-field="totalNotFiltered"
-                                    data-visible-search="true"
-                                    id="dht_network_ipv6_peer_database_table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
-                                                {{ info_hash }}
-                                            </th>
-                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
-                                                {{ ip_address }}
-                                            </th>
-                                            <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
-                                                {{ update_time }}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <div>
+                                    <div id="accordion_ipv6" class="accordion">
+                                        <div class="accordion-item">
+                                            <h2 id="accordion_ipv6_heading_one" class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_one" aria-expanded="true" aria-controls="accordion_ipv6_collapse_one">
+                                                    <i class="fa-solid fa-network-wired">
+                                                    </i>
+                                                    {{ dht_network_ipv6_information }}
+                                                </button>
+                                            </h2>
+                                            <div id="accordion_ipv6_collapse_one" class="accordion-collapse collapse show" aria-labelledby="accordion_ipv6_heading_one" data-bs-parent="#accordion_ipv6">
+                                                <div class="accordion-body">
+                                                    <table
+                                                        data-ajax="ajax_request_krpc_v6_parameter_read"
+                                                        data-auto-refresh="true"
+                                                        data-locale="{{ data_locale }}"
+                                                        data-method="post"
+                                                        data-page-list="[10, 25, 50, 100, all]"
+                                                        data-page-number="1"
+                                                        data-pagination="true"
+                                                        data-search="true"
+                                                        data-show-columns="true"
+                                                        data-show-columns-toggle-all="true"
+                                                        data-show-export="true"
+                                                        data-show-extended-pagination="true"
+                                                        data-show-fullscreen="true"
+                                                        data-show-jump-to="true"
+                                                        data-show-pagination-switch="true"
+                                                        data-show-refresh="true"
+                                                        data-show-search-button="true"
+                                                        data-show-search-clear-button="true"
+                                                        data-show-toggle="true"
+                                                        data-side-pagination="client"
+                                                        data-total-not-filtered-field="totalNotFiltered"
+                                                        data-visible-search="true"
+                                                        id="dht_network_ipv6_information_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-field="id" data-halign="center" data-align="center" data-width="50">
+                                                                    {{ id }}
+                                                                </th>
+                                                                <th data-field="item" data-halign="center" data-align="center" data-width="150">
+                                                                    {{ item }}
+                                                                </th>
+                                                                <th data-field="value" data-halign="center" data-align="center" data-width="350">
+                                                                    {{ value }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 id="accordion_ipv6_heading_two" class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_two" aria-expanded="false" aria-controls="accordion_ipv6_collapse_two">
+                                                    <i class="fa-solid fa-circle-nodes">
+                                                    </i>
+                                                    {{ dht_network_ipv6_router_table }}
+                                                </button>
+                                            </h2>
+                                            <div id="accordion_ipv6_collapse_two" class="accordion-collapse collapse" aria-labelledby="accordion_ipv6_heading_two" data-bs-parent="#accordion_ipv6">
+                                                <div class="accordion-body">
+                                                    <table
+                                                        data-ajax="ajax_request_krpc_v6_router_table_read"
+                                                        data-auto-refresh="true"
+                                                        data-auto-refresh-interval="2"
+                                                        data-locale="{{ data_locale }}"
+                                                        id="dht_network_ipv6_router_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-field="node_id" data-width="250">
+                                                                    {{ node_id }}
+                                                                </th>
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                    {{ ip_address }}
+                                                                </th>
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                    {{ update_time }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 id="accordion_ipv6_heading_three" class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_three" aria-expanded="false" aria-controls="accordion_ipv6_collapse_three">
+                                                    <i class="fa-solid fa-magnet">
+                                                    </i>
+                                                    {{ dht_network_ipv6_peer_database }}
+                                                </button>
+                                            </h2>
+                                            <div id="accordion_ipv6_collapse_three" class="accordion-collapse collapse" aria-labelledby="accordion_ipv6_heading_three" data-bs-parent="#accordion_ipv6">
+                                                <div class="accordion-body">
+                                                    <table
+                                                        data-ajax="ajax_request_krpc_v6_peer_database_read"
+                                                        data-auto-refresh="true"
+                                                        data-auto-refresh-interval="2"
+                                                        data-locale="{{ data_locale }}"
+                                                        data-method="post"
+                                                        data-page-list="[10, 25, 50, 100, all]"
+                                                        data-page-number="1"
+                                                        data-pagination="true"
+                                                        data-search="true"
+                                                        data-show-columns="true"
+                                                        data-show-columns-toggle-all="true"
+                                                        data-show-export="true"
+                                                        data-show-extended-pagination="true"
+                                                        data-show-fullscreen="true"
+                                                        data-show-jump-to="true"
+                                                        data-show-pagination-switch="true"
+                                                        data-show-search-button="true"
+                                                        data-show-search-clear-button="true"
+                                                        data-show-toggle="true"
+                                                        data-side-pagination="client"
+                                                        data-total-not-filtered-field="totalNotFiltered"
+                                                        data-visible-search="true"
+                                                        id="dht_network_ipv6_peer_database_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
+                                                                    {{ info_hash }}
+                                                                </th>
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                    {{ ip_address }}
+                                                                </th>
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                    {{ update_time }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

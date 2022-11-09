@@ -217,7 +217,7 @@ class distributed_hash_table:
                         self.database_delete_node_with_node_id_messages.put(
                             key
                         )
-            time.sleep(30)
+            time.sleep(10)
 
     def __confirm_nodes_time(self):
         while True:
@@ -236,6 +236,9 @@ class distributed_hash_table:
                             )
                             self.database_confirm_nodes_time_operators.put(
                                 ['append', [distributed_hash_table_keyword, k_bucket_name, ip_address, udp_port, int(time.time())]]
+                            )
+                            self.database_delete_node_with_node_id_messages.put(
+                                self.database_binary_tree[str(i)][str(j)]['node_id']
                             )
             time.sleep(60)
 
