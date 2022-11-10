@@ -227,18 +227,19 @@ class distributed_hash_table:
                         if self.database_binary_tree[str(i)][str(j)]['update_time'] < int(time.time()) - 900:
                             database_new_prefix = copy.deepcopy(self.database_prefix)
                             database_new_prefix.remove(memory.node_id[39:])
+                            node_id = self.database_binary_tree[str(i)][str(j)]['node_id']
                             ip_address = self.database_binary_tree[str(i)][str(j)]['ip_address']
                             udp_port = self.database_binary_tree[str(i)][str(j)]['udp_port']
                             distributed_hash_table_keyword = os.urandom(20).hex()
                             k_bucket_name = i
+                            self.database_delete_node_with_node_id_messages.put(
+                                node_id
+                            )
                             find_node.database_find_node_messages_recvfrom.put(
                                 [memory.node_id[:39] + random.choice(database_new_prefix), ip_address, udp_port, distributed_hash_table_keyword]
                             )
                             self.database_confirm_nodes_time_operators.put(
                                 ['append', [distributed_hash_table_keyword, k_bucket_name, ip_address, udp_port, int(time.time())]]
-                            )
-                            self.database_delete_node_with_node_id_messages.put(
-                                self.database_binary_tree[str(i)][str(j)]['node_id']
                             )
             time.sleep(60)
 
