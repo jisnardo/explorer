@@ -371,6 +371,7 @@ class distributed_hash_table:
                                 self.database_binary_tree[str(i)][str(l)]['ip_address'] = self.database_binary_tree[str(i)][str(l + 1)]['ip_address']
                                 self.database_binary_tree[str(i)][str(l)]['udp_port'] = self.database_binary_tree[str(i)][str(l + 1)]['udp_port']
                                 self.database_binary_tree[str(i)][str(l)]['update_time'] = self.database_binary_tree[str(i)][str(l + 1)]['update_time']
+                        break
 
     def __delete_node_with_node_id(self):
         while True:
@@ -394,6 +395,7 @@ class distributed_hash_table:
                                 self.database_binary_tree[str(i)][str(l)]['ip_address'] = self.database_binary_tree[str(i)][str(l + 1)]['ip_address']
                                 self.database_binary_tree[str(i)][str(l)]['udp_port'] = self.database_binary_tree[str(i)][str(l + 1)]['udp_port']
                                 self.database_binary_tree[str(i)][str(l)]['update_time'] = self.database_binary_tree[str(i)][str(l + 1)]['update_time']
+                        break
 
     def __query_node_with_ip_address(self):
         while True:
@@ -408,6 +410,7 @@ class distributed_hash_table:
                         self.database_query_node_with_ip_address_messages_send.put(
                             [i, j]
                         )
+                        break
             if flag is False:
                 self.database_query_node_with_ip_address_messages_send.put(
                     False
@@ -428,6 +431,7 @@ class distributed_hash_table:
                     self.database_query_node_with_node_id_messages_send.put(
                         True
                     )
+                    break
             if flag is False:
                 self.database_query_node_with_node_id_messages_send.put(
                     False
