@@ -3,6 +3,7 @@ import os
 import pymysql
 import queue
 import threading
+import time
 
 class mysql:
     mysql_check_messages_recvfrom = queue.Queue()
@@ -157,6 +158,7 @@ class mysql:
                 self.mysql_insert_messages_send.put(
                     result
                 )
+            time.sleep(1)
 
     def __load_config(self):
         with open(os.path.dirname(os.path.abspath(__file__)) + '/database_config.json', mode = 'r', encoding = 'utf-8') as file:
