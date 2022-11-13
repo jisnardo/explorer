@@ -30,7 +30,7 @@ class save_torrent_files:
                             with open(save_torrent_files_folder_path + '/' + info_hash + '.torrent', mode = 'wb') as file:
                                 file.write(write_data)
                         if save_torrent_files_name_with_torrent_name is True:
-                            torrent_name = re.sub('[?*/\|:><"]', '', torrent_name)
+                            torrent_name = re.sub(r'[?*/\|:><"]', '', torrent_name)[:254]
                             with open(save_torrent_files_folder_path + '/' + torrent_name + '.torrent', mode = 'wb') as file:
                                 file.write(write_data)
 
