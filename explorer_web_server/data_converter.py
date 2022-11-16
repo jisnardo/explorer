@@ -3,6 +3,7 @@ from .memory import memory
 import calendar
 import datetime
 import humanfriendly
+import IPy
 import json
 import os
 import pyben
@@ -146,16 +147,21 @@ class data_conversion:
                 result.append({
                     'id': len(result) + 1,
                     'item': user_language_data_config['magnet_uri'],
-                    'value': '<div id="copy_magnet_uri_alert" class="alert alert-warning alert-dismissible fade show visually-hidden" role="alert">' +
-                        '<div id="copy_magnet_uri_alert_detail"></div>' +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        '</div><button id="copy_magnet_uri" data-clipboard-text="magnet:?xt=urn:btih:' +
-                        database_query_info_hash_messages['result'][i]['info_hash'] +
-                        '" class="btn btn-link link-dark" type="button" copy_magnet_uri_failure="' +
-                        user_language_data_config['copy_magnet_uri_failure'] +
-                        '" copy_magnet_uri_success="' +
+                    'value': '<div id="copy_magnet_uri_success_alert" class="alert alert-success alert-dismissible fade show text-center visually-hidden" role="alert">' +
+                        '<i class="fa-solid fa-circle-check">' +
+                        '</i>' +
+                        '&nbsp;' +
                         user_language_data_config['copy_magnet_uri_success'] +
-                        '" data-toggle="copy_magnet_uri_tooltip" data-placement="top">' +
+                        '</div>' +
+                        '<div id="copy_magnet_uri_danger_alert" class="alert alert-danger alert-dismissible fade show text-center visually-hidden" role="alert">' +
+                        '<i class="fa-solid fa-triangle-exclamation">' +
+                        '</i>' +
+                        '&nbsp;' +
+                        user_language_data_config['copy_magnet_uri_failure'] +
+                        '</div>' +
+                        '<button id="copy_magnet_uri" data-clipboard-text="magnet:?xt=urn:btih:' +
+                        database_query_info_hash_messages['result'][i]['info_hash'] +
+                        '" class="btn btn-link link-dark" type="button">' +
                         user_language_data_config['copy_magnet_uri'] +
                         '</button>'
                 })
@@ -275,6 +281,17 @@ class data_conversion:
                 })
         return result
 
+    def explorer_krpc_v4_ping(self, ip_address, udp_port):
+        ip_address_type = IPy.IP(ip_address).iptype()
+        if ip_address_type == 'PUBLIC':
+            if 1 <= udp_port <= 65535:
+                result = memory.explorer_krpc_v4.ping(ip_address, udp_port)['result']
+                return result
+            else:
+                return False
+        else:
+            return False
+
     def explorer_krpc_v4_router_table_read(self, user_language):
         user_language_data_config = self.__get_user_language_config(user_language)
         krpc_v4_query_nodes_messages = memory.explorer_krpc_v4.query_nodes()
@@ -335,6 +352,17 @@ class data_conversion:
                     'update_time': '<span class=\'badge bg-secondary\'>' + j[2] + '</span>'
                 })
         return result
+
+    def explorer_krpc_v6_ping(self, ip_address, udp_port):
+        ip_address_type = IPy.IP(ip_address).iptype()[:9]
+        if ip_address_type == 'ALLOCATED':
+            if 1 <= udp_port <= 65535:
+                result = memory.explorer_krpc_v6.ping(ip_address, udp_port)['result']
+                return result
+            else:
+                return False
+        else:
+            return False
 
     def explorer_krpc_v6_router_table_read(self, user_language):
         user_language_data_config = self.__get_user_language_config(user_language)

@@ -254,6 +254,36 @@ class api_krpc_v4_peer_database_read(flask_restful.Resource):
                 'error': 'Authentication error'
             }
 
+class api_krpc_v4_ping(flask_restful.Resource):
+    def post(self):
+        json_data = flask.request.get_json()
+        if 'token' in json_data:
+            if json_data['token'] == webview.token:
+                if 'ip_address' in json_data:
+                    if 'udp_port' in json_data:
+                        ip_address = json_data['ip_address']
+                        udp_port = int(json_data['udp_port'])
+                        result = data_conversion().explorer_krpc_v4_ping(ip_address, udp_port)
+                        return {
+                            'data': result
+                        }
+                    else:
+                        return {
+                            'data': False
+                        }
+                else:
+                    return {
+                        'data': False
+                    }
+            else:
+                return {
+                    'error': 'Authentication error'
+                }
+        else:
+            return {
+                'error': 'Authentication error'
+            }
+
 class api_krpc_v4_router_table_read(flask_restful.Resource):
     def post(self):
         json_data = flask.request.get_json()
@@ -301,6 +331,36 @@ class api_krpc_v6_peer_database_read(flask_restful.Resource):
                 return {
                     'data': result
                 }
+            else:
+                return {
+                    'error': 'Authentication error'
+                }
+        else:
+            return {
+                'error': 'Authentication error'
+            }
+
+class api_krpc_v6_ping(flask_restful.Resource):
+    def post(self):
+        json_data = flask.request.get_json()
+        if 'token' in json_data:
+            if json_data['token'] == webview.token:
+                if 'ip_address' in json_data:
+                    if 'udp_port' in json_data:
+                        ip_address = json_data['ip_address']
+                        udp_port = int(json_data['udp_port'])
+                        result = data_conversion().explorer_krpc_v6_ping(ip_address, udp_port)
+                        return {
+                            'data': result
+                        }
+                    else:
+                        return {
+                            'data': False
+                        }
+                else:
+                    return {
+                        'data': False
+                    }
             else:
                 return {
                     'error': 'Authentication error'
@@ -492,9 +552,11 @@ api.add_resource(api_database_query_like, '/api_database_query_like')
 api.add_resource(api_database_query_monthly_discovery_info_hash_number, '/api_database_query_monthly_discovery_info_hash_number')
 api.add_resource(api_krpc_v4_parameter_read, '/api_krpc_v4_parameter_read')
 api.add_resource(api_krpc_v4_peer_database_read, '/api_krpc_v4_peer_database_read')
+api.add_resource(api_krpc_v4_ping, '/api_krpc_v4_ping')
 api.add_resource(api_krpc_v4_router_table_read, '/api_krpc_v4_router_table_read')
 api.add_resource(api_krpc_v6_parameter_read, '/api_krpc_v6_parameter_read')
 api.add_resource(api_krpc_v6_peer_database_read, '/api_krpc_v6_peer_database_read')
+api.add_resource(api_krpc_v6_ping, '/api_krpc_v6_ping')
 api.add_resource(api_krpc_v6_router_table_read, '/api_krpc_v6_router_table_read')
 api.add_resource(api_peer_wire_v4_ut_metadata_progress_table_read, '/api_peer_wire_v4_ut_metadata_progress_table_read')
 api.add_resource(api_peer_wire_v6_ut_metadata_progress_table_read, '/api_peer_wire_v6_ut_metadata_progress_table_read')

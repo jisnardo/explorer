@@ -231,6 +231,46 @@ document.onreadystatechange = function () {
                 });
                 $('#dht_network_ipv4_information_table').bootstrapTable({
                 });
+                $('#dht_network_ipv4_ping').click(function () {
+                    $('#dht_network_ipv4_ping_success_alert').toggleClass('visually-hidden', true);
+                    $('#dht_network_ipv4_ping_warning_alert').toggleClass('visually-hidden', true);
+                    dht_network_ipv4_ping_ip_address = $('#dht_network_ipv4_ping_ip_address').val();
+                    dht_network_ipv4_ping_udp_port = $('#dht_network_ipv4_ping_udp_port').val();
+                    if(validator.isIP(dht_network_ipv4_ping_ip_address, 4) == true) {
+                        if(validator.isPort(dht_network_ipv4_ping_udp_port) == true) {
+                            $('#dht_network_ipv4_ping').attr('disabled', '');
+                            $.ajax({
+                                async: true,
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    'ip_address': dht_network_ipv4_ping_ip_address,
+                                    'udp_port': dht_network_ipv4_ping_udp_port,
+                                    'token': window.token
+                                }),
+                                dataType: 'json',
+                                type: 'post',
+                                url: window.location.protocol + '//' + window.location.host + '/api_krpc_v4_ping',
+                                success: function (api_krpc_v4_ping) {
+                                    if(api_krpc_v4_ping.data == true) {
+                                        $('#dht_network_ipv4_ping_success_alert').removeClass('visually-hidden');
+                                    };
+                                    if(api_krpc_v4_ping.data == false) {
+                                        $('#dht_network_ipv4_ping_warning_alert').removeClass('visually-hidden');
+                                    };
+                                    $('#dht_network_ipv4_ping').removeAttr('disabled');
+                                },
+                                error: function () {
+                                    $('#dht_network_ipv4_ping_warning_alert').removeClass('visually-hidden');
+                                    $('#dht_network_ipv4_ping').removeAttr('disabled');
+                                }
+                            });
+                        } else {
+                            $('#dht_network_ipv4_ping_udp_port').css('background-color', '#fff3cd');
+                        };
+                    } else {
+                        $('#dht_network_ipv4_ping_ip_address').css('background-color', '#fff3cd');
+                    };
+                });
                 $('#dht_network_ipv4_router_table').bootstrapTable({
                     idField: 'id',
                     parentIdField: 'pid',
@@ -271,6 +311,46 @@ document.onreadystatechange = function () {
                     }
                 });
                 $('#dht_network_ipv6_information_table').bootstrapTable({
+                });
+                $('#dht_network_ipv6_ping').click(function () {
+                    $('#dht_network_ipv6_ping_success_alert').toggleClass('visually-hidden', true);
+                    $('#dht_network_ipv6_ping_warning_alert').toggleClass('visually-hidden', true);
+                    dht_network_ipv6_ping_ip_address = $('#dht_network_ipv6_ping_ip_address').val();
+                    dht_network_ipv6_ping_udp_port = $('#dht_network_ipv6_ping_udp_port').val();
+                    if(validator.isIP(dht_network_ipv6_ping_ip_address, 6) == true) {
+                        if(validator.isPort(dht_network_ipv6_ping_udp_port) == true) {
+                            $('#dht_network_ipv6_ping').attr('disabled', '');
+                            $.ajax({
+                                async: true,
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    'ip_address': dht_network_ipv6_ping_ip_address,
+                                    'udp_port': dht_network_ipv6_ping_udp_port,
+                                    'token': window.token
+                                }),
+                                dataType: 'json',
+                                type: 'post',
+                                url: window.location.protocol + '//' + window.location.host + '/api_krpc_v6_ping',
+                                success: function (api_krpc_v6_ping) {
+                                    if(api_krpc_v6_ping.data == true) {
+                                        $('#dht_network_ipv6_ping_success_alert').removeClass('visually-hidden');
+                                    };
+                                    if(api_krpc_v6_ping.data == false) {
+                                        $('#dht_network_ipv6_ping_warning_alert').removeClass('visually-hidden');
+                                    };
+                                    $('#dht_network_ipv6_ping').removeAttr('disabled');
+                                },
+                                error: function () {
+                                    $('#dht_network_ipv6_ping_warning_alert').removeClass('visually-hidden');
+                                    $('#dht_network_ipv6_ping').removeAttr('disabled');
+                                }
+                            });
+                        } else {
+                            $('#dht_network_ipv6_ping_udp_port').css('background-color', '#fff3cd');
+                        };
+                    } else {
+                        $('#dht_network_ipv6_ping_ip_address').css('background-color', '#fff3cd');
+                    };
                 });
                 $('#dht_network_ipv6_router_table').bootstrapTable({
                     idField: 'id',
@@ -376,7 +456,6 @@ function ajax_request_krpc_v4_router_table_read (params) {
         success: function (api_krpc_v4_router_table_read) {
             router_table_treegrid_contents = [];
             k_bucket = api_krpc_v4_router_table_read.data[0]['k_bucket'];
-            console.log(api_krpc_v4_router_table_read.data[1])
             for(var i in api_krpc_v4_router_table_read.data[1]) {
                 router_table_treegrid_contents.push({
                     'id': Number(i) + 1,

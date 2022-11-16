@@ -150,10 +150,11 @@ class mysql:
                 connection.close()
             except:
                 result = False
-                if type(connection) is not None:
-                    connection.rollback()
-                    cursor.close()
-                    connection.close()
+                if 'connection' in locals().keys():
+                    if type(connection) is not None:
+                        connection.rollback()
+                        cursor.close()
+                        connection.close()
             finally:
                 self.mysql_insert_messages_send.put(
                     result

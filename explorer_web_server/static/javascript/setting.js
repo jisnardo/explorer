@@ -225,7 +225,7 @@ document.onreadystatechange = function () {
                     url: window.location.protocol + '//' + window.location.host + '/api_database_check',
                     success: function (api_database_check) {
                         if(api_database_check.data == false) {
-                            $('#database_application_warning_alert').removeClass('visually-hidden');
+                            $('#database_application_danger_alert').removeClass('visually-hidden');
                         };
                     }
                 });

@@ -233,19 +233,11 @@ document.onreadystatechange = function () {
                     onPostBody: function () {
                         var clipboard = new ClipboardJS('#copy_magnet_uri');
                         clipboard.on('success', function (e) {
-                            var copy_magnet_uri_success = $('#copy_magnet_uri').attr('copy_magnet_uri_success');
-                            $('#copy_magnet_uri').attr('title', copy_magnet_uri_success);
-                            $('#copy_magnet_uri_alert_detail').html(copy_magnet_uri_success);
-                            $('[data-toggle=\'copy_magnet_uri_tooltip\']').tooltip();
-                            $('#copy_magnet_uri_alert').removeClass('visually-hidden');
+                            $('#copy_magnet_uri_success_alert').removeClass('visually-hidden');
                             e.clearSelection();
                         });
                         clipboard.on('error', function (e) {
-                            var copy_magnet_uri_failure = $('#copy_magnet_uri').attr('copy_magnet_uri_failure');
-                            $('#copy_magnet_uri').attr('title', copy_magnet_uri_failure);
-                            $('#copy_magnet_uri_alert_detail').html(copy_magnet_uri_failure);
-                            $('[data-toggle=\'copy_magnet_uri_tooltip\']').tooltip();
-                            $('#copy_magnet_uri_alert').removeClass('visually-hidden');
+                            $('#copy_magnet_uri_danger_alert').removeClass('visually-hidden');
                         });
                     }
                 });

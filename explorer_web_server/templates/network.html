@@ -147,7 +147,7 @@
                                         <div class="accordion-item">
                                             <h2 id="accordion_ipv4_heading_one" class="accordion-header">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_one" aria-expanded="true" aria-controls="accordion_ipv4_collapse_one">
-                                                    <i class="fa-solid fa-network-wired">
+                                                    <i class="fa-solid fa-network-wired fa-fw">
                                                     </i>
                                                     {{ dht_network_ipv4_information }}
                                                 </button>
@@ -192,13 +192,42 @@
                                                             </tr>
                                                         </thead>
                                                     </table>
+                                                    <hr>
+                                                    <p>
+                                                        <i class="fa-solid fa-square-plus">
+                                                        </i>
+                                                        {{ append_bootstrap_nodes }}
+                                                    </p>
+                                                    <div id="dht_network_ipv4_ping_success_alert" class="alert alert-success alert-dismissible fade show text-center visually-hidden" role="alert">
+                                                        <i class="fa-solid fa-circle-check">
+                                                        </i>
+                                                        {{ append_bootstrap_nodes_success }}
+                                                    </div>
+                                                    <div id="dht_network_ipv4_ping_warning_alert" class="alert alert-warning alert-dismissible fade show text-center visually-hidden" role="alert">
+                                                        <i class="fa-solid fa-triangle-exclamation">
+                                                        </i>
+                                                        {{ append_bootstrap_nodes_failure }}
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">
+                                                            {{ ip_address }}
+                                                        </span>
+                                                        <input id="dht_network_ipv4_ping_ip_address" type="text" class="form-control w-50" placeholder="{{ ip_address }}">
+                                                        <span class="input-group-text">
+                                                            {{ udp_port }}
+                                                        </span>
+                                                        <input id="dht_network_ipv4_ping_udp_port" type="text" class="form-control" placeholder="{{ udp_port }}">
+                                                        <button id="dht_network_ipv4_ping" class="btn btn-outline-secondary" type="button">
+                                                            Ping
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="accordion-item">
                                             <h2 id="accordion_ipv4_heading_two" class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_two" aria-expanded="false" aria-controls="accordion_ipv4_collapse_two">
-                                                    <i class="fa-solid fa-circle-nodes">
+                                                    <i class="fa-solid fa-circle-nodes fa-fw">
                                                     </i>
                                                     {{ dht_network_ipv4_router_table }}
                                                 </button>
@@ -231,7 +260,7 @@
                                         <div class="accordion-item">
                                             <h2 id="accordion_ipv4_heading_three" class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_three" aria-expanded="false" aria-controls="accordion_ipv4_collapse_three">
-                                                    <i class="fa-solid fa-magnet">
+                                                    <i class="fa-solid fa-magnet fa-fw">
                                                     </i>
                                                     {{ dht_network_ipv4_peer_database }}
                                                 </button>
@@ -287,7 +316,7 @@
                                         <div class="accordion-item">
                                             <h2 id="accordion_ipv6_heading_one" class="accordion-header">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_one" aria-expanded="true" aria-controls="accordion_ipv6_collapse_one">
-                                                    <i class="fa-solid fa-network-wired">
+                                                    <i class="fa-solid fa-network-wired fa-fw">
                                                     </i>
                                                     {{ dht_network_ipv6_information }}
                                                 </button>
@@ -332,13 +361,42 @@
                                                             </tr>
                                                         </thead>
                                                     </table>
+                                                    <hr>
+                                                    <p>
+                                                        <i class="fa-solid fa-square-plus">
+                                                        </i>
+                                                        {{ append_bootstrap_nodes }}
+                                                    </p>
+                                                    <div id="dht_network_ipv6_ping_success_alert" class="alert alert-success alert-dismissible fade show text-center visually-hidden" role="alert">
+                                                        <i class="fa-solid fa-circle-check">
+                                                        </i>
+                                                        {{ append_bootstrap_nodes_success }}
+                                                    </div>
+                                                    <div id="dht_network_ipv6_ping_warning_alert" class="alert alert-warning alert-dismissible fade show text-center visually-hidden" role="alert">
+                                                        <i class="fa-solid fa-triangle-exclamation">
+                                                        </i>
+                                                        {{ append_bootstrap_nodes_failure }}
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">
+                                                            {{ ip_address }}
+                                                        </span>
+                                                        <input id="dht_network_ipv6_ping_ip_address" type="text" class="form-control w-50" placeholder="{{ ip_address }}">
+                                                        <span class="input-group-text">
+                                                            {{ udp_port }}
+                                                        </span>
+                                                        <input id="dht_network_ipv6_ping_udp_port" type="text" class="form-control" placeholder="{{ udp_port }}">
+                                                        <button id="dht_network_ipv6_ping" class="btn btn-outline-secondary" type="button">
+                                                            Ping
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="accordion-item">
                                             <h2 id="accordion_ipv6_heading_two" class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_two" aria-expanded="false" aria-controls="accordion_ipv6_collapse_two">
-                                                    <i class="fa-solid fa-circle-nodes">
+                                                    <i class="fa-solid fa-circle-nodes fa-fw">
                                                     </i>
                                                     {{ dht_network_ipv6_router_table }}
                                                 </button>
@@ -371,7 +429,7 @@
                                         <div class="accordion-item">
                                             <h2 id="accordion_ipv6_heading_three" class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_three" aria-expanded="false" aria-controls="accordion_ipv6_collapse_three">
-                                                    <i class="fa-solid fa-magnet">
+                                                    <i class="fa-solid fa-magnet fa-fw">
                                                     </i>
                                                     {{ dht_network_ipv6_peer_database }}
                                                 </button>
