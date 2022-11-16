@@ -2,7 +2,6 @@ from ..driver.abstraction_send import send
 from ..driver.memory import memory
 import binascii
 import crc32c
-import faker
 import getuseragent
 import httpx
 import IPy
@@ -101,7 +100,7 @@ class control:
             socket_server.connect(('2001:4860:4860::8888', 80))
             ip_address = socket_server.getsockname()[0]
         except:
-            ip_address = faker.Faker().ipv6(network = False)
+            ip_address = 'fe80::6a3e:34ff:fe7a:e9be'
         finally:
             socket_server.close()
             return ip_address
