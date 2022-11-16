@@ -1,6 +1,9 @@
 from ..driver.memory import memory
 import binascii
 import crc32c
+import faker
+import getuseragent
+import httpx
 import IPy
 import os
 import random
@@ -9,9 +12,30 @@ import threading
 import time
 
 class rotate_secrets_time:
+    def __get_self_lan_ip_address(self):
+        try:
+            socket_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            socket_server.connect(('8.8.8.8', 80))
+            ip_address = socket_server.getsockname()[0]
+        except:
+            ip_address = faker.Faker().ipv4(network = False, address_class = None, private = True)
+        finally:
+            socket_server.close()
+            return ip_address
+
     def __get_self_node_id(self):
         time.sleep(14400)
         while True:
+            lan_ip_address = self.__get_self_lan_ip_address()
+            ip_address_type = IPy.IP(lan_ip_address).iptype()
+            if ip_address_type == 'PUBLIC':
+                memory.ip_address = lan_ip_address
+            else:
+                wan_ip_address = self.__get_self_wan_ip_address()
+                if wan_ip_address == '':
+                    memory.ip_address = lan_ip_address
+                else:
+                    memory.ip_address = wan_ip_address
             ip_address = memory.ip_address
             ip_address_type = IPy.IP(ip_address).iptype()
             if ip_address_type == 'PUBLIC':
@@ -45,6 +69,28 @@ class rotate_secrets_time:
         while True:
             memory.token = os.urandom(4)
             time.sleep(900)
+
+    def __get_self_wan_ip_address(self):
+        ip_address = ''
+        headers = {
+            'Connection': 'close',
+            'User-Agent': getuseragent.UserAgent().Random()
+        }
+        url = 'https://ipv4.jsonip.com'
+        with httpx.Client() as client:
+            try:
+                response = client.get(url = url, headers = headers)
+                response.raise_for_status()
+                if response.status_code == 200:
+                    data = response.json()
+                    ip_address = data['ip']
+            except httpx.HTTPError:
+                pass
+            except Exception:
+                pass
+            finally:
+                locals().clear()
+        return ip_address
 
     def start(self):
         explorer_krpc_v4_driver_rotate_secrets_time_get_self_node_id_thread = threading.Thread(target = self.__get_self_node_id)
