@@ -255,7 +255,10 @@ class data_conversion:
         krpc_v4_all_parameter_messages[user_language_data_config['ip_address']] = krpc_v4_self_ip_address_messages
         krpc_v4_all_parameter_messages[user_language_data_config['udp_port']] = krpc_v4_self_udp_port_messages
         krpc_v4_all_parameter_messages[user_language_data_config['nodes_number']] = krpc_v4_query_nodes_number_messages
-        krpc_v4_all_parameter_messages[user_language_data_config['network_connectivity']] = spider_ipv4_network_connectivity_messages
+        if spider_ipv4_network_connectivity_messages is True:
+            krpc_v4_all_parameter_messages[user_language_data_config['network_connectivity']] = '<div class="text-success"><i class="fa-solid fa-circle-check"></i></div>'
+        if spider_ipv4_network_connectivity_messages is False:
+            krpc_v4_all_parameter_messages[user_language_data_config['network_connectivity']] = '<div class="text-danger"><i class="fa-solid fa-circle-xmark"></i></div>'
         result = []
         for i in krpc_v4_all_parameter_messages.keys():
             result.append({
@@ -327,7 +330,10 @@ class data_conversion:
         krpc_v6_all_parameter_messages[user_language_data_config['ip_address']] = krpc_v6_self_ip_address_messages
         krpc_v6_all_parameter_messages[user_language_data_config['udp_port']] = krpc_v6_self_udp_port_messages
         krpc_v6_all_parameter_messages[user_language_data_config['nodes_number']] = krpc_v6_query_nodes_number_messages
-        krpc_v6_all_parameter_messages[user_language_data_config['network_connectivity']] = spider_ipv6_network_connectivity_messages
+        if spider_ipv6_network_connectivity_messages is True:
+            krpc_v6_all_parameter_messages[user_language_data_config['network_connectivity']] = '<div class="text-success"><i class="fa-solid fa-circle-check"></i></div>'
+        if spider_ipv6_network_connectivity_messages is False:
+            krpc_v6_all_parameter_messages[user_language_data_config['network_connectivity']] = '<div class="text-danger"><i class="fa-solid fa-circle-xmark"></i></div>'
         result = []
         for i in krpc_v6_all_parameter_messages.keys():
             result.append({
@@ -391,12 +397,28 @@ class data_conversion:
         peer_wire_v4_ut_metadata_progress_messages = memory.explorer_peer_wire_v4.ut_metadata_progress()
         result = []
         for i in peer_wire_v4_ut_metadata_progress_messages.keys():
-            result.append({
-                'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
-                'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
-                'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
-                'state': peer_wire_v4_ut_metadata_progress_messages[i]['state']
-            })
+            if peer_wire_v4_ut_metadata_progress_messages[i]['state'] is True:
+                result.append({
+                    'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
+                    'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
+                    'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
+                    'state': '<div class="text-success"><i class="fa-solid fa-circle-check"></i></div>'
+                })
+            if peer_wire_v4_ut_metadata_progress_messages[i]['state'] is False:
+                if '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']) == '100.00%':
+                    result.append({
+                        'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
+                        'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
+                        'state': '<div class="text-danger"><i class="fa-solid fa-circle-xmark"></i></div>'
+                    })
+                else:
+                    result.append({
+                        'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
+                        'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
+                        'state': '<div class="text-warning"><i class="fa-solid fa-download"></i></div>'
+                    })
         result.reverse()
         return result
 
@@ -404,12 +426,28 @@ class data_conversion:
         peer_wire_v6_ut_metadata_progress_messages = memory.explorer_peer_wire_v6.ut_metadata_progress()
         result = []
         for i in peer_wire_v6_ut_metadata_progress_messages.keys():
-            result.append({
-                'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
-                'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
-                'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
-                'state': peer_wire_v6_ut_metadata_progress_messages[i]['state']
-            })
+            if peer_wire_v6_ut_metadata_progress_messages[i]['state'] is True:
+                result.append({
+                    'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
+                    'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
+                    'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
+                    'state': '<div class="text-success"><i class="fa-solid fa-circle-check"></i></div>'
+                })
+            if peer_wire_v6_ut_metadata_progress_messages[i]['state'] is False:
+                if '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']) == '100.00%':
+                    result.append({
+                        'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
+                        'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
+                        'state': '<div class="text-danger"><i class="fa-solid fa-circle-xmark"></i></div>'
+                    })
+                else:
+                    result.append({
+                        'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
+                        'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
+                        'state': '<div class="text-warning"><i class="fa-solid fa-download"></i></div>'
+                    })
         result.reverse()
         return result
 
