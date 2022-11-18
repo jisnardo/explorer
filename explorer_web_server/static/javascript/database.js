@@ -69,7 +69,7 @@ document.onreadystatechange = function () {
             'https://cdn.jsdelivr.net/npm/js-cookie@latest/dist/js.cookie.js',
             'https://cdn.jsdelivr.net/npm/moment@latest/moment.js',
             'https://cdn.jsdelivr.net/npm/moment-timer@latest/lib/moment-timer.js',
-            'https://cdn.jsdelivr.net/npm/chart.js@latest/dist/chart.js'
+            'https://cdn.jsdelivr.net/npm/chart.js@latest/dist/chart.umd.js'
         ], {
             async: false,
             error: function () {
