@@ -5,7 +5,9 @@ import datetime
 import humanfriendly
 import IPy
 import json
+import natsort
 import os
+import pathlib
 import pyben
 import time
 
@@ -103,13 +105,155 @@ class data_conversion:
         else:
             result = []
             for i in database_query_info_hash_messages['result'].keys():
+                torrent_name = database_query_info_hash_messages['result'][i]['torrent_name']
                 for j in database_query_info_hash_messages['result'][i]['torrent_contents'].keys():
                     result.append({
                         'id': len(result) + 1,
                         'file_name': database_query_info_hash_messages['result'][i]['torrent_contents'][j]['file_name'],
                         'file_size': humanfriendly.format_size(database_query_info_hash_messages['result'][i]['torrent_contents'][j]['file_size'], binary = True).replace('bytes', 'B')
                     })
-            return result
+            root_directory = []
+            root_directory.append({
+                'id': 1,
+                'pid': 0,
+                'file_name': '/',
+                'file_size': '',
+                'path': '/',
+                'category': 'directory'
+            })
+            for i in result:
+                path_parts = pathlib.PurePosixPath(i['file_name']).parts
+                for j in range(len(path_parts)):
+                    if not path_parts[j] == '/':
+                        if not path_parts[j] == pathlib.PurePosixPath(i['file_name']).name:
+                            parent_directory = ''
+                            for k in range(j):
+                                parent_directory = pathlib.PurePosixPath(parent_directory, path_parts[k])
+                            for l in root_directory:
+                                if l['path'] == str(parent_directory):
+                                    pid = l['id']
+                            path = ''
+                            for m in range(j + 1):
+                                path = pathlib.PurePosixPath(path, path_parts[m])
+                            flag = False
+                            for n in root_directory:
+                                if n['path'] == str(path):
+                                    flag = True
+                            if flag is False:
+                                root_directory.append({
+                                    'id': len(root_directory) + 1,
+                                    'pid': pid,
+                                    'file_name': path_parts[j],
+                                    'file_size': '',
+                                    'path': str(path),
+                                    'category': 'directory'
+                                })
+            for i in result:
+                parent_directory = str(pathlib.PurePosixPath(i['file_name']).parent)
+                if parent_directory == '.':
+                    for j in root_directory:
+                        if j['path'] == '/':
+                            pid = j['id']
+                    path = '/' + i['file_name']
+                    flag = False
+                    for k in root_directory:
+                        if k['path'] == path:
+                            flag = True
+                    if flag is False:
+                        root_directory.append({
+                            'id': len(root_directory) + 1,
+                            'pid': pid,
+                            'file_name': pathlib.PurePosixPath(i['file_name']).name,
+                            'file_size': i['file_size'],
+                            'path': path,
+                            'category': 'file'
+                        })
+                else:
+                    for j in root_directory:
+                        if j['path'] == parent_directory:
+                            pid = j['id']
+                    path = parent_directory + '/' + pathlib.PurePosixPath(i['file_name']).name
+                    flag = False
+                    for k in root_directory:
+                        if k['path'] == path:
+                            flag = True
+                    if flag is False:
+                        root_directory.append({
+                            'id': len(root_directory) + 1,
+                            'pid': pid,
+                            'file_name': pathlib.PurePosixPath(i['file_name']).name,
+                            'file_size': i['file_size'],
+                            'path': path,
+                            'category': 'file'
+                        })
+            new_root_directory = []
+            all_directory_pid_list = []
+            for i in root_directory:
+                if i['category'] == 'directory':
+                    pid = i['pid']
+                    if pid not in all_directory_pid_list:
+                        all_directory_pid_list.append(pid)
+            all_directory_pid_list.sort()
+            for i in all_directory_pid_list:
+                all_directory_file_name_list = []
+                for j in root_directory:
+                    if j['category'] == 'directory':
+                        if i == j['pid']:
+                            all_directory_file_name_list.append(j['file_name'])
+                all_directory_file_name_list = natsort.natsorted(all_directory_file_name_list)
+                for k in all_directory_file_name_list:
+                    for l in root_directory:
+                        if l['category'] == 'directory':
+                            if i == l['pid']:
+                                if k == l['file_name']:
+                                    new_root_directory.append({
+                                        'id': l['id'],
+                                        'pid': l['pid'],
+                                        'file_name': l['file_name'],
+                                        'file_size': l['file_size'],
+                                        'path': l['path'],
+                                        'category': l['category']
+                                    })
+            all_file_pid_list = []
+            for i in root_directory:
+                if i['category'] == 'file':
+                    pid = i['pid']
+                    if pid not in all_file_pid_list:
+                        all_file_pid_list.append(pid)
+            all_file_pid_list.sort()
+            for i in all_file_pid_list:
+                all_file_file_name_list = []
+                for j in root_directory:
+                    if j['category'] == 'file':
+                        if i == j['pid']:
+                            all_file_file_name_list.append(j['file_name'])
+                all_file_file_name_list = natsort.natsorted(all_file_file_name_list)
+                for k in all_file_file_name_list:
+                    for l in root_directory:
+                        if l['category'] == 'file':
+                            if i == l['pid']:
+                                if k == l['file_name']:
+                                    new_root_directory.append({
+                                        'id': l['id'],
+                                        'pid': l['pid'],
+                                        'file_name': l['file_name'],
+                                        'file_size': l['file_size'],
+                                        'path': l['path'],
+                                        'category': l['category']
+                                    })
+            for i in new_root_directory:
+                if i['category'] == 'directory':
+                    if i['file_name'] == '/':
+                        i['file_name'] = torrent_name
+            for i in new_root_directory:
+                if i['category'] == 'directory':
+                    i['file_name'] = '<span class="text-warning"><i class="fa-solid fa-folder fa-fw"></i></span>&nbsp;' + i['file_name']
+                if i['category'] == 'file':
+                    i['file_name'] = '<span class="text-muted"><i class="fa-solid fa-file fa-fw"></i></span>&nbsp;' + i['file_name']
+            for i in new_root_directory:
+                del i['path']
+                del i['category']
+            return new_root_directory
 
     def explorer_database_query_info_hash_file_size(self):
         database_query_torrent_size_messages = memory.explorer_database.query_torrent_size()

@@ -150,7 +150,7 @@ document.onreadystatechange = function () {
                         className: 'os-theme-dark'
                     });
                 });
-                var language = navigator.language;
+                var language = window.language;
                 switch (language) {
                     case 'en-GB':
                         language = 'en';
@@ -421,7 +421,7 @@ function ajax_request_database_query_discovery_of_the_day_number (params) {
 function torrent_name_sorter (a, b) {
     a = a.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
     b = b.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
-    return a.localeCompare(b, navigator.language)
+    return a.localeCompare(b, window.language)
 };
 
 function torrent_size_sorter (a, b) {

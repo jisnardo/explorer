@@ -156,7 +156,7 @@ document.onreadystatechange = function () {
                 $('#upload_modal').overlayScrollbars({
                     className: 'os-theme-light'
                 });
-                var language = navigator.language;
+                var language = window.language;
                 switch (language) {
                     case 'en-GB':
                         language = 'en';

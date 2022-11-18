@@ -148,7 +148,7 @@ document.onreadystatechange = function () {
                         className: 'os-theme-dark'
                     });
                 });
-                var language = navigator.language;
+                var language = window.language;
                 switch (language) {
                     case 'en-GB':
                         language = 'en';

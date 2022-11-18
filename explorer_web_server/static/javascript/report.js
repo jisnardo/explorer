@@ -151,7 +151,7 @@ document.onreadystatechange = function () {
                         className: 'os-theme-dark'
                     });
                 });
-                var language = navigator.language;
+                var language = window.language;
                 switch (language) {
                     case 'en-GB':
                         language = 'en';
@@ -284,17 +284,7 @@ function ajax_request_database_query_info_hash_contents (params) {
         type: 'post',
         url: window.location.protocol + '//' + window.location.host + '/api_database_query_info_hash_contents?info_hash=' + url('?')['info_hash'],
         success: function (api_database_query_info_hash_contents) {
-            var work_blob = new Blob([`(${convert_info_hash_contents_data.toString ()})()`]);
-            work_blob = new Blob([convert_info_hash_contents_data.toLocaleString().match(/(?:\/\*[\s\S]*?\*\/|\/\/.*?\r?\n|[^{])+\{([\s\S]*)\}$/)[1]]);
-            var work_blob_url = URL.createObjectURL(work_blob);
-            var worker = new Worker(work_blob_url);
-            worker.postMessage(api_database_query_info_hash_contents.data);
-            worker.onmessage = function (event) {
-                params.success(event.data);
-            };
-            worker.onerror = function () {
-                worker.terminate();
-            };
+            params.success(api_database_query_info_hash_contents.data);
         },
         error: function () {
             params.success([]);
@@ -319,128 +309,4 @@ function ajax_request_database_query_info_hash_information (params) {
             params.success([]);
         }
     });
-};
-
-function convert_info_hash_contents_data () {
-    onmessage = function (event) {
-        var api_database_query_info_hash_contents_data = event.data;
-        info_hash_contents = [];
-        for(var i = 0; i < api_database_query_info_hash_contents_data.length; i = i + 1) {
-            var j = api_database_query_info_hash_contents_data[i].file_name.indexOf('/');
-            if(j == -1) {
-                info_hash_content = ['/', api_database_query_info_hash_contents_data[i].file_name];
-                info_hash_content.push(api_database_query_info_hash_contents_data[i].file_size);
-                info_hash_contents.push(info_hash_content);
-            } else {
-                info_hash_content = api_database_query_info_hash_contents_data[i].file_name.split('/');
-                info_hash_content[0] = '/';
-                info_hash_content.push(api_database_query_info_hash_contents_data[i].file_size);
-                info_hash_contents.push(info_hash_content);
-            };
-        };
-        info_hash_treegrid_contents = [];
-        for(var i = 0; i < info_hash_contents.length; i = i + 1) {
-            for(var j = 0; j < info_hash_contents[i].length - 1; j = j + 1) {
-                if(j == info_hash_contents[i].length - 2) {
-                    info_hash_treegrid_contents.push({
-                        'id': info_hash_treegrid_contents.length + 1,
-                        'pid': j,
-                        'file_name': info_hash_contents[i][j],
-                        'file_size': info_hash_contents[i][j + 1]
-                    });
-                } else {
-                    info_hash_treegrid_contents.push({
-                        'id': info_hash_treegrid_contents.length + 1,
-                        'pid': j,
-                        'file_name': info_hash_contents[i][j],
-                        'file_size': ''
-                    });
-                };
-            };
-        };
-        directory_array = [];
-        for(var i = 0; i < info_hash_treegrid_contents.length; i = i + 1) {
-            if(info_hash_treegrid_contents[i].file_size == '') {
-                directory_array.push(info_hash_treegrid_contents[i].file_name);
-            };
-        };
-        for(var i = 0; i < directory_array.length; i = i + 1) {
-            var current = directory_array[i];
-            for (var j = i + 1; j < directory_array.length; j = j + 1) {
-                if (current == directory_array[j]) {
-                    directory_array.splice(j, 1);
-                    j = j - 1;
-                };
-            };
-        };
-        directory_dictionary = {};
-        for(var i = 0; i < directory_array.length; i = i + 1) {
-            directory_dictionary[directory_array[i]] = 0;
-        };
-        for(var i = 0; i < directory_array.length; i = i + 1) {
-            for(var j = info_hash_treegrid_contents.length - 1; j  > -1; j = j - 1) {
-                if (directory_array[i] == info_hash_treegrid_contents[j].file_name) {
-                    directory_dictionary[directory_array[i]] = j;
-                };
-            };
-        };
-        for(var i in directory_dictionary) {
-            for(var j = directory_dictionary[i] + 1; j < info_hash_treegrid_contents.length; j = j + 1) {
-                if(info_hash_treegrid_contents[j].file_name == i && info_hash_treegrid_contents[j].pid == info_hash_treegrid_contents[directory_dictionary[i]].pid) {
-                    delete info_hash_treegrid_contents[j];
-                };
-            };
-            temporary_info_hash_treegrid_contents = []
-            for(var j = 0; j < info_hash_treegrid_contents.length; j = j + 1) {
-                if(info_hash_treegrid_contents[j] != undefined) {
-                    temporary_info_hash_treegrid_contents.push(info_hash_treegrid_contents[j]);
-                };
-            };
-            info_hash_treegrid_contents = temporary_info_hash_treegrid_contents;
-            for(var j = 0; j < directory_array.length; j = j + 1) {
-                for(var k = info_hash_treegrid_contents.length - 1; k  > -1; k = k - 1) {
-                    if(directory_array[j] == info_hash_treegrid_contents[k].file_name) {
-                        directory_dictionary[directory_array[j]] = k;
-                    };
-                };
-            };
-        };
-        for(var i = 0; i < info_hash_contents.length; i = i + 1) {
-            for(var j = 0; j < info_hash_contents[i].length - 1; j = j + 1) {
-                if(j != info_hash_contents[i].length - 2) {
-                    for(var k in info_hash_treegrid_contents) {
-                        if(info_hash_contents[i][j - 1] == info_hash_treegrid_contents[k].file_name && info_hash_treegrid_contents[k].file_size == '') {
-                            for(var l in info_hash_treegrid_contents) {
-                                if(info_hash_treegrid_contents[l].file_name == info_hash_contents[i][j] && info_hash_treegrid_contents[l].file_size == '') {
-                                    info_hash_treegrid_contents[l].pid = info_hash_treegrid_contents[k].id;
-                                };
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        info_hash_contents_array_length = 0;
-        for(var i = 0; i < info_hash_contents.length; i = i + 1) {
-            if(info_hash_contents[i].length > info_hash_contents_array_length) {
-                info_hash_contents_array_length = info_hash_contents[i].length;
-            };
-        };
-        for(var i = info_hash_contents_array_length; i > 2; i = i - 1) {
-            for(var j = 0; j < info_hash_contents.length; j = j + 1) {
-                if(info_hash_contents[j].length == i) {
-                    for(var k in info_hash_treegrid_contents) {
-                        if(info_hash_contents[j][i - 2] == info_hash_treegrid_contents[k].file_name && info_hash_contents[j][i - 1] == info_hash_treegrid_contents[k].file_size) {
-                            for(var l in info_hash_treegrid_contents) {
-                                if(info_hash_treegrid_contents[l].file_name == info_hash_contents[j][i - 3] && info_hash_treegrid_contents[l].file_size == '') {
-                                    info_hash_treegrid_contents[k].pid = info_hash_treegrid_contents[l].id;
-                                };
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        postMessage(info_hash_treegrid_contents);
-    };
 };
