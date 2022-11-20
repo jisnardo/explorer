@@ -1,9 +1,14 @@
 from ..application.client import client
 from ..driver.memory import memory
+import binascii
+import crc32c
 import IPy
+import operator
 import os
 import queue
+import random
 import re
+import socket
 import threading
 import time
 
@@ -22,6 +27,41 @@ class find_node:
                             ['remove', i]
                         )
             time.sleep(300)
+
+    def __check_node(self, node_id, ip_address):
+        pattern = re.compile(r'\b[0-9a-f]{40}\b')
+        match = re.match(pattern, node_id.lower())
+        if match is not None:
+            ip_address_type = IPy.IP(ip_address).iptype()[:9]
+            if ip_address_type == 'ALLOCATED':
+                check_data = match.group(0)[0:5]
+                rand = int(match.group(0)[38:], 16)
+                r = rand & 0x7
+                network_byte_order_ip_address = socket.inet_pton(socket.AF_INET6, ip_address)
+                hexadecimal_ip_address = binascii.hexlify(network_byte_order_ip_address)
+                decimal_ip_address = int(hexadecimal_ip_address, 16)
+                binary_ip_address = bin(decimal_ip_address)
+                binary_ip_address = binary_ip_address[0:64]
+                decimal_ip_address = int(binary_ip_address, 2)
+                decimal_number = (decimal_ip_address & 0x0103070f1f3f7fff) | (r << 61)
+                hexadecimal_number = hex(decimal_number).replace('0x', '').encode('ascii')
+                if (len(hexadecimal_number) % 2) == 0:
+                    network_byte_order_number = binascii.unhexlify(hexadecimal_number)
+                    crc = crc32c.crc32c(network_byte_order_number)
+                    calculation_data = ''
+                    calculation_data = calculation_data + hex((crc >> 24) & 0xff).replace('0x', '').zfill(2)
+                    calculation_data = calculation_data + hex((crc >> 16) & 0xff).replace('0x', '').zfill(2)
+                    calculation_data = calculation_data + hex(((crc >> 8) & 0xf8) | (random.randint(0, 255) & 0x7)).replace('0x', '').zfill(2)
+                    if check_data == calculation_data[0:5]:
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
 
     def __operators(self):
         while True:
@@ -80,8 +120,23 @@ class find_node:
                             if not 1 <= nodes6_udp_port <= 65535:
                                 if j in nodes6:
                                     nodes6.remove(j)
+                        for j in nodes6:
+                            nodes_node_id = j[0]
+                            nodes_ip_address = j[1]
+                            check_node_result = self.__check_node(nodes_node_id, nodes_ip_address)
+                            if check_node_result is False:
+                                if j in nodes6:
+                                    nodes6.remove(j)
+                        new_nodes6 = []
+                        for j in nodes6:
+                            flag = False
+                            for k in new_nodes6:
+                                if operator.eq(j, k) is True:
+                                    flag = True
+                            if flag is False:
+                                new_nodes6.append(j)
                         self.database_find_node_messages_send.put(
-                            [node_id, nodes6, distributed_hash_table_keyword]
+                            [node_id, new_nodes6, distributed_hash_table_keyword]
                         )
                         self.database_find_node_operators.put(
                             ['remove', i]

@@ -71,14 +71,14 @@ language files folder in the ./explorer_web_server/languages
 
 ## Installation
 
-* [Windows](https://github.com/no-u-turn/explorer/wiki/Windows_installation)
-* [Linux](https://github.com/no-u-turn/explorer/wiki/Linux_installation)
+* [Windows](https://github.com/no-u-turn/explorer/wiki/windows_installation)
+* [Linux](https://github.com/no-u-turn/explorer/wiki/linux_installation)
 
 ## Issues
 
 If you encounter any bugs or would like to request a new feature please open a new issue.
 
-[Issues](https://github.com/no-u-turn/explorer/issues)
+[Issues](https://github.com/no-u-turn/explorer/issues/new)
 
 ## Pull requests
 

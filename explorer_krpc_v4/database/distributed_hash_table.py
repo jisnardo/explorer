@@ -217,7 +217,7 @@ class distributed_hash_table:
                         self.database_delete_node_with_node_id_messages.put(
                             key
                         )
-            time.sleep(10)
+            time.sleep(2)
 
     def __confirm_nodes_time(self):
         while True:
