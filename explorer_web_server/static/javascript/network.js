@@ -460,7 +460,7 @@ function ajax_request_krpc_v4_router_table_read (params) {
                 router_table_treegrid_contents.push({
                     'id': Number(i) + 1,
                     'pid': 0,
-                    'node_id': k_bucket + ' (' + (Number(i) + 1).toString() + ') ' + '<span class=\'badge bg-secondary\'>' + (Object.keys(api_krpc_v4_router_table_read.data[1][i]).length) + '</span>',
+                    'node_id': k_bucket + ' (' + (Number(i) + 1).toString() + ') ' + '<span class=\"badge bg-secondary\">' + (Object.keys(api_krpc_v4_router_table_read.data[1][i]).length) + '</span>',
                     'ip_address': '',
                     'update_time': ''
                 });
@@ -470,7 +470,7 @@ function ajax_request_krpc_v4_router_table_read (params) {
                         'pid': Number(i) + 1,
                         'node_id': api_krpc_v4_router_table_read.data[1][i][j]['node_id'],
                         'ip_address': api_krpc_v4_router_table_read.data[1][i][j]['ip_address'] + ':' + api_krpc_v4_router_table_read.data[1][i][j]['udp_port'],
-                        'update_time': '<span class=\'badge bg-secondary\'>' + api_krpc_v4_router_table_read.data[1][i][j]['update_time'] + '</span>'
+                        'update_time': '<span class=\"badge bg-secondary\">' + api_krpc_v4_router_table_read.data[1][i][j]['update_time'] + '</span>'
                     });
                 };
             };
@@ -537,7 +537,7 @@ function ajax_request_krpc_v6_router_table_read (params) {
                 router_table_treegrid_contents.push({
                     'id': Number(i) + 1,
                     'pid': 0,
-                    'node_id': k_bucket + ' (' + (Number(i) + 1).toString() + ') ' + '<span class=\'badge bg-secondary\'>' + (Object.keys(api_krpc_v6_router_table_read.data[1][i]).length) + '</span>',
+                    'node_id': k_bucket + ' (' + (Number(i) + 1).toString() + ') ' + '<span class=\"badge bg-secondary\">' + (Object.keys(api_krpc_v6_router_table_read.data[1][i]).length) + '</span>',
                     'ip_address': '',
                     'update_time': ''
                 });
@@ -547,7 +547,7 @@ function ajax_request_krpc_v6_router_table_read (params) {
                         'pid': Number(i) + 1,
                         'node_id': api_krpc_v6_router_table_read.data[1][i][j]['node_id'],
                         'ip_address': '[' + api_krpc_v6_router_table_read.data[1][i][j]['ip_address'] + ']:' + api_krpc_v6_router_table_read.data[1][i][j]['udp_port'],
-                        'update_time': '<span class=\'badge bg-secondary\'>' + api_krpc_v6_router_table_read.data[1][i][j]['update_time'] + '</span>'
+                        'update_time': '<span class=\"badge bg-secondary\">' + api_krpc_v6_router_table_read.data[1][i][j]['update_time'] + '</span>'
                     });
                 };
             };
@@ -557,4 +557,20 @@ function ajax_request_krpc_v6_router_table_read (params) {
             params.success([]);
         }
     });
+};
+
+function info_hash_formatter (value, row, index) {
+    return '<span title=\"' + value + '\">' + value + '</span>'
+};
+
+function ip_address_formatter (value, row, index) {
+    return '<span title=\"' + value + '\">' + value + '</span>'
+};
+
+function node_id_formatter (value, row, index) {
+    if(validator.isHash(value, 'sha1') == true) {
+        return '<span title=\"' + value + '\">' + value + '</span>'
+    } else {
+        return value
+    };
 };

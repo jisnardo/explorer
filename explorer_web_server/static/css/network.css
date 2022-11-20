@@ -6,6 +6,24 @@ body {
     overflow: hidden;
 }
 
+.info_hash {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ip_address {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.node_id {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .table {
     display: table;
     table-layout: fixed;

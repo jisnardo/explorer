@@ -19,3 +19,9 @@ body {
     table-layout: fixed;
     word-break: break-all;
 }
+
+.torrent_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

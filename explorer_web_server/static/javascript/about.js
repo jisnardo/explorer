@@ -60,6 +60,7 @@ document.onreadystatechange = function () {
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/bootstrap-table.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/bootstrap-table-locale-all.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/export/bootstrap-table-export.js',
+            'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.js',
             'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/js/all.js',
             'https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/js/OverlayScrollbars.js',
             'https://cdn.jsdelivr.net/npm/validator@latest/validator.js',

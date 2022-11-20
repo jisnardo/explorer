@@ -157,16 +157,12 @@
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-pagination="true"
-                                    data-search="true"
                                     data-show-columns="true"
                                     data-show-columns-toggle-all="true"
                                     data-show-export="true"
                                     data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
                                     data-show-jump-to="true"
                                     data-show-pagination-switch="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
                                     data-show-toggle="true"
                                     data-side-pagination="client"
                                     data-total-not-filtered-field="totalNotFiltered"
@@ -174,17 +170,17 @@
                                     id="peer_wire_ipv4_ut_metadata_progress_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="info_hash" data-halign="center" data-align="center" data-sortable="true" data-width="200">
+                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="40">
+                                                {{ state }}
+                                            </th>
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="200" data-class="info_hash" data-formatter="info_hash_formatter">
                                                 {{ info_hash }}
                                             </th>
-                                            <th data-field="ip_address" data-halign="center" data-align="center" data-sortable="true" data-width="150">
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="150" data-class="ip_address" data-formatter="ip_address_formatter">
                                                 {{ ip_address }}
                                             </th>
-                                            <th data-field="progress" data-halign="center" data-align="center" data-sortable="true" data-width="80">
+                                            <th data-field="progress" data-halign="center" data-align="center" data-sortable="true" data-width="50">
                                                 {{ progress }}
-                                            </th>
-                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="50">
-                                                {{ state }}
                                             </th>
                                         </tr>
                                     </thead>
@@ -205,16 +201,12 @@
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-pagination="true"
-                                    data-search="true"
                                     data-show-columns="true"
                                     data-show-columns-toggle-all="true"
                                     data-show-export="true"
                                     data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
                                     data-show-jump-to="true"
                                     data-show-pagination-switch="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
                                     data-show-toggle="true"
                                     data-side-pagination="client"
                                     data-total-not-filtered-field="totalNotFiltered"
@@ -222,17 +214,17 @@
                                     id="peer_wire_ipv6_ut_metadata_progress_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="info_hash" data-halign="center" data-align="center" data-sortable="true" data-width="200">
+                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="40">
+                                                {{ state }}
+                                            </th>
+                                            <th data-field="info_hash" data-halign="center" data-align="center" data-width="200" data-class="info_hash" data-formatter="info_hash_formatter">
                                                 {{ info_hash }}
                                             </th>
-                                            <th data-field="ip_address" data-halign="center" data-align="center" data-sortable="true" data-width="150">
+                                            <th data-field="ip_address" data-halign="center" data-align="center" data-width="150" data-class="ip_address" data-formatter="ip_address_formatter">
                                                 {{ ip_address }}
                                             </th>
-                                            <th data-field="progress" data-halign="center" data-align="center" data-sortable="true" data-width="80">
+                                            <th data-field="progress" data-halign="center" data-align="center" data-sortable="true" data-width="50">
                                                 {{ progress }}
-                                            </th>
-                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="50">
-                                                {{ state }}
                                             </th>
                                         </tr>
                                     </thead>

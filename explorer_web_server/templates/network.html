@@ -149,6 +149,7 @@
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_one" aria-expanded="true" aria-controls="accordion_ipv4_collapse_one">
                                                     <i class="fa-solid fa-network-wired fa-fw">
                                                     </i>
+                                                    &nbsp;
                                                     {{ dht_network_ipv4_information }}
                                                 </button>
                                             </h2>
@@ -162,17 +163,12 @@
                                                         data-page-list="[10, 25, 50, 100, all]"
                                                         data-page-number="1"
                                                         data-pagination="true"
-                                                        data-search="true"
                                                         data-show-columns="true"
                                                         data-show-columns-toggle-all="true"
                                                         data-show-export="true"
                                                         data-show-extended-pagination="true"
-                                                        data-show-fullscreen="true"
-                                                        data-show-jump-to="true"
                                                         data-show-pagination-switch="true"
                                                         data-show-refresh="true"
-                                                        data-show-search-button="true"
-                                                        data-show-search-clear-button="true"
                                                         data-show-toggle="true"
                                                         data-side-pagination="client"
                                                         data-total-not-filtered-field="totalNotFiltered"
@@ -229,6 +225,7 @@
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_two" aria-expanded="false" aria-controls="accordion_ipv4_collapse_two">
                                                     <i class="fa-solid fa-circle-nodes fa-fw">
                                                     </i>
+                                                    &nbsp;
                                                     {{ dht_network_ipv4_router_table }}
                                                 </button>
                                             </h2>
@@ -242,13 +239,13 @@
                                                         id="dht_network_ipv4_router_table">
                                                         <thead>
                                                             <tr>
-                                                                <th data-field="node_id" data-width="250">
+                                                                <th data-field="node_id" data-width="250" data-class="node_id" data-formatter="node_id_formatter">
                                                                     {{ node_id }}
                                                                 </th>
-                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200" data-class="ip_address" data-formatter="ip_address_formatter">
                                                                     {{ ip_address }}
                                                                 </th>
-                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="60">
                                                                     {{ update_time }}
                                                                 </th>
                                                             </tr>
@@ -262,6 +259,7 @@
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv4_collapse_three" aria-expanded="false" aria-controls="accordion_ipv4_collapse_three">
                                                     <i class="fa-solid fa-magnet fa-fw">
                                                     </i>
+                                                    &nbsp;
                                                     {{ dht_network_ipv4_peer_database }}
                                                 </button>
                                             </h2>
@@ -276,16 +274,12 @@
                                                         data-page-list="[10, 25, 50, 100, all]"
                                                         data-page-number="1"
                                                         data-pagination="true"
-                                                        data-search="true"
                                                         data-show-columns="true"
                                                         data-show-columns-toggle-all="true"
                                                         data-show-export="true"
                                                         data-show-extended-pagination="true"
-                                                        data-show-fullscreen="true"
                                                         data-show-jump-to="true"
                                                         data-show-pagination-switch="true"
-                                                        data-show-search-button="true"
-                                                        data-show-search-clear-button="true"
                                                         data-show-toggle="true"
                                                         data-side-pagination="client"
                                                         data-total-not-filtered-field="totalNotFiltered"
@@ -293,13 +287,13 @@
                                                         id="dht_network_ipv4_peer_database_table">
                                                         <thead>
                                                             <tr>
-                                                                <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
+                                                                <th data-field="info_hash" data-halign="center" data-align="center" data-width="250" data-class="info_hash" data-formatter="info_hash_formatter">
                                                                     {{ info_hash }}
                                                                 </th>
-                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200" data-class="ip_address" data-formatter="ip_address_formatter">
                                                                     {{ ip_address }}
                                                                 </th>
-                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="60">
                                                                     {{ update_time }}
                                                                 </th>
                                                             </tr>
@@ -318,6 +312,7 @@
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_one" aria-expanded="true" aria-controls="accordion_ipv6_collapse_one">
                                                     <i class="fa-solid fa-network-wired fa-fw">
                                                     </i>
+                                                    &nbsp;
                                                     {{ dht_network_ipv6_information }}
                                                 </button>
                                             </h2>
@@ -331,17 +326,12 @@
                                                         data-page-list="[10, 25, 50, 100, all]"
                                                         data-page-number="1"
                                                         data-pagination="true"
-                                                        data-search="true"
                                                         data-show-columns="true"
                                                         data-show-columns-toggle-all="true"
                                                         data-show-export="true"
                                                         data-show-extended-pagination="true"
-                                                        data-show-fullscreen="true"
-                                                        data-show-jump-to="true"
                                                         data-show-pagination-switch="true"
                                                         data-show-refresh="true"
-                                                        data-show-search-button="true"
-                                                        data-show-search-clear-button="true"
                                                         data-show-toggle="true"
                                                         data-side-pagination="client"
                                                         data-total-not-filtered-field="totalNotFiltered"
@@ -398,6 +388,7 @@
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_two" aria-expanded="false" aria-controls="accordion_ipv6_collapse_two">
                                                     <i class="fa-solid fa-circle-nodes fa-fw">
                                                     </i>
+                                                    &nbsp;
                                                     {{ dht_network_ipv6_router_table }}
                                                 </button>
                                             </h2>
@@ -411,13 +402,13 @@
                                                         id="dht_network_ipv6_router_table">
                                                         <thead>
                                                             <tr>
-                                                                <th data-field="node_id" data-width="250">
+                                                                <th data-field="node_id" data-width="250" data-class="node_id" data-formatter="node_id_formatter">
                                                                     {{ node_id }}
                                                                 </th>
-                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200" data-class="ip_address" data-formatter="ip_address_formatter">
                                                                     {{ ip_address }}
                                                                 </th>
-                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="60">
                                                                     {{ update_time }}
                                                                 </th>
                                                             </tr>
@@ -431,6 +422,7 @@
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_ipv6_collapse_three" aria-expanded="false" aria-controls="accordion_ipv6_collapse_three">
                                                     <i class="fa-solid fa-magnet fa-fw">
                                                     </i>
+                                                    &nbsp;
                                                     {{ dht_network_ipv6_peer_database }}
                                                 </button>
                                             </h2>
@@ -445,16 +437,12 @@
                                                         data-page-list="[10, 25, 50, 100, all]"
                                                         data-page-number="1"
                                                         data-pagination="true"
-                                                        data-search="true"
                                                         data-show-columns="true"
                                                         data-show-columns-toggle-all="true"
                                                         data-show-export="true"
                                                         data-show-extended-pagination="true"
-                                                        data-show-fullscreen="true"
                                                         data-show-jump-to="true"
                                                         data-show-pagination-switch="true"
-                                                        data-show-search-button="true"
-                                                        data-show-search-clear-button="true"
                                                         data-show-toggle="true"
                                                         data-side-pagination="client"
                                                         data-total-not-filtered-field="totalNotFiltered"
@@ -462,13 +450,13 @@
                                                         id="dht_network_ipv6_peer_database_table">
                                                         <thead>
                                                             <tr>
-                                                                <th data-field="info_hash" data-halign="center" data-align="center" data-width="250">
+                                                                <th data-field="info_hash" data-halign="center" data-align="center" data-width="250" data-class="info_hash" data-formatter="info_hash_formatter">
                                                                     {{ info_hash }}
                                                                 </th>
-                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200">
+                                                                <th data-field="ip_address" data-halign="center" data-align="center" data-width="200" data-class="ip_address" data-formatter="ip_address_formatter">
                                                                     {{ ip_address }}
                                                                 </th>
-                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="100">
+                                                                <th data-field="update_time" data-halign="center" data-align="center" data-width="60">
                                                                     {{ update_time }}
                                                                 </th>
                                                             </tr>

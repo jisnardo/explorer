@@ -155,16 +155,12 @@
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-page-number="1"
                                     data-pagination="true"
-                                    data-search="true"
                                     data-show-columns="true"
                                     data-show-columns-toggle-all="true"
                                     data-show-export="true"
                                     data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
                                     data-show-pagination-switch="true"
                                     data-show-refresh="true"
-                                    data-show-search-button="true"
-                                    data-show-search-clear-button="true"
                                     data-show-toggle="true"
                                     data-side-pagination="client"
                                     data-total-not-filtered-field="totalNotFiltered"
@@ -204,7 +200,6 @@
                                     data-show-columns-toggle-all="true"
                                     data-show-export="true"
                                     data-show-extended-pagination="true"
-                                    data-show-fullscreen="true"
                                     data-show-jump-to="true"
                                     data-show-pagination-switch="true"
                                     data-show-refresh="true"
@@ -220,10 +215,10 @@
                                             <th data-field="id" data-halign="center" data-align="center" data-sortable="true" data-width="50">
                                                 {{ id }}
                                             </th>
-                                            <th data-field="torrent_name" data-halign="center" data-align="center" data-sortable="true" data-width="400" data-sorter="torrent_name_sorter">
+                                            <th data-field="torrent_name" data-halign="center" data-align="center" data-sortable="true" data-width="400" data-sorter="torrent_name_sorter" data-class="torrent_name" data-formatter="torrent_name_formatter">
                                                 {{ torrent_name }}
                                             </th>
-                                            <th data-field="torrent_size" data-halign="center" data-align="center" data-sortable="true" data-width="100" data-sorter="torrent_size_sorter">
+                                            <th data-field="torrent_size" data-halign="center" data-align="center" data-sortable="true" data-width="80" data-sorter="torrent_size_sorter">
                                                 {{ torrent_size }}
                                             </th>
                                         </tr>

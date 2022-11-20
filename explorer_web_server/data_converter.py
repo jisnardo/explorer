@@ -424,7 +424,7 @@ class data_conversion:
                 result.append({
                     'info_hash': i,
                     'ip_address': j[0] + ':' + str(j[1]),
-                    'update_time': '<span class=\'badge bg-secondary\'>' + j[2] + '</span>'
+                    'update_time': '<span class="badge bg-secondary">' + j[2] + '</span>'
                 })
         return result
 
@@ -457,7 +457,7 @@ class data_conversion:
                 else:
                     krpc_v4_query_nodes_messages[str(i)][str(j)]['update_time'] = '00:00'
         result.append({
-            'k_bucket': user_language_data_config['k_bucket']
+            'k_bucket': '<span class="text-muted"><i class="fa-solid fa-bucket fa-fw"></i></span>&nbsp;' + user_language_data_config['k_bucket']
         })
         result.append(krpc_v4_query_nodes_messages)
         return result
@@ -499,7 +499,7 @@ class data_conversion:
                 result.append({
                     'info_hash': i,
                     'ip_address': '[' + j[0] + ']:' + str(j[1]),
-                    'update_time': '<span class=\'badge bg-secondary\'>' + j[2] + '</span>'
+                    'update_time': '<span class="badge bg-secondary">' + j[2] + '</span>'
                 })
         return result
 
@@ -532,7 +532,7 @@ class data_conversion:
                 else:
                     krpc_v6_query_nodes_messages[str(i)][str(j)]['update_time'] = '00:00'
         result.append({
-            'k_bucket': user_language_data_config['k_bucket']
+            'k_bucket': '<span class="text-muted"><i class="fa-solid fa-bucket fa-fw"></i></span>&nbsp;' + user_language_data_config['k_bucket']
         })
         result.append(krpc_v6_query_nodes_messages)
         return result
@@ -542,26 +542,35 @@ class data_conversion:
         result = []
         for i in peer_wire_v4_ut_metadata_progress_messages.keys():
             if peer_wire_v4_ut_metadata_progress_messages[i]['state'] is True:
-                result.append({
-                    'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
-                    'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
-                    'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
-                    'state': '<div class="text-success"><i class="fa-solid fa-circle-check"></i></div>'
-                })
+                database_count_info_hash_messages = memory.explorer_database.count_info_hash(peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'])
+                if database_count_info_hash_messages['result'] == 0:
+                    result.append({
+                        'state': '<div class="text-warning"><i class="fa-solid fa-file-circle-xmark"></i></div>',
+                        'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
+                        'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
+                    })
+                if database_count_info_hash_messages['result'] == 1:
+                    result.append({
+                        'state': '<div class="text-success"><i class="fa-solid fa-file-circle-check"></i></div>',
+                        'info_hash': '<a href="./report?info_hash=' + peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'] + '" class="link-dark">' + peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'] + '</a>',
+                        'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
+                    })
             if peer_wire_v4_ut_metadata_progress_messages[i]['state'] is False:
                 if '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']) == '100.00%':
                     result.append({
+                        'state': '<div class="text-danger"><i class="fa-solid fa-file-circle-question"></i></div>',
                         'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
-                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
-                        'state': '<div class="text-danger"><i class="fa-solid fa-circle-xmark"></i></div>'
+                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
                 else:
                     result.append({
+                        'state': '<div class="text-primary"><i class="fa-solid fa-file-arrow-down"></i></div>',
                         'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
-                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']),
-                        'state': '<div class="text-warning"><i class="fa-solid fa-download"></i></div>'
+                        'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
         result.reverse()
         return result
@@ -571,26 +580,35 @@ class data_conversion:
         result = []
         for i in peer_wire_v6_ut_metadata_progress_messages.keys():
             if peer_wire_v6_ut_metadata_progress_messages[i]['state'] is True:
-                result.append({
-                    'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
-                    'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
-                    'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
-                    'state': '<div class="text-success"><i class="fa-solid fa-circle-check"></i></div>'
-                })
+                database_count_info_hash_messages = memory.explorer_database.count_info_hash(peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'])
+                if database_count_info_hash_messages['result'] == 0:
+                    result.append({
+                        'state': '<div class="text-warning"><i class="fa-solid fa-file-circle-xmark"></i></div>',
+                        'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
+                        'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
+                    })
+                if database_count_info_hash_messages['result'] == 1:
+                    result.append({
+                        'state': '<div class="text-success"><i class="fa-solid fa-file-circle-check"></i></div>',
+                        'info_hash': '<a href="./report?info_hash=' + peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'] + '" class="link-dark">' + peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'] + '</a>',
+                        'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
+                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
+                    })
             if peer_wire_v6_ut_metadata_progress_messages[i]['state'] is False:
                 if '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']) == '100.00%':
                     result.append({
+                        'state': '<div class="text-danger"><i class="fa-solid fa-file-circle-question"></i></div>',
                         'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
-                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
-                        'state': '<div class="text-danger"><i class="fa-solid fa-circle-xmark"></i></div>'
+                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
                 else:
                     result.append({
+                        'state': '<div class="text-primary"><i class="fa-solid fa-file-arrow-down"></i></div>',
                         'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
-                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']),
-                        'state': '<div class="text-warning"><i class="fa-solid fa-download"></i></div>'
+                        'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
         result.reverse()
         return result

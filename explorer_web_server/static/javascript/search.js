@@ -307,9 +307,13 @@ function ajax_request (params) {
     });
 };
 
+function torrent_name_formatter (value, row, index) {
+    return '<span title=\"' + $(value).text() + '\">' + value + '</span>'
+};
+
 function torrent_name_sorter (a, b) {
-    a = a.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
-    b = b.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
+    a = $(a).text();
+    b = $(b).text();
     return a.localeCompare(b, window.language)
 };
 

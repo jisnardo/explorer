@@ -281,3 +281,15 @@ function ajax_request_peer_wire_v6_ut_metadata_progress_table_read (params) {
         }
     });
 };
+
+function info_hash_formatter (value, row, index) {
+    if(validator.isHash(value, 'sha1') == true) {
+        return '<span title=\"' + value + '\">' + value + '</span>'
+    } else {
+        return '<span title=\"' + $(value).text() + '\">' + value + '</span>'
+    };
+};
+
+function ip_address_formatter (value, row, index) {
+    return '<span title=\"' + value + '\">' + value + '</span>'
+};
