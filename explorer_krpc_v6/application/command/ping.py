@@ -40,11 +40,16 @@ class ping:
                 application_command_ping_keyword = application_client_ping_messages_send_application_command_ping[1]
                 for i in self.application_command_ping_key:
                     if i[0] == application_command_ping_keyword:
+                        ip_address = i[1]
+                        udp_port = i[2]
+                        distributed_hash_table.database_delete_node_with_ip_address_messages.put(
+                            [ip_address, udp_port]
+                        )
                         result = {
                             'result': False,
                             'header': {
-                                'ip_address': i[1],
-                                'udp_port': i[2]
+                                'ip_address': ip_address,
+                                'udp_port': udp_port
                             }
                         }
                         application_command_commander_keyword = i[3]
@@ -67,8 +72,8 @@ class ping:
                         result = {
                             'result': True,
                             'header': {
-                                'ip_address': i[1],
-                                'udp_port': i[2]
+                                'ip_address': ip_address,
+                                'udp_port': udp_port
                             }
                         }
                         application_command_commander_keyword = i[3]
