@@ -8,6 +8,7 @@ import re
 import socket
 import struct
 import threading
+import time
 
 class recvfrom:
     def __check_node(self, node_id, ip_address):
@@ -140,6 +141,7 @@ class recvfrom:
                                             explorer_krpc_v6_driver_abstraction_recvfrom_listen_r_thread = threading.Thread(target = control().r_client, args = (node_id, transaction_id, self_ip_address, self_udp_port, nodes6, values, samples, token, ip_address, udp_port,))
                                             explorer_krpc_v6_driver_abstraction_recvfrom_listen_r_thread.setDaemon(True)
                                             explorer_krpc_v6_driver_abstraction_recvfrom_listen_r_thread.start()
+            time.sleep(0.002)
 
     def start_listen(self):
         explorer_krpc_v6_driver_abstraction_recvfrom_listen_thread = threading.Thread(target = self.__listen)

@@ -237,7 +237,9 @@ document.onreadystatechange = function () {
                     dht_network_ipv4_ping_ip_address = $('#dht_network_ipv4_ping_ip_address').val();
                     dht_network_ipv4_ping_udp_port = $('#dht_network_ipv4_ping_udp_port').val();
                     if(validator.isIP(dht_network_ipv4_ping_ip_address, 4) == true) {
+                        $('#dht_network_ipv4_ping_ip_address').css('background-color', '#ffffff');
                         if(validator.isPort(dht_network_ipv4_ping_udp_port) == true) {
+                            $('#dht_network_ipv4_ping_udp_port').css('background-color', '#ffffff');
                             $('#dht_network_ipv4_ping').attr('disabled', '');
                             $.ajax({
                                 async: true,
@@ -318,7 +320,9 @@ document.onreadystatechange = function () {
                     dht_network_ipv6_ping_ip_address = $('#dht_network_ipv6_ping_ip_address').val();
                     dht_network_ipv6_ping_udp_port = $('#dht_network_ipv6_ping_udp_port').val();
                     if(validator.isIP(dht_network_ipv6_ping_ip_address, 6) == true) {
+                        $('#dht_network_ipv6_ping_ip_address').css('background-color', '#ffffff');
                         if(validator.isPort(dht_network_ipv6_ping_udp_port) == true) {
+                            $('#dht_network_ipv6_ping_udp_port').css('background-color', '#ffffff');
                             $('#dht_network_ipv6_ping').attr('disabled', '');
                             $.ajax({
                                 async: true,
