@@ -42,7 +42,7 @@ class transmission:
             all_piece_number = math.ceil(metadata_size / 16384)
             contract_number = 0
             load_piece_number = 0
-            max_contract_number = all_piece_number * 3
+            max_contract_number = all_piece_number * 5
             piece = {}
             for i in range(0, all_piece_number):
                 piece.update({str(i): b''})
