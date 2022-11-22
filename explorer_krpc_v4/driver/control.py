@@ -335,7 +335,7 @@ class control:
                                     )
                         else:
                             memory.node_id = self.__get_self_node_id(lan_ip_address)
-                            memory.ip_address == lan_ip_address
+                            memory.ip_address = lan_ip_address
                             for i in self.driver_control_outbound_nodes_key:
                                 if i[0] == transaction_id:
                                     if i[1] == 'announce_peer':

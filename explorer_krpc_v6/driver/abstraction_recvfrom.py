@@ -58,7 +58,7 @@ class recvfrom:
                         self.driver_abstraction_recvfrom_check_query_nodes_time_operators.put(
                             ['remove', i]
                         )
-            time.sleep(2)
+            time.sleep(1)
 
     def __check_query_nodes_time_operators(self):
         while True:
