@@ -53,7 +53,7 @@ class recvfrom:
         while True:
             if len(self.driver_abstraction_recvfrom_check_query_nodes_time_key) > 0:
                 for i in self.driver_abstraction_recvfrom_check_query_nodes_time_key:
-                    if i[1] < int(time.time()) - 10:
+                    if i[1] < int(time.time()) - 2:
                         self.driver_abstraction_recvfrom_check_query_nodes_time_operators.put(
                             ['remove', i]
                         )
