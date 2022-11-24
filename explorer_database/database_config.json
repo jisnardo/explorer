@@ -3,8 +3,8 @@
     "mysql": {
         "database": "explorer",
         "host": "127.0.0.1",
-        "password": "root",
+        "password": "explorer",
         "port": 3306,
-        "user": "root"
+        "user": "explorer"
     }
 }

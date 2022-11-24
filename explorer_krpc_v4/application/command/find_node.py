@@ -215,6 +215,22 @@ class find_node:
                                             nodes.remove(j)
                                 for j in nodes:
                                     nodes_node_id = j[0]
+                                    nodes_ip_address = j[1]
+                                    check_node_result = self.__check_node(nodes_node_id, nodes_ip_address)
+                                    if check_node_result is False:
+                                        if j in nodes:
+                                            nodes.remove(j)
+                                new_nodes = []
+                                for j in nodes:
+                                    flag = False
+                                    for k in new_nodes:
+                                        if operator.eq(j, k) is True:
+                                            flag = True
+                                    if flag is False:
+                                        new_nodes.append(j)
+                                nodes = new_nodes
+                                for j in nodes:
+                                    nodes_node_id = j[0]
                                     distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
                                         nodes_node_id
                                     )
@@ -302,6 +318,22 @@ class find_node:
                                     if not 1 <= nodes_udp_port <= 65535:
                                         if j in nodes:
                                             nodes.remove(j)
+                                for j in nodes:
+                                    nodes_node_id = j[0]
+                                    nodes_ip_address = j[1]
+                                    check_node_result = self.__check_node(nodes_node_id, nodes_ip_address)
+                                    if check_node_result is False:
+                                        if j in nodes:
+                                            nodes.remove(j)
+                                new_nodes = []
+                                for j in nodes:
+                                    flag = False
+                                    for k in new_nodes:
+                                        if operator.eq(j, k) is True:
+                                            flag = True
+                                    if flag is False:
+                                        new_nodes.append(j)
+                                nodes = new_nodes
                                 for j in nodes:
                                     nodes_node_id = j[0]
                                     distributed_hash_table.database_query_node_with_node_id_messages_recvfrom.put(
