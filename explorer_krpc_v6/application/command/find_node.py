@@ -429,6 +429,22 @@ class find_node:
                                 if not 1 <= nodes6_udp_port <= 65535:
                                     if j in nodes6:
                                         last_query_nodes.remove(j)
+                            for j in last_query_nodes:
+                                nodes6_node_id = j[0]
+                                nodes6_ip_address = j[1]
+                                check_node_result = self.__check_node(nodes6_node_id, nodes6_ip_address)
+                                if check_node_result is False:
+                                    if j in last_query_nodes:
+                                        last_query_nodes.remove(j)
+                            new_nodes6 = []
+                            for j in last_query_nodes:
+                                flag = False
+                                for k in new_nodes6:
+                                    if operator.eq(j, k) is True:
+                                        flag = True
+                                if flag is False:
+                                    new_nodes6.append(j)
+                            last_query_nodes = new_nodes6
                             if len(last_query_nodes) == 0:
                                 result = {
                                     'result': False,
