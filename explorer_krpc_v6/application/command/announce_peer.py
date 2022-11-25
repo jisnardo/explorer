@@ -47,6 +47,9 @@ class announce_peer:
                         info_hash = i[4]
                         tcp_port = i[5]
                         application_command_commander_keyword = i[6]
+                        distributed_hash_table.database_delete_node_with_ip_address_messages.put(
+                            [ip_address, udp_port]
+                        )
                         result = {
                             'result': {
                                 'node_id': node_id,
