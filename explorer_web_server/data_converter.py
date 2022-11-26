@@ -110,14 +110,14 @@ class data_conversion:
                     result.append({
                         'id': len(result) + 1,
                         'file_name': database_query_info_hash_messages['result'][i]['torrent_contents'][j]['file_name'],
-                        'file_size': humanfriendly.format_size(database_query_info_hash_messages['result'][i]['torrent_contents'][j]['file_size'], binary = True).replace('bytes', 'B')
+                        'file_size': database_query_info_hash_messages['result'][i]['torrent_contents'][j]['file_size']
                     })
             root_directory = []
             root_directory.append({
                 'id': 1,
                 'pid': 0,
                 'file_name': '/',
-                'file_size': '',
+                'file_size': 0,
                 'path': '/',
                 'category': 'directory'
             })
@@ -144,7 +144,7 @@ class data_conversion:
                                     'id': len(root_directory) + 1,
                                     'pid': pid,
                                     'file_name': path_parts[j],
-                                    'file_size': '',
+                                    'file_size': 0,
                                     'path': str(path),
                                     'category': 'directory'
                                 })
@@ -186,6 +186,15 @@ class data_conversion:
                             'path': path,
                             'category': 'file'
                         })
+            for i in root_directory:
+                if i['category'] == 'file':
+                    for j in pathlib.PurePosixPath(i['path']).parents:
+                        for k in root_directory:
+                            if k['category'] == 'directory':
+                                if k['path'] == str(j):
+                                    k['file_size'] = k['file_size'] + i['file_size']
+            for i in root_directory:
+                i['file_size'] = humanfriendly.format_size(i['file_size'], binary = True).replace('bytes', 'B')
             new_root_directory = []
             all_directory_pid_list = []
             for i in root_directory:
@@ -243,7 +252,7 @@ class data_conversion:
                                     })
             for i in new_root_directory:
                 if i['category'] == 'directory':
-                    if i['file_name'] == '/':
+                    if i['path'] == '/':
                         i['file_name'] = torrent_name
             for i in new_root_directory:
                 if i['category'] == 'directory':
