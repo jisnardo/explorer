@@ -13,6 +13,7 @@ from .peer_wire import ut_metadata
 from .ping import ping
 from .save_torrent_files import save_torrent_files
 from .torrent_information_parser import torrent_information_parser
+from .torrents_downloader import torrents_downloader
 from .udp_tracker import udp_tracker
 
 def add_info_hash(info_hash):
@@ -66,6 +67,7 @@ def launch(explorer_database, explorer_http_tracker, explorer_krpc_v4, explorer_
     sample_infohashes().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6)
     save_torrent_files().start()
     torrent_information_parser().start()
+    torrents_downloader().start(explorer_database)
     udp_tracker().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6, explorer_udp_tracker_v4, explorer_udp_tracker_v6)
     ut_metadata().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6, explorer_peer_wire_v4, explorer_peer_wire_v6)
 

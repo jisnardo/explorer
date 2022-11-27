@@ -1,6 +1,7 @@
 from .http_tracker import http_tracker
 from .memory import memory
 from .peer_wire import ut_metadata
+from .torrents_downloader import torrents_downloader
 from .udp_tracker import udp_tracker
 import IPy
 import operator
@@ -25,6 +26,10 @@ class append_info_hash:
                     if http_tracker.spider_http_tracker_messages.qsize() < 100:
                         http_tracker.spider_http_tracker_messages.put(
                             [match.group(0), False]
+                        )
+                    if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                        torrents_downloader.spider_torrents_downloader_messages.put(
+                            match.group(0)
                         )
                     if memory.ipv4_network_connectivity is True:
                         if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
@@ -140,6 +145,10 @@ class query_info_hashes:
                             http_tracker.spider_http_tracker_messages.put(
                                 [match.group(0), False]
                             )
+                        if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                            torrents_downloader.spider_torrents_downloader_messages.put(
+                                match.group(0)
+                            )
                         if memory.ipv4_network_connectivity is True:
                             if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
                                 udp_tracker.spider_udp_tracker_v4_messages.put(
@@ -170,6 +179,10 @@ class query_info_hashes:
                         if http_tracker.spider_http_tracker_messages.qsize() < 100:
                             http_tracker.spider_http_tracker_messages.put(
                                 [match.group(0), False]
+                            )
+                        if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                            torrents_downloader.spider_torrents_downloader_messages.put(
+                                match.group(0)
                             )
                         if memory.ipv4_network_connectivity is True:
                             if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
@@ -280,6 +293,10 @@ class sample_infohashes:
                                         http_tracker.spider_http_tracker_messages.put(
                                             [match.group(0), False]
                                         )
+                                    if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                                        torrents_downloader.spider_torrents_downloader_messages.put(
+                                            match.group(0)
+                                        )
                                     if memory.ipv4_network_connectivity is True:
                                         if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
                                             udp_tracker.spider_udp_tracker_v4_messages.put(
@@ -325,6 +342,10 @@ class sample_infohashes:
                                     if http_tracker.spider_http_tracker_messages.qsize() < 100:
                                         http_tracker.spider_http_tracker_messages.put(
                                             [match.group(0), False]
+                                        )
+                                    if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                                        torrents_downloader.spider_torrents_downloader_messages.put(
+                                            match.group(0)
                                         )
                                     if memory.ipv4_network_connectivity is True:
                                         if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
