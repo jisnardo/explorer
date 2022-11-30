@@ -38,9 +38,9 @@ class token_manager:
     def __check_bad_token(self):
         while True:
             for i in self.database_token:
-                if i[4] < int(time.time()) - 14400:
+                if i[4] < int(time.time()) - 900:
                     self.database_token.remove(i)
-            time.sleep(14400)
+            time.sleep(900)
 
     def __query_token(self):
         while True:
