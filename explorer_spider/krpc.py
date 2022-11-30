@@ -132,10 +132,10 @@ class get_peers:
         explorer_spider_krpc_get_peers_listen_ipv6_thread.setDaemon(True)
         explorer_spider_krpc_get_peers_listen_ipv6_thread.start()
 
-class query_info_hashes:
+class query_announce_info_hashes:
     def __listen_ipv4(self, explorer_database, explorer_krpc_v4):
         while True:
-            for i in explorer_krpc_v4.query_info_hashes().keys():
+            for i in explorer_krpc_v4.query_announce_info_hashes().keys():
                 pattern = re.compile(r'\b[0-9a-f]{40}\b')
                 match = re.match(pattern, i.lower())
                 if match is not None:
@@ -170,7 +170,7 @@ class query_info_hashes:
 
     def __listen_ipv6(self, explorer_database, explorer_krpc_v6):
         while True:
-            for i in explorer_krpc_v6.query_info_hashes().keys():
+            for i in explorer_krpc_v6.query_announce_info_hashes().keys():
                 pattern = re.compile(r'\b[0-9a-f]{40}\b')
                 match = re.match(pattern, i.lower())
                 if match is not None:
@@ -204,12 +204,91 @@ class query_info_hashes:
             time.sleep(900)
 
     def start(self, explorer_database, explorer_krpc_v4, explorer_krpc_v6):
-        explorer_spider_krpc_query_info_hashes_listen_ipv4_thread = threading.Thread(target = self.__listen_ipv4, args = (explorer_database, explorer_krpc_v4,))
-        explorer_spider_krpc_query_info_hashes_listen_ipv4_thread.setDaemon(True)
-        explorer_spider_krpc_query_info_hashes_listen_ipv4_thread.start()
-        explorer_spider_krpc_query_info_hashes_listen_ipv6_thread = threading.Thread(target = self.__listen_ipv6, args = (explorer_database, explorer_krpc_v6,))
-        explorer_spider_krpc_query_info_hashes_listen_ipv6_thread.setDaemon(True)
-        explorer_spider_krpc_query_info_hashes_listen_ipv6_thread.start()
+        explorer_spider_krpc_query_announce_info_hashes_listen_ipv4_thread = threading.Thread(target = self.__listen_ipv4, args = (explorer_database, explorer_krpc_v4,))
+        explorer_spider_krpc_query_announce_info_hashes_listen_ipv4_thread.setDaemon(True)
+        explorer_spider_krpc_query_announce_info_hashes_listen_ipv4_thread.start()
+        explorer_spider_krpc_query_announce_info_hashes_listen_ipv6_thread = threading.Thread(target = self.__listen_ipv6, args = (explorer_database, explorer_krpc_v6,))
+        explorer_spider_krpc_query_announce_info_hashes_listen_ipv6_thread.setDaemon(True)
+        explorer_spider_krpc_query_announce_info_hashes_listen_ipv6_thread.start()
+
+class query_get_peers_info_hashes:
+    def __listen_ipv4(self, explorer_database, explorer_krpc_v4):
+        while True:
+            for i in explorer_krpc_v4.query_get_peers_info_hashes():
+                pattern = re.compile(r'\b[0-9a-f]{40}\b')
+                match = re.match(pattern, i.lower())
+                if match is not None:
+                    database_count_info_hash_messages = explorer_database.count_info_hash(match.group(0))
+                    if database_count_info_hash_messages['result'] == 0:
+                        if http_tracker.spider_http_tracker_messages.qsize() < 100:
+                            http_tracker.spider_http_tracker_messages.put(
+                                [match.group(0), False]
+                            )
+                        if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                            torrents_downloader.spider_torrents_downloader_messages.put(
+                                match.group(0)
+                            )
+                        if memory.ipv4_network_connectivity is True:
+                            if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
+                                udp_tracker.spider_udp_tracker_v4_messages.put(
+                                    [match.group(0), False]
+                                )
+                            get_peers.spider_krpc_v4_get_peers_messages.put(
+                                match.group(0)
+                            )
+                        if memory.ipv6_network_connectivity is True:
+                            if udp_tracker.spider_udp_tracker_v6_messages.qsize() < 100:
+                                udp_tracker.spider_udp_tracker_v6_messages.put(
+                                    [match.group(0), False]
+                                )
+                            get_peers.spider_krpc_v6_get_peers_messages.put(
+                                match.group(0)
+                            )
+                time.sleep(0.002)
+            time.sleep(900)
+
+    def __listen_ipv6(self, explorer_database, explorer_krpc_v6):
+        while True:
+            for i in explorer_krpc_v6.query_get_peers_info_hashes():
+                pattern = re.compile(r'\b[0-9a-f]{40}\b')
+                match = re.match(pattern, i.lower())
+                if match is not None:
+                    database_count_info_hash_messages = explorer_database.count_info_hash(match.group(0))
+                    if database_count_info_hash_messages['result'] == 0:
+                        if http_tracker.spider_http_tracker_messages.qsize() < 100:
+                            http_tracker.spider_http_tracker_messages.put(
+                                [match.group(0), False]
+                            )
+                        if torrents_downloader.spider_torrents_downloader_messages.qsize() < 100:
+                            torrents_downloader.spider_torrents_downloader_messages.put(
+                                match.group(0)
+                            )
+                        if memory.ipv4_network_connectivity is True:
+                            if udp_tracker.spider_udp_tracker_v4_messages.qsize() < 100:
+                                udp_tracker.spider_udp_tracker_v4_messages.put(
+                                    [match.group(0), False]
+                                )
+                            get_peers.spider_krpc_v4_get_peers_messages.put(
+                                match.group(0)
+                            )
+                        if memory.ipv6_network_connectivity is True:
+                            if udp_tracker.spider_udp_tracker_v6_messages.qsize() < 100:
+                                udp_tracker.spider_udp_tracker_v6_messages.put(
+                                    [match.group(0), False]
+                                )
+                            get_peers.spider_krpc_v6_get_peers_messages.put(
+                                match.group(0)
+                            )
+                time.sleep(0.002)
+            time.sleep(900)
+
+    def start(self, explorer_database, explorer_krpc_v4, explorer_krpc_v6):
+        explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv4_thread = threading.Thread(target = self.__listen_ipv4, args = (explorer_database, explorer_krpc_v4,))
+        explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv4_thread.setDaemon(True)
+        explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv4_thread.start()
+        explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv6_thread = threading.Thread(target = self.__listen_ipv6, args = (explorer_database, explorer_krpc_v6,))
+        explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv6_thread.setDaemon(True)
+        explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv6_thread.start()
 
 class query_nodes_number:
     spider_krpc_query_nodes_number_like_string = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']

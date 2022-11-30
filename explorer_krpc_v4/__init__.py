@@ -1,4 +1,5 @@
 from .application import application_loader
+from .application.server import server
 from .application.command.commander import commander
 from .database import database_loader
 from .database.distributed_hash_table import distributed_hash_table
@@ -180,10 +181,10 @@ def ping(ip_address, udp_port):
             result = commander.application_commander_ping_messages_send.get()
             return result
 
-def query_info_hashes():
+def query_announce_info_hashes():
     '''
 
-    explorer_krpc_v4.query_info_hashes()
+    explorer_krpc_v4.query_announce_info_hashes()
 
     Args:
         None
@@ -202,6 +203,22 @@ def query_info_hashes():
 
     '''
     return copy.deepcopy(peer_database.database_info_hash_key)
+
+def query_get_peers_info_hashes():
+    '''
+
+    explorer_krpc_v4.query_get_peers_info_hashes()
+
+    Args:
+        None
+
+    Returns:
+        For example:
+
+        ['59abaad8e68806ebac108bd69b13d7e9a38be5fb', 'cf0a537944c001ad86b1ca058e8d877f5f022fc6']
+
+    '''
+    return copy.deepcopy(server.application_server_request_info_hash)
 
 def query_nodes():
     '''

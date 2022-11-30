@@ -422,10 +422,10 @@ class data_conversion:
         return result
 
     def explorer_krpc_v4_peer_database_read(self):
-        krpc_v4_query_info_hashes_messages = memory.explorer_krpc_v4.query_info_hashes()
+        krpc_v4_query_announce_info_hashes_messages = memory.explorer_krpc_v4.query_announce_info_hashes()
         result = []
-        for i in krpc_v4_query_info_hashes_messages.keys():
-            for j in krpc_v4_query_info_hashes_messages[i]:
+        for i in krpc_v4_query_announce_info_hashes_messages.keys():
+            for j in krpc_v4_query_announce_info_hashes_messages[i]:
                 if j[2] + 14400 - int(time.time()) > 0:
                     j[2] = time.strftime('%H:%M:%S', time.gmtime(j[2] + 14400 - int(time.time())))
                 else:
@@ -497,10 +497,10 @@ class data_conversion:
         return result
 
     def explorer_krpc_v6_peer_database_read(self):
-        krpc_v6_query_info_hashes_messages = memory.explorer_krpc_v6.query_info_hashes()
+        krpc_v6_query_announce_info_hashes_messages = memory.explorer_krpc_v6.query_announce_info_hashes()
         result = []
-        for i in krpc_v6_query_info_hashes_messages.keys():
-            for j in krpc_v6_query_info_hashes_messages[i]:
+        for i in krpc_v6_query_announce_info_hashes_messages.keys():
+            for j in krpc_v6_query_announce_info_hashes_messages[i]:
                 if j[2] + 14400 - int(time.time()) > 0:
                     j[2] = time.strftime('%H:%M:%S', time.gmtime(j[2] + 14400 - int(time.time())))
                 else:

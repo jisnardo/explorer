@@ -9,8 +9,11 @@ import random
 import re
 import socket
 import threading
+import time
 
 class server:
+    application_server_request_info_hash = []
+
     def __check_node(self, node_id, ip_address):
         pattern = re.compile(r'\b[0-9a-f]{40}\b')
         match = re.match(pattern, node_id.lower())
@@ -44,6 +47,12 @@ class server:
                 return False
         else:
             return False
+
+    def __check_request_info_hash(self):
+        time.sleep(3600)
+        while True:
+            self.application_server_request_info_hash.clear()
+            time.sleep(3600)
 
     def __recvfrom(self):
         while True:
@@ -92,6 +101,7 @@ class server:
                                 pattern = re.compile(r'\b[0-9a-f]{40}\b')
                                 match = re.match(pattern, info_hash.lower())
                                 if match is not None:
+                                    self.application_server_request_info_hash.append(match.group(0))
                                     distributed_hash_table.database_append_node_messages.put(
                                         [node_id, ip_address, udp_port]
                                     )
@@ -129,6 +139,9 @@ class server:
                                         control().response_sample_infohashes(transaction_id, nodes, number, samples, ip_address, udp_port)
 
     def start(self):
+        explorer_krpc_v4_application_server_check_request_info_hash_thread = threading.Thread(target = self.__check_request_info_hash)
+        explorer_krpc_v4_application_server_check_request_info_hash_thread.setDaemon(True)
+        explorer_krpc_v4_application_server_check_request_info_hash_thread.start()
         explorer_krpc_v4_application_server_recvfrom_thread = threading.Thread(target = self.__recvfrom)
         explorer_krpc_v4_application_server_recvfrom_thread.setDaemon(True)
         explorer_krpc_v4_application_server_recvfrom_thread.start()

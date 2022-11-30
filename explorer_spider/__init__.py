@@ -5,7 +5,8 @@ from .http_tracker import http_tracker
 from .indexer import indexer
 from .krpc import append_info_hash
 from .krpc import get_peers
-from .krpc import query_info_hashes
+from .krpc import query_announce_info_hashes
+from .krpc import query_get_peers_info_hashes
 from .krpc import query_nodes_number
 from .krpc import sample_infohashes
 from .memory import memory
@@ -62,7 +63,8 @@ def launch(explorer_database, explorer_http_tracker, explorer_krpc_v4, explorer_
     indexer().start()
     insert().start(explorer_database)
     ping().start()
-    query_info_hashes().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6)
+    query_announce_info_hashes().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6)
+    query_get_peers_info_hashes().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6)
     query_nodes_number().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6)
     sample_infohashes().start(explorer_database, explorer_krpc_v4, explorer_krpc_v6)
     save_torrent_files().start()
