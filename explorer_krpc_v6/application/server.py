@@ -102,7 +102,8 @@ class server:
                                 pattern = re.compile(r'\b[0-9a-f]{40}\b')
                                 match = re.match(pattern, info_hash.lower())
                                 if match is not None:
-                                    self.application_server_request_info_hash.append(match.group(0))
+                                    if match.group(0) not in self.application_server_request_info_hash:
+                                        self.application_server_request_info_hash.append(match.group(0))
                                     distributed_hash_table.database_append_node_messages.put(
                                         [node_id, ip_address, udp_port]
                                     )
