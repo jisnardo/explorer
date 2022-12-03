@@ -1,9 +1,38 @@
+from .krpc import append_info_hash
+import datetime
 import getuseragent
 import httpx
 import re
+import threading
+import time
 import urllib.parse
 
-class indexer:
+class searcher:
+    def __auto_search(self):
+        while True:
+            like_string_list = []
+            for i in range(0, 30):
+                year = datetime.datetime.today().year - i
+                like_string_list.append(str(year))
+            for j in like_string_list:
+                apibay_result = self.apibay(j)
+                ytsmx_result = self.ytsmx(j)
+                result = []
+                if apibay_result['state'] is True:
+                    for k in apibay_result['data']:
+                        if k not in result:
+                            result.append(k)
+                if ytsmx_result['state'] is True:
+                    for l in ytsmx_result['data']:
+                        if l not in result:
+                            result.append(l)
+                for m in result:
+                    append_info_hash.spider_krpc_append_info_hash_messages.put(
+                        m
+                    )
+                time.sleep(900)
+            time.sleep(3600)
+
     def apibay(self, like_string):
         headers = {
             'Connection': 'close',
@@ -50,6 +79,11 @@ class indexer:
                 return result
             finally:
                 locals().clear()
+
+    def start(self):
+        explorer_spider_searcher_auto_search_thread = threading.Thread(target = self.__auto_search)
+        explorer_spider_searcher_auto_search_thread.setDaemon(True)
+        explorer_spider_searcher_auto_search_thread.start()
 
     def ytsmx(self, like_string):
         headers = {

@@ -1,4 +1,3 @@
-from .indexer import indexer
 from .memory import memory
 import calendar
 import datetime
@@ -9,6 +8,7 @@ import natsort
 import os
 import pathlib
 import pyben
+import threading
 import time
 
 class data_conversion:
@@ -353,14 +353,9 @@ class data_conversion:
             return False, user_language_data_config['upload_failure_2']
 
     def explorer_database_query_like(self, like_string):
-        result = indexer().apibay(like_string)
-        if result['state'] is True:
-            for i in result['data']:
-                memory.explorer_spider.add_info_hash(i)
-        result = indexer().ytsmx(like_string)
-        if result['state'] is True:
-            for i in result['data']:
-                memory.explorer_spider.add_info_hash(i)
+        explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread = threading.Thread(target = self.explorer_spider_get_info_hash, args = (like_string,))
+        explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread.setDaemon(True)
+        explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread.start()
         database_query_like_messages = memory.explorer_database.query_like(like_string)
         if database_query_like_messages['result'] is False:
             return []
@@ -621,6 +616,11 @@ class data_conversion:
                     })
         result.reverse()
         return result
+
+    def explorer_spider_get_info_hash(self, like_string):
+        result = memory.explorer_spider.get_info_hash(like_string)
+        for i in result:
+            memory.explorer_spider.add_info_hash(i)
 
     def setting_database_config_json_read(self, user_language):
         user_language_data_config = self.__get_user_language_config(user_language)
