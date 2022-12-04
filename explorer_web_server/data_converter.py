@@ -126,7 +126,7 @@ class data_conversion:
                 path_parts = pathlib.PurePosixPath(i['file_name']).parts
                 for j in range(len(path_parts)):
                     if not path_parts[j] == '/':
-                        if not path_parts[j] == pathlib.PurePosixPath(i['file_name']).name:
+                        if j < len(path_parts) - 1:
                             parent_directory = ''
                             for k in range(j):
                                 parent_directory = pathlib.PurePosixPath(parent_directory, path_parts[k])
