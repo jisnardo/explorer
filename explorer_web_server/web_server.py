@@ -422,7 +422,7 @@ def network():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/report', methods = ['GET'])
-@application_cache.cached()
+@application_cache.cached(timeout = 2)
 def report():
     info_hash = flask.request.args.get('info_hash')
     result = data_conversion().explorer_database_check()
