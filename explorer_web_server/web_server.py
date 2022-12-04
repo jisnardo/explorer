@@ -1,4 +1,5 @@
 from .api import api_blueprint
+from .cache import application_cache
 from .data_converter import data_conversion
 from .memory import memory
 import flask
@@ -11,9 +12,11 @@ application = flask.Flask(
     static_folder = os.path.dirname(os.path.abspath(__file__)) + '/static',
     template_folder = os.path.dirname(os.path.abspath(__file__)) + '/templates'
 )
+application_cache.init_app(application)
 application.register_blueprint(api_blueprint)
 
 @application.route('/about', methods = ['GET'])
+@application_cache.cached()
 def about():
     result = data_conversion().explorer_database_check()
     if result is True:
@@ -127,6 +130,7 @@ def about():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/database', methods = ['GET'])
+@application_cache.cached()
 def database():
     result = data_conversion().explorer_database_check()
     if result is True:
@@ -216,6 +220,7 @@ def database():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/default', methods = ['GET'])
+@application_cache.cached()
 def default():
     result = data_conversion().explorer_database_check()
     if result is True:
@@ -290,10 +295,12 @@ def default():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/', methods = ['GET'])
+@application_cache.cached()
 def main():
     return flask.redirect(flask.url_for('default'), code = 301)
 
 @application.route('/network', methods = ['GET'])
+@application_cache.cached()
 def network():
     result = data_conversion().explorer_database_check()
     if result is True:
@@ -413,6 +420,7 @@ def network():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/report', methods = ['GET'])
+@application_cache.cached()
 def report():
     info_hash = flask.request.args.get('info_hash')
     result = data_conversion().explorer_database_check()
@@ -509,6 +517,7 @@ def report():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/search', methods = ['GET'])
+@application_cache.cached()
 def search():
     search_input = flask.request.args.get('search_input')
     result = data_conversion().explorer_database_check()
@@ -593,6 +602,7 @@ def search():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/setting', methods = ['GET'])
+@application_cache.cached()
 def setting():
     user_language = flask.request.accept_languages.best_match(memory.application_support_languages)
     if user_language is None:
@@ -660,6 +670,7 @@ def setting():
             )
 
 @application.route('/spider', methods = ['GET'])
+@application_cache.cached()
 def spider():
     result = data_conversion().explorer_database_check()
     if result is True:

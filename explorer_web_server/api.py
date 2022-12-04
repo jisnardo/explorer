@@ -1,3 +1,4 @@
+from .cache import application_cache
 from .data_converter import data_conversion
 from .memory import memory
 import flask
@@ -8,6 +9,7 @@ api_blueprint = flask.Blueprint('api', __name__)
 api = flask_restful.Api(api_blueprint)
 
 class api_database_check(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -26,6 +28,7 @@ class api_database_check(flask_restful.Resource):
             }
 
 class api_database_query_discovery_of_the_day_data(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -44,6 +47,7 @@ class api_database_query_discovery_of_the_day_data(flask_restful.Resource):
             }
 
 class api_database_query_discovery_of_the_day_number(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -63,6 +67,7 @@ class api_database_query_discovery_of_the_day_number(flask_restful.Resource):
             }
 
 class api_database_query_every_day_discovery_info_hash_number(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -82,6 +87,7 @@ class api_database_query_every_day_discovery_info_hash_number(flask_restful.Reso
             }
 
 class api_database_query_info_hash_contents(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -101,6 +107,7 @@ class api_database_query_info_hash_contents(flask_restful.Resource):
             }
 
 class api_database_query_info_hash_file_size(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -119,6 +126,7 @@ class api_database_query_info_hash_file_size(flask_restful.Resource):
             }
 
 class api_database_query_info_hash_information(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -139,6 +147,7 @@ class api_database_query_info_hash_information(flask_restful.Resource):
             }
 
 class api_database_query_info_hash_number(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -180,6 +189,7 @@ class api_database_query_insert(flask_restful.Resource):
             }
 
 class api_database_query_like(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -199,6 +209,7 @@ class api_database_query_like(flask_restful.Resource):
             }
 
 class api_database_query_monthly_discovery_info_hash_number(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -218,6 +229,7 @@ class api_database_query_monthly_discovery_info_hash_number(flask_restful.Resour
             }
 
 class api_krpc_v4_parameter_read(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -237,6 +249,7 @@ class api_krpc_v4_parameter_read(flask_restful.Resource):
             }
 
 class api_krpc_v4_peer_database_read(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -285,6 +298,7 @@ class api_krpc_v4_ping(flask_restful.Resource):
             }
 
 class api_krpc_v4_router_table_read(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -304,6 +318,7 @@ class api_krpc_v4_router_table_read(flask_restful.Resource):
             }
 
 class api_krpc_v6_parameter_read(flask_restful.Resource):
+    @application_cache.cached()
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -323,6 +338,7 @@ class api_krpc_v6_parameter_read(flask_restful.Resource):
             }
 
 class api_krpc_v6_peer_database_read(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -371,6 +387,7 @@ class api_krpc_v6_ping(flask_restful.Resource):
             }
 
 class api_krpc_v6_router_table_read(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -390,6 +407,7 @@ class api_krpc_v6_router_table_read(flask_restful.Resource):
             }
 
 class api_peer_wire_v4_ut_metadata_progress_table_read(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:
@@ -408,6 +426,7 @@ class api_peer_wire_v4_ut_metadata_progress_table_read(flask_restful.Resource):
             }
 
 class api_peer_wire_v6_ut_metadata_progress_table_read(flask_restful.Resource):
+    @application_cache.cached(timeout = 2)
     def post(self):
         json_data = flask.request.get_json()
         if 'token' in json_data:

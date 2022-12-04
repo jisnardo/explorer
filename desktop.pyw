@@ -1,3 +1,4 @@
+from explorer_web_server.cache import application_cache
 from explorer_web_server.memory import memory
 from explorer_web_server.web_server import application
 import explorer_database
@@ -39,4 +40,5 @@ webview.create_window(
     text_select = True
 )
 webview.start()
+application_cache.clear()
 sys.exit(0)
