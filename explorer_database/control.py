@@ -315,20 +315,20 @@ class control:
     def __query_like(self):
         while True:
             control_query_like_messages_recvfrom = self.control_query_like_messages_recvfrom.get()
-            like_string = control_query_like_messages_recvfrom[0]
+            keyword = control_query_like_messages_recvfrom[0]
             with open(os.path.dirname(os.path.abspath(__file__)) + '/database_config.json', mode = 'r', encoding = 'utf-8') as file:
                 config = file.read()
                 default_database = json.loads(config)['default_database']
                 if default_database == 'mysql':
                     mysql.mysql_query_like_messages_recvfrom.put(
-                        like_string
+                        keyword
                     )
                     result = mysql.mysql_query_like_messages_send.get()
                     if result is False:
                         self.control_query_like_messages_send.put({
                             'result': False,
                             'header': {
-                                'like_string': like_string
+                                'keyword': keyword
                             }
                         })
                     elif len(result) > 0:
@@ -347,14 +347,14 @@ class control:
                         self.control_query_like_messages_send.put({
                             'result': data,
                             'header': {
-                                'like_string': like_string
+                                'keyword': keyword
                             }
                         })
                     else:
                         self.control_query_like_messages_send.put({
                             'result': False,
                             'header': {
-                                'like_string': like_string
+                                'keyword': keyword
                             }
                         })
 

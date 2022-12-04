@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ data_locale }}">
+<html lang="{{ language }}">
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -156,7 +156,7 @@
                                 </p>
                                 <table
                                     data-ajax="ajax_request_database_query_info_hash_information"
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-page-number="1"
@@ -192,7 +192,7 @@
                                 </p>
                                 <table
                                     data-ajax="ajax_request_database_query_info_hash_contents"
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     id="info_hash_contents_table">
                                     <thead>
                                         <tr>
@@ -245,7 +245,7 @@
             </div>
         </div>
         <script>
-            window.language = '{{ data_locale }}';
+            window.language = '{{ language }}';
             window.token = '{{ token }}';
         </script>
     </body>

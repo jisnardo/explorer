@@ -34,13 +34,13 @@ def add_info_hash(info_hash):
         info_hash
     )
 
-def get_info_hash(like_string):
+def get_info_hash(keyword):
     '''
 
     explorer_spider.get_info_hash()
 
     Args:
-        like_string: string.
+        keyword: string.
 
     Returns:
         For example:
@@ -48,14 +48,14 @@ def get_info_hash(like_string):
         ['59abaad8e68806ebac108bd69b13d7e9a38be5fb', 'cf0a537944c001ad86b1ca058e8d877f5f022fc6']
 
     '''
-    apibay_result = searcher().apibay(like_string)
-    ytsmx_result = searcher().ytsmx(like_string)
+    apibay_result = searcher().apibay(keyword)
+    ytsmx_result = searcher().ytsmx(keyword)
     result = []
-    if apibay_result['state'] is True:
+    if apibay_result['status'] is True:
         for i in apibay_result['data']:
             if i not in result:
                 result.append(i)
-    if ytsmx_result['state'] is True:
+    if ytsmx_result['status'] is True:
         for j in ytsmx_result['data']:
             if j not in result:
                 result.append(j)

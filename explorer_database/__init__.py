@@ -263,13 +263,13 @@ def query_info_hash(info_hash):
     result = control.control_query_info_hash_messages_send.get()
     return result
 
-def query_like(like_string):
+def query_like(keyword):
     '''
 
     explorer_database.query_like()
 
     Args:
-        like_string: string.
+        keyword: string.
 
     Returns:
         For example:
@@ -290,13 +290,13 @@ def query_like(like_string):
                 }
             },
             'header': {
-                'like_string': 'ubuntu'
+                'keyword': 'ubuntu'
             }
         }
 
     '''
     control.control_query_like_messages_recvfrom.put(
-        [like_string]
+        [keyword]
     )
     result = control.control_query_like_messages_send.get()
     return result

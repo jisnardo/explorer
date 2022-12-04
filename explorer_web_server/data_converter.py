@@ -119,7 +119,8 @@ class data_conversion:
                 'file_name': '/',
                 'file_size': 0,
                 'path': '/',
-                'category': 'directory'
+                'category': 'directory',
+                'file_number': 0
             })
             for i in result:
                 path_parts = pathlib.PurePosixPath(i['file_name']).parts
@@ -146,7 +147,8 @@ class data_conversion:
                                     'file_name': path_parts[j],
                                     'file_size': 0,
                                     'path': str(path),
-                                    'category': 'directory'
+                                    'category': 'directory',
+                                    'file_number': 0
                                 })
             for i in result:
                 parent_directory = str(pathlib.PurePosixPath(i['file_name']).parent)
@@ -195,6 +197,13 @@ class data_conversion:
                                     k['file_size'] = k['file_size'] + i['file_size']
             for i in root_directory:
                 i['file_size'] = humanfriendly.format_size(i['file_size'], binary = True).replace('bytes', 'B')
+            for i in root_directory:
+                if i['category'] == 'file':
+                    for j in pathlib.PurePosixPath(i['path']).parents:
+                        for k in root_directory:
+                            if k['category'] == 'directory':
+                                if k['path'] == str(j):
+                                    k['file_number'] = k['file_number'] + 1
             new_root_directory = []
             all_directory_pid_list = []
             for i in root_directory:
@@ -221,7 +230,8 @@ class data_conversion:
                                         'file_name': l['file_name'],
                                         'file_size': l['file_size'],
                                         'path': l['path'],
-                                        'category': l['category']
+                                        'category': l['category'],
+                                        'file_number': l['file_number']
                                     })
             all_file_pid_list = []
             for i in root_directory:
@@ -253,12 +263,17 @@ class data_conversion:
             for i in new_root_directory:
                 if i['category'] == 'directory':
                     if i['path'] == '/':
-                        i['file_name'] = torrent_name
+                        i['file_name'] = torrent_name + '&nbsp;<span class="badge bg-secondary">' + str(i['file_number']) + '</span>'
+                    else:
+                        i['file_name'] = i['file_name'] + '&nbsp;<span class="badge bg-secondary">' + str(i['file_number']) + '</span>'
             for i in new_root_directory:
                 if i['category'] == 'directory':
                     i['file_name'] = '<span class="text-warning"><i class="fa-solid fa-folder fa-fw"></i></span>&nbsp;' + i['file_name']
                 if i['category'] == 'file':
                     i['file_name'] = '<span class="text-muted"><i class="fa-solid fa-file fa-fw"></i></span>&nbsp;' + i['file_name']
+            for i in new_root_directory:
+                if i['category'] == 'directory':
+                    del i['file_number']
             for i in new_root_directory:
                 del i['path']
                 del i['category']
@@ -352,11 +367,11 @@ class data_conversion:
         else:
             return False, user_language_data_config['upload_failure_2']
 
-    def explorer_database_query_like(self, like_string):
-        explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread = threading.Thread(target = self.explorer_spider_get_info_hash, args = (like_string,))
+    def explorer_database_query_like(self, keyword):
+        explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread = threading.Thread(target = self.explorer_spider_get_info_hash, args = (keyword,))
         explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread.setDaemon(True)
         explorer_web_server_data_conversion_explorer_spider_get_info_hash_thread.start()
-        database_query_like_messages = memory.explorer_database.query_like(like_string)
+        database_query_like_messages = memory.explorer_database.query_like(keyword)
         if database_query_like_messages['result'] is False:
             return []
         else:
@@ -545,33 +560,33 @@ class data_conversion:
         peer_wire_v4_ut_metadata_progress_messages = memory.explorer_peer_wire_v4.ut_metadata_progress()
         result = []
         for i in peer_wire_v4_ut_metadata_progress_messages.keys():
-            if peer_wire_v4_ut_metadata_progress_messages[i]['state'] is True:
+            if peer_wire_v4_ut_metadata_progress_messages[i]['status'] is True:
                 database_count_info_hash_messages = memory.explorer_database.count_info_hash(peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'])
                 if database_count_info_hash_messages['result'] == 0:
                     result.append({
-                        'state': '<div class="text-warning"><i class="fa-solid fa-file-circle-xmark"></i></div>',
+                        'status': '<div class="text-warning"><i class="fa-solid fa-file-circle-xmark"></i></div>',
                         'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
                 if database_count_info_hash_messages['result'] == 1:
                     result.append({
-                        'state': '<div class="text-success"><i class="fa-solid fa-file-circle-check"></i></div>',
+                        'status': '<div class="text-success"><i class="fa-solid fa-file-circle-check"></i></div>',
                         'info_hash': '<a href="./report?info_hash=' + peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'] + '" class="link-dark">' + peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'] + '</a>',
                         'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
-            if peer_wire_v4_ut_metadata_progress_messages[i]['state'] is False:
+            if peer_wire_v4_ut_metadata_progress_messages[i]['status'] is False:
                 if '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number']) == '100.00%':
                     result.append({
-                        'state': '<div class="text-danger"><i class="fa-solid fa-file-circle-question"></i></div>',
+                        'status': '<div class="text-danger"><i class="fa-solid fa-file-circle-question"></i></div>',
                         'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
                 else:
                     result.append({
-                        'state': '<div class="text-primary"><i class="fa-solid fa-file-arrow-down"></i></div>',
+                        'status': '<div class="text-primary"><i class="fa-solid fa-file-arrow-down"></i></div>',
                         'info_hash': peer_wire_v4_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': peer_wire_v4_ut_metadata_progress_messages[i]['ip_address'] + ':' + str(peer_wire_v4_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v4_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v4_ut_metadata_progress_messages[i]['all_piece_number'])
@@ -583,33 +598,33 @@ class data_conversion:
         peer_wire_v6_ut_metadata_progress_messages = memory.explorer_peer_wire_v6.ut_metadata_progress()
         result = []
         for i in peer_wire_v6_ut_metadata_progress_messages.keys():
-            if peer_wire_v6_ut_metadata_progress_messages[i]['state'] is True:
+            if peer_wire_v6_ut_metadata_progress_messages[i]['status'] is True:
                 database_count_info_hash_messages = memory.explorer_database.count_info_hash(peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'])
                 if database_count_info_hash_messages['result'] == 0:
                     result.append({
-                        'state': '<div class="text-warning"><i class="fa-solid fa-file-circle-xmark"></i></div>',
+                        'status': '<div class="text-warning"><i class="fa-solid fa-file-circle-xmark"></i></div>',
                         'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
                 if database_count_info_hash_messages['result'] == 1:
                     result.append({
-                        'state': '<div class="text-success"><i class="fa-solid fa-file-circle-check"></i></div>',
+                        'status': '<div class="text-success"><i class="fa-solid fa-file-circle-check"></i></div>',
                         'info_hash': '<a href="./report?info_hash=' + peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'] + '" class="link-dark">' + peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'] + '</a>',
                         'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
-            if peer_wire_v6_ut_metadata_progress_messages[i]['state'] is False:
+            if peer_wire_v6_ut_metadata_progress_messages[i]['status'] is False:
                 if '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number']) == '100.00%':
                     result.append({
-                        'state': '<div class="text-danger"><i class="fa-solid fa-file-circle-question"></i></div>',
+                        'status': '<div class="text-danger"><i class="fa-solid fa-file-circle-question"></i></div>',
                         'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
                     })
                 else:
                     result.append({
-                        'state': '<div class="text-primary"><i class="fa-solid fa-file-arrow-down"></i></div>',
+                        'status': '<div class="text-primary"><i class="fa-solid fa-file-arrow-down"></i></div>',
                         'info_hash': peer_wire_v6_ut_metadata_progress_messages[i]['info_hash'],
                         'ip_address': '[' + peer_wire_v6_ut_metadata_progress_messages[i]['ip_address'] + ']:' + str(peer_wire_v6_ut_metadata_progress_messages[i]['tcp_port']),
                         'progress': '{:.2%}'.format(peer_wire_v6_ut_metadata_progress_messages[i]['load_piece_number'] / peer_wire_v6_ut_metadata_progress_messages[i]['all_piece_number'])
@@ -617,8 +632,8 @@ class data_conversion:
         result.reverse()
         return result
 
-    def explorer_spider_get_info_hash(self, like_string):
-        result = memory.explorer_spider.get_info_hash(like_string)
+    def explorer_spider_get_info_hash(self, keyword):
+        result = memory.explorer_spider.get_info_hash(keyword)
         for i in result:
             memory.explorer_spider.add_info_hash(i)
 

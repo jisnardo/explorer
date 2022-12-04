@@ -68,8 +68,8 @@ class http_tracker:
         http_tracker_announce_started_messages = explorer_http_tracker.announce_started(domain_url, info_hash, 0, 0, 0, 6881)
         domain_url = http_tracker_announce_started_messages['header']['domain_url']
         info_hash = http_tracker_announce_started_messages['header']['info_hash']
-        state = http_tracker_announce_started_messages['result']['state']
-        if state is True:
+        status = http_tracker_announce_started_messages['result']['status']
+        if status is True:
             peers = http_tracker_announce_started_messages['result']['peers']
             peers6 = http_tracker_announce_started_messages['result']['peers6']
             if memory.ipv4_network_connectivity is True:
@@ -141,8 +141,8 @@ class http_tracker:
         http_tracker_scrape_messages = explorer_http_tracker.scrape(domain_url, info_hash)
         domain_url = http_tracker_scrape_messages['header']['domain_url']
         info_hash = http_tracker_scrape_messages['header']['info_hash']
-        state = http_tracker_scrape_messages['result']['state']
-        if state is True:
+        status = http_tracker_scrape_messages['result']['status']
+        if status is True:
             complete = http_tracker_scrape_messages['result']['complete']
             downloaded = http_tracker_scrape_messages['result']['downloaded']
             incomplete = http_tracker_scrape_messages['result']['incomplete']
@@ -156,7 +156,7 @@ class http_tracker:
                 elif force_query is True:
                     time.sleep(60)
                     self.__work_announce_started(explorer_database, explorer_http_tracker, explorer_krpc_v4, explorer_krpc_v6, domain_url, info_hash)
-        elif state is False:
+        elif status is False:
             result = urllib.parse.urlparse(url = domain_url)
             if result.scheme == 'http':
                 tracker_domain_name = result.netloc.rsplit(':', 1)[0]

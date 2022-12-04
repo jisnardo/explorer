@@ -3,6 +3,8 @@ from .data_converter import data_conversion
 from .memory import memory
 import flask
 import flask_restful
+import re
+import validators
 import webview
 
 api_blueprint = flask.Blueprint('api', __name__)
@@ -194,11 +196,21 @@ class api_database_query_like(flask_restful.Resource):
         json_data = flask.request.get_json()
         if 'token' in json_data:
             if json_data['token'] == webview.token:
-                like_string = flask.request.args.get('like_string')
-                result = data_conversion().explorer_database_query_like(like_string)
-                return {
-                    'data': result
-                }
+                keyword = flask.request.args.get('keyword')
+                keyword = keyword.strip()
+                keyword = re.sub('\s+', ' ', keyword)
+                blacklist = ['~', '!', '@', '#', '$', '%', '^', '&', '*']
+                for i in blacklist:
+                    keyword = keyword.replace(i, '')
+                if validators.length(keyword, min = 2, max = 30) is True:
+                    result = data_conversion().explorer_database_query_like(keyword)
+                    return {
+                        'data': result
+                    }
+                else:
+                    return {
+                        'data': []
+                    }
             else:
                 return {
                     'error': 'Authentication error'

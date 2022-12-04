@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ data_locale }}">
+<html lang="{{ language }}">
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -148,7 +148,7 @@
                                     {{ application_information }}
                                 </p>
                                 <table
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-page-number="1"
                                     data-pagination="true"
@@ -232,7 +232,7 @@
                                     {{ supported_protocols_information }}
                                 </p>
                                 <table
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-page-number="1"
                                     data-pagination="true"
@@ -413,7 +413,7 @@
                                     {{ open_source_project_thanks_information }}
                                 </p>
                                 <table
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-page-number="1"
                                     data-pagination="true"
@@ -754,6 +754,16 @@
                                                 32
                                             </td>
                                             <td>
+                                                <a class="link-dark" href="https://github.com/python-validators/validators" target="_blank">
+                                                    validators
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                33
+                                            </td>
+                                            <td>
                                                 <a class="link-dark" href="https://github.com/miraclx/xbytes" target="_blank">
                                                     xbytes
                                                 </a>
@@ -825,7 +835,7 @@
             </div>
         </div>
         <script>
-            window.language = '{{ data_locale }}';
+            window.language = '{{ language }}';
             window.token = '{{ token }}';
         </script>
     </body>

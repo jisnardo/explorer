@@ -32,7 +32,7 @@ def announce_completed(ip_address, udp_port, info_hash, downloaded, left, upload
                 'leechers': 1,
                 'seeders': 3,
                 'peers': [],
-                'state': True
+                'status': True
             },
             'header': {
                 'ip_address': '169.254.89.153',
@@ -82,7 +82,7 @@ def announce_none(ip_address, udp_port, info_hash, downloaded, left, uploaded, t
                 'leechers': 1,
                 'seeders': 3,
                 'peers': [['8.8.4.4', 51413], ['8.8.8.8', 6881]],
-                'state': True
+                'status': True
             },
             'header': {
                 'ip_address': '169.254.89.153',
@@ -132,7 +132,7 @@ def announce_started(ip_address, udp_port, info_hash, downloaded, left, uploaded
                 'leechers': 1,
                 'seeders': 3,
                 'peers': [['8.8.4.4', 51413], ['8.8.8.8', 6881]],
-                'state': True
+                'status': True
             },
             'header': {
                 'ip_address': '169.254.89.153',
@@ -182,7 +182,7 @@ def announce_stopped(ip_address, udp_port, info_hash, downloaded, left, uploaded
                 'leechers': 1,
                 'seeders': 3,
                 'peers': [],
-                'state': True
+                'status': True
             },
             'header': {
                 'ip_address': '169.254.89.153',
@@ -227,7 +227,7 @@ def scrape(ip_address, udp_port, info_hash):
                 'seeders': 1,
                 'completed': 3,
                 'leechers': 0,
-                'state': True
+                'status': True
             },
             'header': {
                 'ip_address': '169.254.89.153',

@@ -34,25 +34,25 @@ class scrape:
                         'complete': complete,
                         'downloaded': downloaded,
                         'incomplete': incomplete,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:

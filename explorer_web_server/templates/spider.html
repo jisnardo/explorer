@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ data_locale }}">
+<html lang="{{ language }}">
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -153,7 +153,7 @@
                                     data-ajax="ajax_request_peer_wire_v4_ut_metadata_progress_table_read"
                                     data-auto-refresh="true"
                                     data-auto-refresh-interval="2"
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-pagination="true"
@@ -170,8 +170,8 @@
                                     id="peer_wire_ipv4_ut_metadata_progress_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="40">
-                                                {{ state }}
+                                            <th data-field="status" data-halign="center" data-align="center" data-sortable="true" data-width="40">
+                                                {{ status }}
                                             </th>
                                             <th data-field="info_hash" data-halign="center" data-align="center" data-width="200" data-class="info_hash" data-formatter="info_hash_formatter">
                                                 {{ info_hash }}
@@ -197,7 +197,7 @@
                                     data-ajax="ajax_request_peer_wire_v6_ut_metadata_progress_table_read"
                                     data-auto-refresh="true"
                                     data-auto-refresh-interval="2"
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-pagination="true"
@@ -214,8 +214,8 @@
                                     id="peer_wire_ipv6_ut_metadata_progress_table">
                                     <thead>
                                         <tr>
-                                            <th data-field="state" data-halign="center" data-align="center" data-sortable="true" data-width="40">
-                                                {{ state }}
+                                            <th data-field="status" data-halign="center" data-align="center" data-sortable="true" data-width="40">
+                                                {{ status }}
                                             </th>
                                             <th data-field="info_hash" data-halign="center" data-align="center" data-width="200" data-class="info_hash" data-formatter="info_hash_formatter">
                                                 {{ info_hash }}
@@ -269,7 +269,7 @@
             </div>
         </div>
         <script>
-            window.language = '{{ data_locale }}';
+            window.language = '{{ language }}';
             window.token = '{{ token }}';
         </script>
     </body>

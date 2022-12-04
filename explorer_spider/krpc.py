@@ -291,15 +291,15 @@ class query_get_peers_info_hashes:
         explorer_spider_krpc_query_get_peers_info_hashes_listen_ipv6_thread.start()
 
 class query_nodes_number:
-    spider_krpc_query_nodes_number_like_string = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    spider_krpc_query_nodes_number_keyword = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
     def __listen_ipv4(self, explorer_database, explorer_krpc_v4):
         time.sleep(300)
         while True:
             if explorer_krpc_v4.query_nodes_number() == 0:
                 if memory.ipv4_network_connectivity is True:
-                    like_string = random.choice(self.spider_krpc_query_nodes_number_like_string)
-                    database_query_like_messages = explorer_database.query_like(like_string)
+                    keyword = random.choice(self.spider_krpc_query_nodes_number_keyword)
+                    database_query_like_messages = explorer_database.query_like(keyword)
                     if database_query_like_messages['result'] is not False:
                         messages_length = len(database_query_like_messages['result'])
                         if messages_length > 25:
@@ -320,8 +320,8 @@ class query_nodes_number:
         while True:
             if explorer_krpc_v6.query_nodes_number() == 0:
                 if memory.ipv6_network_connectivity is True:
-                    like_string = random.choice(self.spider_krpc_query_nodes_number_like_string)
-                    database_query_like_messages = explorer_database.query_like(like_string)
+                    keyword = random.choice(self.spider_krpc_query_nodes_number_keyword)
+                    database_query_like_messages = explorer_database.query_like(keyword)
                     if database_query_like_messages['result'] is not False:
                         messages_length = len(database_query_like_messages['result'])
                         if messages_length > 25:

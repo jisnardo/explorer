@@ -5,6 +5,8 @@ from .memory import memory
 import flask
 import json
 import os
+import re
+import validators
 import webview
 
 application = flask.Flask(
@@ -32,10 +34,10 @@ def about():
                     author_name = user_language_data_config['author_name'],
                     back = user_language_data_config['back'],
                     copyright = user_language_data_config['copyright'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     id = user_language_data_config['id'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     license = user_language_data_config['license'],
                     network = user_language_data_config['network'],
                     open_source_project = user_language_data_config['open_source_project'],
@@ -67,10 +69,10 @@ def about():
                     author_name = user_language_data_config['author_name'],
                     back = user_language_data_config['back'],
                     copyright = user_language_data_config['copyright'],
-                    data_locale = user_language,
                     database = user_language_data_config['database'],
                     id = user_language_data_config['id'],
                     item = user_language_data_config['item'],
+                    language = user_language,
                     license = user_language_data_config['license'],
                     network = user_language_data_config['network'],
                     open_source_project = user_language_data_config['open_source_project'],
@@ -102,10 +104,10 @@ def about():
                     author_name = user_language_data_config['author_name'],
                     back = user_language_data_config['back'],
                     copyright = user_language_data_config['copyright'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     id = user_language_data_config['id'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     license = user_language_data_config['license'],
                     network = user_language_data_config['network'],
                     open_source_project = user_language_data_config['open_source_project'],
@@ -143,12 +145,12 @@ def database():
                     'database.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     discovery_of_the_day_data = user_language_data_config['discovery_of_the_day_data'],
                     discovery_of_the_day_number = user_language_data_config['discovery_of_the_day_number'],
                     id = user_language_data_config['id'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     refresh = user_language_data_config['refresh'],
                     search_button = user_language_data_config['search_button'],
@@ -170,12 +172,12 @@ def database():
                     'database.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = user_language,
                     database = user_language_data_config['database'],
                     discovery_of_the_day_data = user_language_data_config['discovery_of_the_day_data'],
                     discovery_of_the_day_number = user_language_data_config['discovery_of_the_day_number'],
                     id = user_language_data_config['id'],
                     item = user_language_data_config['item'],
+                    language = user_language,
                     network = user_language_data_config['network'],
                     refresh = user_language_data_config['refresh'],
                     search_button = user_language_data_config['search_button'],
@@ -197,12 +199,12 @@ def database():
                     'database.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     discovery_of_the_day_data = user_language_data_config['discovery_of_the_day_data'],
                     discovery_of_the_day_number = user_language_data_config['discovery_of_the_day_number'],
                     id = user_language_data_config['id'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     refresh = user_language_data_config['refresh'],
                     search_button = user_language_data_config['search_button'],
@@ -234,10 +236,10 @@ def default():
                     about = user_language_data_config['about'],
                     card_subtitle_1 = user_language_data_config['card_subtitle_1'],
                     card_subtitle_2 = user_language_data_config['card_subtitle_2'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     file_size = user_language_data_config['file_size'],
                     info_hash = user_language_data_config['info_hash'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     search_button = user_language_data_config['search_button'],
                     search_button_title = user_language_data_config['search_button_title'],
@@ -256,10 +258,10 @@ def default():
                     about = user_language_data_config['about'],
                     card_subtitle_1 = user_language_data_config['card_subtitle_1'],
                     card_subtitle_2 = user_language_data_config['card_subtitle_2'],
-                    data_locale = user_language,
                     database = user_language_data_config['database'],
                     file_size = user_language_data_config['file_size'],
                     info_hash = user_language_data_config['info_hash'],
+                    language = user_language,
                     network = user_language_data_config['network'],
                     search_button = user_language_data_config['search_button'],
                     search_button_title = user_language_data_config['search_button_title'],
@@ -278,10 +280,10 @@ def default():
                     about = user_language_data_config['about'],
                     card_subtitle_1 = user_language_data_config['card_subtitle_1'],
                     card_subtitle_2 = user_language_data_config['card_subtitle_2'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     file_size = user_language_data_config['file_size'],
                     info_hash = user_language_data_config['info_hash'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     search_button = user_language_data_config['search_button'],
                     search_button_title = user_language_data_config['search_button_title'],
@@ -316,7 +318,6 @@ def network():
                     append_bootstrap_nodes_failure = user_language_data_config['append_bootstrap_nodes_failure'],
                     append_bootstrap_nodes_success = user_language_data_config['append_bootstrap_nodes_success'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     dht_network_ipv4_information = user_language_data_config['dht_network_ipv4_information'],
                     dht_network_ipv4_peer_database = user_language_data_config['dht_network_ipv4_peer_database'],
@@ -328,6 +329,7 @@ def network():
                     info_hash = user_language_data_config['info_hash'],
                     ip_address = user_language_data_config['ip_address'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     node_id = user_language_data_config['node_id'],
                     refresh = user_language_data_config['refresh'],
@@ -353,7 +355,6 @@ def network():
                     append_bootstrap_nodes_failure = user_language_data_config['append_bootstrap_nodes_failure'],
                     append_bootstrap_nodes_success = user_language_data_config['append_bootstrap_nodes_success'],
                     back = user_language_data_config['back'],
-                    data_locale = user_language,
                     database = user_language_data_config['database'],
                     dht_network_ipv4_information = user_language_data_config['dht_network_ipv4_information'],
                     dht_network_ipv4_peer_database = user_language_data_config['dht_network_ipv4_peer_database'],
@@ -365,6 +366,7 @@ def network():
                     info_hash = user_language_data_config['info_hash'],
                     ip_address = user_language_data_config['ip_address'],
                     item = user_language_data_config['item'],
+                    language = user_language,
                     network = user_language_data_config['network'],
                     node_id = user_language_data_config['node_id'],
                     refresh = user_language_data_config['refresh'],
@@ -390,7 +392,6 @@ def network():
                     append_bootstrap_nodes_failure = user_language_data_config['append_bootstrap_nodes_failure'],
                     append_bootstrap_nodes_success = user_language_data_config['append_bootstrap_nodes_success'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     dht_network_ipv4_information = user_language_data_config['dht_network_ipv4_information'],
                     dht_network_ipv4_peer_database = user_language_data_config['dht_network_ipv4_peer_database'],
@@ -402,6 +403,7 @@ def network():
                     info_hash = user_language_data_config['info_hash'],
                     ip_address = user_language_data_config['ip_address'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     node_id = user_language_data_config['node_id'],
                     refresh = user_language_data_config['refresh'],
@@ -434,7 +436,6 @@ def report():
                     'report.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     file_name = user_language_data_config['file_name'],
                     file_size = user_language_data_config['file_size'],
@@ -443,6 +444,7 @@ def report():
                     info_hash_information = user_language_data_config['info_hash_information'],
                     info_hash_report = user_language_data_config['info_hash_report'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     refresh = user_language_data_config['refresh'],
                     search_button = user_language_data_config['search_button'],
@@ -463,7 +465,6 @@ def report():
                     'report.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = user_language,
                     database = user_language_data_config['database'],
                     file_name = user_language_data_config['file_name'],
                     file_size = user_language_data_config['file_size'],
@@ -472,6 +473,7 @@ def report():
                     info_hash_information = user_language_data_config['info_hash_information'],
                     info_hash_report = user_language_data_config['info_hash_report'],
                     item = user_language_data_config['item'],
+                    language = user_language,
                     network = user_language_data_config['network'],
                     refresh = user_language_data_config['refresh'],
                     search_button = user_language_data_config['search_button'],
@@ -492,7 +494,6 @@ def report():
                     'report.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     file_name = user_language_data_config['file_name'],
                     file_size = user_language_data_config['file_size'],
@@ -501,6 +502,7 @@ def report():
                     info_hash_information = user_language_data_config['info_hash_information'],
                     info_hash_report = user_language_data_config['info_hash_report'],
                     item = user_language_data_config['item'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     refresh = user_language_data_config['refresh'],
                     search_button = user_language_data_config['search_button'],
@@ -517,87 +519,95 @@ def report():
         return flask.redirect(flask.url_for('setting'))
 
 @application.route('/search', methods = ['GET'])
-@application_cache.cached()
+@application_cache.cached(timeout = 2)
 def search():
-    search_input = flask.request.args.get('search_input')
+    keyword = flask.request.args.get('keyword')
     result = data_conversion().explorer_database_check()
     if result is True:
-        user_language = flask.request.accept_languages.best_match(memory.application_support_languages)
-        if user_language is None:
-            with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/en-US.json', mode = 'r', encoding = 'utf-8') as file:
-                user_language_data_config = file.read()
-                user_language_data_config = json.loads(user_language_data_config)
-                return flask.render_template(
-                    'search.html',
-                    about = user_language_data_config['about'],
-                    back = user_language_data_config['back'],
-                    data_locale = 'en-US',
-                    database = user_language_data_config['database'],
-                    id = user_language_data_config['id'],
-                    network = user_language_data_config['network'],
-                    refresh = user_language_data_config['refresh'],
-                    search_button = user_language_data_config['search_button'],
-                    search_button_title = user_language_data_config['search_button_title'],
-                    search_input_title = user_language_data_config['search_input_title'],
-                    search_results = user_language_data_config['search_results'],
-                    setting = user_language_data_config['setting'],
-                    sheet_name = search_input,
-                    spider = user_language_data_config['spider'],
-                    token = webview.token,
-                    torrent_name = user_language_data_config['torrent_name'],
-                    torrent_size = user_language_data_config['torrent_size'],
-                    upload_button = user_language_data_config['upload_button']
-                )
-        elif os.path.exists(os.path.dirname(os.path.abspath(__file__)) + '/languages/' + user_language + '.json'):
-            with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/' + user_language + '.json', mode = 'r', encoding = 'utf-8') as file:
-                user_language_data_config = file.read()
-                user_language_data_config = json.loads(user_language_data_config)
-                return flask.render_template(
-                    'search.html',
-                    about = user_language_data_config['about'],
-                    back = user_language_data_config['back'],
-                    data_locale = user_language,
-                    database = user_language_data_config['database'],
-                    id = user_language_data_config['id'],
-                    network = user_language_data_config['network'],
-                    refresh = user_language_data_config['refresh'],
-                    search_button = user_language_data_config['search_button'],
-                    search_button_title = user_language_data_config['search_button_title'],
-                    search_input_title = user_language_data_config['search_input_title'],
-                    search_results = user_language_data_config['search_results'],
-                    setting = user_language_data_config['setting'],
-                    sheet_name = search_input,
-                    spider = user_language_data_config['spider'],
-                    token = webview.token,
-                    torrent_name = user_language_data_config['torrent_name'],
-                    torrent_size = user_language_data_config['torrent_size'],
-                    upload_button = user_language_data_config['upload_button']
-                )
+        keyword = keyword.strip()
+        keyword = re.sub('\s+', ' ', keyword)
+        blacklist = ['~', '!', '@', '#', '$', '%', '^', '&', '*']
+        for i in blacklist:
+            keyword = keyword.replace(i, '')
+        if validators.length(keyword, min = 2, max = 30) is True:
+            user_language = flask.request.accept_languages.best_match(memory.application_support_languages)
+            if user_language is None:
+                with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/en-US.json', mode = 'r', encoding = 'utf-8') as file:
+                    user_language_data_config = file.read()
+                    user_language_data_config = json.loads(user_language_data_config)
+                    return flask.render_template(
+                        'search.html',
+                        about = user_language_data_config['about'],
+                        back = user_language_data_config['back'],
+                        database = user_language_data_config['database'],
+                        id = user_language_data_config['id'],
+                        language = 'en-US',
+                        network = user_language_data_config['network'],
+                        refresh = user_language_data_config['refresh'],
+                        search_button = user_language_data_config['search_button'],
+                        search_button_title = user_language_data_config['search_button_title'],
+                        search_input_title = user_language_data_config['search_input_title'],
+                        search_results = user_language_data_config['search_results'],
+                        setting = user_language_data_config['setting'],
+                        sheet_name = keyword,
+                        spider = user_language_data_config['spider'],
+                        token = webview.token,
+                        torrent_name = user_language_data_config['torrent_name'],
+                        torrent_size = user_language_data_config['torrent_size'],
+                        upload_button = user_language_data_config['upload_button']
+                    )
+            elif os.path.exists(os.path.dirname(os.path.abspath(__file__)) + '/languages/' + user_language + '.json'):
+                with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/' + user_language + '.json', mode = 'r', encoding = 'utf-8') as file:
+                    user_language_data_config = file.read()
+                    user_language_data_config = json.loads(user_language_data_config)
+                    return flask.render_template(
+                        'search.html',
+                        about = user_language_data_config['about'],
+                        back = user_language_data_config['back'],
+                        database = user_language_data_config['database'],
+                        id = user_language_data_config['id'],
+                        language = user_language,
+                        network = user_language_data_config['network'],
+                        refresh = user_language_data_config['refresh'],
+                        search_button = user_language_data_config['search_button'],
+                        search_button_title = user_language_data_config['search_button_title'],
+                        search_input_title = user_language_data_config['search_input_title'],
+                        search_results = user_language_data_config['search_results'],
+                        setting = user_language_data_config['setting'],
+                        sheet_name = keyword,
+                        spider = user_language_data_config['spider'],
+                        token = webview.token,
+                        torrent_name = user_language_data_config['torrent_name'],
+                        torrent_size = user_language_data_config['torrent_size'],
+                        upload_button = user_language_data_config['upload_button']
+                    )
+            else:
+                with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/en-US.json', mode = 'r', encoding = 'utf-8') as file:
+                    user_language_data_config = file.read()
+                    user_language_data_config = json.loads(user_language_data_config)
+                    return flask.render_template(
+                        'search.html',
+                        about = user_language_data_config['about'],
+                        back = user_language_data_config['back'],
+                        database = user_language_data_config['database'],
+                        id = user_language_data_config['id'],
+                        language = 'en-US',
+                        network = user_language_data_config['network'],
+                        refresh = user_language_data_config['refresh'],
+                        search_button = user_language_data_config['search_button'],
+                        search_button_title = user_language_data_config['search_button_title'],
+                        search_input_title = user_language_data_config['search_input_title'],
+                        search_results = user_language_data_config['search_results'],
+                        setting = user_language_data_config['setting'],
+                        sheet_name = keyword,
+                        spider = user_language_data_config['spider'],
+                        token = webview.token,
+                        torrent_name = user_language_data_config['torrent_name'],
+                        torrent_size = user_language_data_config['torrent_size'],
+                        upload_button = user_language_data_config['upload_button']
+                    )
         else:
-            with open(os.path.dirname(os.path.abspath(__file__)) + '/languages/en-US.json', mode = 'r', encoding = 'utf-8') as file:
-                user_language_data_config = file.read()
-                user_language_data_config = json.loads(user_language_data_config)
-                return flask.render_template(
-                    'search.html',
-                    about = user_language_data_config['about'],
-                    back = user_language_data_config['back'],
-                    data_locale = 'en-US',
-                    database = user_language_data_config['database'],
-                    id = user_language_data_config['id'],
-                    network = user_language_data_config['network'],
-                    refresh = user_language_data_config['refresh'],
-                    search_button = user_language_data_config['search_button'],
-                    search_button_title = user_language_data_config['search_button_title'],
-                    search_input_title = user_language_data_config['search_input_title'],
-                    search_results = user_language_data_config['search_results'],
-                    setting = user_language_data_config['setting'],
-                    sheet_name = search_input,
-                    spider = user_language_data_config['spider'],
-                    token = webview.token,
-                    torrent_name = user_language_data_config['torrent_name'],
-                    torrent_size = user_language_data_config['torrent_size'],
-                    upload_button = user_language_data_config['upload_button']
-                )
+            return flask.redirect(flask.url_for('default'))
     else:
         return flask.redirect(flask.url_for('setting'))
 
@@ -613,9 +623,9 @@ def setting():
                 'setting.html',
                 about = user_language_data_config['about'],
                 back = user_language_data_config['back'],
-                data_locale = 'en-US',
                 database = user_language_data_config['database'],
                 database_application_danger_alert = user_language_data_config['database_application_danger_alert'],
+                language = 'en-US',
                 network = user_language_data_config['network'],
                 refresh = user_language_data_config['refresh'],
                 search_button = user_language_data_config['search_button'],
@@ -634,9 +644,9 @@ def setting():
                 'setting.html',
                 about = user_language_data_config['about'],
                 back = user_language_data_config['back'],
-                data_locale = user_language,
                 database = user_language_data_config['database'],
                 database_application_danger_alert = user_language_data_config['database_application_danger_alert'],
+                language = user_language,
                 network = user_language_data_config['network'],
                 refresh = user_language_data_config['refresh'],
                 search_button = user_language_data_config['search_button'],
@@ -655,9 +665,9 @@ def setting():
                 'setting.html',
                 about = user_language_data_config['about'],
                 back = user_language_data_config['back'],
-                data_locale = 'en-US',
                 database = user_language_data_config['database'],
                 database_application_danger_alert = user_language_data_config['database_application_danger_alert'],
+                language = 'en-US',
                 network = user_language_data_config['network'],
                 refresh = user_language_data_config['refresh'],
                 search_button = user_language_data_config['search_button'],
@@ -683,11 +693,11 @@ def spider():
                     'spider.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     id = user_language_data_config['id'],
                     info_hash = user_language_data_config['info_hash'],
                     ip_address = user_language_data_config['ip_address'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     peer_wire_ipv4_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv4_ut_metadata_progress_table'],
                     peer_wire_ipv6_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv6_ut_metadata_progress_table'],
@@ -698,7 +708,7 @@ def spider():
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
                     spider = user_language_data_config['spider'],
-                    state = user_language_data_config['state'],
+                    status = user_language_data_config['status'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -712,11 +722,11 @@ def spider():
                     'spider.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = user_language,
                     database = user_language_data_config['database'],
                     id = user_language_data_config['id'],
                     info_hash = user_language_data_config['info_hash'],
                     ip_address = user_language_data_config['ip_address'],
+                    language = user_language,
                     network = user_language_data_config['network'],
                     peer_wire_ipv4_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv4_ut_metadata_progress_table'],
                     peer_wire_ipv6_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv6_ut_metadata_progress_table'],
@@ -727,7 +737,7 @@ def spider():
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
                     spider = user_language_data_config['spider'],
-                    state = user_language_data_config['state'],
+                    status = user_language_data_config['status'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],
@@ -741,11 +751,11 @@ def spider():
                     'spider.html',
                     about = user_language_data_config['about'],
                     back = user_language_data_config['back'],
-                    data_locale = 'en-US',
                     database = user_language_data_config['database'],
                     id = user_language_data_config['id'],
                     info_hash = user_language_data_config['info_hash'],
                     ip_address = user_language_data_config['ip_address'],
+                    language = 'en-US',
                     network = user_language_data_config['network'],
                     peer_wire_ipv4_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv4_ut_metadata_progress_table'],
                     peer_wire_ipv6_ut_metadata_progress_table = user_language_data_config['peer_wire_ipv6_ut_metadata_progress_table'],
@@ -756,7 +766,7 @@ def spider():
                     search_input_title = user_language_data_config['search_input_title'],
                     setting = user_language_data_config['setting'],
                     spider = user_language_data_config['spider'],
-                    state = user_language_data_config['state'],
+                    status = user_language_data_config['status'],
                     token = webview.token,
                     torrent_name = user_language_data_config['torrent_name'],
                     torrent_size = user_language_data_config['torrent_size'],

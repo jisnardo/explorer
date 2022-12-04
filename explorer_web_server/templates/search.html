@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ data_locale }}">
+<html lang="{{ language }}">
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -153,7 +153,7 @@
                                     data-ajax="ajax_request"
                                     data-auto-refresh="true"
                                     data-auto-refresh-interval="300"
-                                    data-locale="{{ data_locale }}"
+                                    data-locale="{{ language }}"
                                     data-method="post"
                                     data-page-list="[10, 25, 50, 100, all]"
                                     data-pagination="true"
@@ -226,7 +226,7 @@
             </div>
         </div>
         <script>
-            window.language = '{{ data_locale }}';
+            window.language = '{{ language }}';
             window.token = '{{ token }}';
         </script>
     </body>

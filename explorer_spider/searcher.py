@@ -10,19 +10,19 @@ import urllib.parse
 class searcher:
     def __auto_search(self):
         while True:
-            like_string_list = []
+            keyword_list = []
             for i in range(0, 30):
                 year = datetime.datetime.today().year - i
-                like_string_list.append(str(year))
-            for j in like_string_list:
+                keyword_list.append(str(year))
+            for j in keyword_list:
                 apibay_result = self.apibay(j)
                 ytsmx_result = self.ytsmx(j)
                 result = []
-                if apibay_result['state'] is True:
+                if apibay_result['status'] is True:
                     for k in apibay_result['data']:
                         if k not in result:
                             result.append(k)
-                if ytsmx_result['state'] is True:
+                if ytsmx_result['status'] is True:
                     for l in ytsmx_result['data']:
                         if l not in result:
                             result.append(l)
@@ -33,13 +33,13 @@ class searcher:
                 time.sleep(900)
             time.sleep(3600)
 
-    def apibay(self, like_string):
+    def apibay(self, keyword):
         headers = {
             'Connection': 'close',
             'User-Agent': getuseragent.UserAgent().Random()
         }
         url = 'https://apibay.org/q.php?q={}'.format(
-            urllib.parse.quote(like_string)
+            urllib.parse.quote(keyword)
         )
         with httpx.Client() as client:
             try:
@@ -56,25 +56,25 @@ class searcher:
                             info_hash_list.append(match.group(0))
                     result = {
                         'data': info_hash_list,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:
@@ -85,13 +85,13 @@ class searcher:
         explorer_spider_searcher_auto_search_thread.setDaemon(True)
         explorer_spider_searcher_auto_search_thread.start()
 
-    def ytsmx(self, like_string):
+    def ytsmx(self, keyword):
         headers = {
             'Connection': 'close',
             'User-Agent': getuseragent.UserAgent().Random()
         }
         url = 'https://yts.mx/api/v2/list_movies.json?query_term={}'.format(
-            urllib.parse.quote(like_string)
+            urllib.parse.quote(keyword)
         )
         with httpx.Client() as client:
             try:
@@ -109,25 +109,25 @@ class searcher:
                                 info_hash_list.append(match.group(0))
                     result = {
                         'data': info_hash_list,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:

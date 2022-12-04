@@ -33,7 +33,7 @@ def announce_completed(domain_url, info_hash, downloaded, left, uploaded, tcp_po
                 'min_interval': 896,
                 'peers': [],
                 'peers6': [],
-                'state': True
+                'status': True
             },
             'header': {
                 'domain_url': 'http://example.com:6969',
@@ -81,7 +81,7 @@ def announce_none(domain_url, info_hash, downloaded, left, uploaded, tcp_port):
                 'min_interval': 896,
                 'peers': [['8.8.4.4', 51413], ['8.8.8.8', 6881]],
                 'peers6': [['2001:4860:4860::8844', 51413], ['2001:4860:4860::8888', 6881]],
-                'state': True
+                'status': True
             },
             'header': {
                 'domain_url': 'http://example.com:6969',
@@ -129,7 +129,7 @@ def announce_started(domain_url, info_hash, downloaded, left, uploaded, tcp_port
                 'min_interval': 896,
                 'peers': [['8.8.4.4', 51413], ['8.8.8.8', 6881]],
                 'peers6': [['2001:4860:4860::8844', 51413], ['2001:4860:4860::8888', 6881]],
-                'state': True
+                'status': True
             },
             'header': {
                 'domain_url': 'http://example.com:6969',
@@ -177,7 +177,7 @@ def announce_stopped(domain_url, info_hash, downloaded, left, uploaded, tcp_port
                 'min_interval': 896,
                 'peers': [],
                 'peers6': [],
-                'state': True
+                'status': True
             },
             'header': {
                 'domain_url': 'http://example.com:6969',
@@ -217,7 +217,7 @@ def scrape(domain_url, info_hash):
                 'complete': 1,
                 'downloaded': 3,
                 'incomplete': 0,
-                'state': True
+                'status': True
             },
             'header': {
                 'domain_url': 'http://example.com:6969',

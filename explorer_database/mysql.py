@@ -229,14 +229,14 @@ class mysql:
 
     def __query_like(self):
         while True:
-            like_string = self.mysql_query_like_messages_recvfrom.get()
-            if like_string.find(' ') == -1:
+            keyword = self.mysql_query_like_messages_recvfrom.get()
+            if keyword.find(' ') == -1:
                 try:
                     connection = pymysql.connect(**self.__load_config())
                     cursor = connection.cursor()
                     cursor.execute(
                         'select * from `torrent_information_table` where `torrent_name` like \'%{}%\';'
-                        .format(like_string)
+                        .format(keyword)
                     )
                     connection.commit()
                     result = cursor.fetchall()
@@ -249,11 +249,11 @@ class mysql:
                         result
                     )
             else:
-                like_string = like_string.split(' ')
-                sql_statement = 'select * from `torrent_information_table` where `torrent_name` like \'%{}%\''.format(like_string[0])
-                for i in range(1, len(like_string)):
-                    sql_statement = sql_statement + 'and `torrent_name` like \'%{}%\''.format(like_string[i])
-                    if i == len(like_string) - 1:
+                keyword = keyword.split(' ')
+                sql_statement = 'select * from `torrent_information_table` where `torrent_name` like \'%{}%\''.format(keyword[0])
+                for i in range(1, len(keyword)):
+                    sql_statement = sql_statement + 'and `torrent_name` like \'%{}%\''.format(keyword[i])
+                    if i == len(keyword) - 1:
                         sql_statement = sql_statement + ';'
                 try:
                     connection = pymysql.connect(**self.__load_config())

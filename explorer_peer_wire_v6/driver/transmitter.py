@@ -42,7 +42,7 @@ class transmission:
                     'load_piece_number': load_piece_number,
                     'ip_address': ip_address,
                     'tcp_port': tcp_port,
-                    'state': False,
+                    'status': False,
                     'update_time': int(time.time())
                 }
             else:
@@ -52,7 +52,7 @@ class transmission:
                     'load_piece_number': load_piece_number,
                     'ip_address': ip_address,
                     'tcp_port': tcp_port,
-                    'state': False,
+                    'status': False,
                     'update_time': int(time.time())
                 }
             while True:
@@ -75,11 +75,11 @@ class transmission:
                                 if len(piece[str(load_piece_number)]) == last_piece_size:
                                     if all_piece_number == 1:
                                         self.driver_transmission_extension_ut_metadata_progress[str(key)]['load_piece_number'] = load_piece_number + 1
-                                        self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = True
+                                        self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = True
                                         self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                                     else:
                                         self.driver_transmission_extension_ut_metadata_progress[str(key)]['load_piece_number'] = load_piece_number
-                                        self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = True
+                                        self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = True
                                         self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                                     break
                             elif len(peer_extended_ut_metadata_response_message['type_20']['data']) > 16384 - len(piece[str(load_piece_number)]):
@@ -104,11 +104,11 @@ class transmission:
                         if len(piece[str(load_piece_number)]) == last_piece_size:
                             if all_piece_number == 1:
                                 self.driver_transmission_extension_ut_metadata_progress[str(key)]['load_piece_number'] = load_piece_number + 1
-                                self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = True
+                                self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = True
                                 self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                             else:
                                 self.driver_transmission_extension_ut_metadata_progress[str(key)]['load_piece_number'] = load_piece_number
-                                self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = True
+                                self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = True
                                 self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                             break
                     elif len(peer_unanalysed_extended_ut_metadata_response_message) > 16384 - len(piece[str(load_piece_number)]):
@@ -137,11 +137,11 @@ class transmission:
                                     if len(piece[str(load_piece_number)]) == last_piece_size:
                                         if all_piece_number == 1:
                                             self.driver_transmission_extension_ut_metadata_progress[str(key)]['load_piece_number'] = load_piece_number + 1
-                                            self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = True
+                                            self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = True
                                             self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                                         else:
                                             self.driver_transmission_extension_ut_metadata_progress[str(key)]['load_piece_number'] = load_piece_number
-                                            self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = True
+                                            self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = True
                                             self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                                         break
                                 elif len(peer_extended_ut_metadata_response_message['type_20']['data']) > 16384 - len(piece[str(load_piece_number)]):
@@ -187,7 +187,7 @@ class transmission:
         piece = result[2]
         key = result[3]
         if reject is True:
-            self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = False
+            self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = False
             self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
             self.driver_transmission_extension_ut_metadata_messages_send.put(
                 [False, socket_server, info_hash, application_extension_ut_metadata_keyword]
@@ -208,13 +208,13 @@ class transmission:
                         [torrent_data, socket_server, info_hash, application_extension_ut_metadata_keyword]
                     )
                 except:
-                    self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = False
+                    self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = False
                     self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                     self.driver_transmission_extension_ut_metadata_messages_send.put(
                         [False, socket_server, info_hash, application_extension_ut_metadata_keyword]
                     )
             else:
-                self.driver_transmission_extension_ut_metadata_progress[str(key)]['state'] = False
+                self.driver_transmission_extension_ut_metadata_progress[str(key)]['status'] = False
                 self.driver_transmission_extension_ut_metadata_progress[str(key)]['update_time'] = int(time.time())
                 self.driver_transmission_extension_ut_metadata_messages_send.put(
                     [False, socket_server, info_hash, application_extension_ut_metadata_keyword]

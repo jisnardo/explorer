@@ -128,25 +128,25 @@ class announce:
                         'min_interval': min_interval,
                         'peers': peers,
                         'peers6': peers6,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:
@@ -227,25 +227,25 @@ class announce:
                         'min_interval': min_interval,
                         'peers': peers,
                         'peers6': peers6,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:
@@ -326,25 +326,25 @@ class announce:
                         'min_interval': min_interval,
                         'peers': peers,
                         'peers6': peers6,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:
@@ -425,25 +425,25 @@ class announce:
                         'min_interval': min_interval,
                         'peers': peers,
                         'peers6': peers6,
-                        'state': True
+                        'status': True
                     }
                     return result
                 else:
                     result = {
                         'error': response.status_code,
-                        'state': False
+                        'status': False
                     }
                     return result
             except httpx.HTTPError as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             except Exception as error:
                 result = {
                     'error': error,
-                    'state': False
+                    'status': False
                 }
                 return result
             finally:

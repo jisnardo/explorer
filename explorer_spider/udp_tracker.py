@@ -105,8 +105,8 @@ class udp_tracker:
         ip_address = udp_tracker_v4_announce_started_messages['header']['ip_address']
         udp_port = udp_tracker_v4_announce_started_messages['header']['udp_port']
         info_hash = udp_tracker_v4_announce_started_messages['header']['info_hash']
-        state = udp_tracker_v4_announce_started_messages['result']['state']
-        if state is True:
+        status = udp_tracker_v4_announce_started_messages['result']['status']
+        if status is True:
             peers = udp_tracker_v4_announce_started_messages['result']['peers']
             if memory.ipv4_network_connectivity is True:
                 if len(peers) > 0:
@@ -149,8 +149,8 @@ class udp_tracker:
         ip_address = udp_tracker_v4_scrape_messages['header']['ip_address']
         udp_port = udp_tracker_v4_scrape_messages['header']['udp_port']
         info_hash = udp_tracker_v4_scrape_messages['header']['info_hash']
-        state = udp_tracker_v4_scrape_messages['result']['state']
-        if state is True:
+        status = udp_tracker_v4_scrape_messages['result']['status']
+        if status is True:
             seeders = udp_tracker_v4_scrape_messages['result']['seeders']
             completed = udp_tracker_v4_scrape_messages['result']['completed']
             leechers = udp_tracker_v4_scrape_messages['result']['leechers']
@@ -164,7 +164,7 @@ class udp_tracker:
                 elif force_query is True:
                     time.sleep(60)
                     self.__work_ipv4_announce_started(explorer_database, explorer_krpc_v4, explorer_udp_tracker_v4, ip_address, udp_port, info_hash)
-        elif state is False:
+        elif status is False:
             tracker_domain_list = [ip_address, udp_port]
             if tracker_domain_list in bootstrap_udp_trackers.spider_bootstrap_udp_trackers_tracker_ipv4_list:
                 bootstrap_udp_trackers.spider_bootstrap_udp_trackers_tracker_ipv4_list.remove(tracker_domain_list)
@@ -175,8 +175,8 @@ class udp_tracker:
         ip_address = udp_tracker_v6_announce_started_messages['header']['ip_address']
         udp_port = udp_tracker_v6_announce_started_messages['header']['udp_port']
         info_hash = udp_tracker_v6_announce_started_messages['header']['info_hash']
-        state = udp_tracker_v6_announce_started_messages['result']['state']
-        if state is True:
+        status = udp_tracker_v6_announce_started_messages['result']['status']
+        if status is True:
             peers6 = udp_tracker_v6_announce_started_messages['result']['peers6']
             if memory.ipv6_network_connectivity is True:
                 if len(peers6) > 0:
@@ -219,8 +219,8 @@ class udp_tracker:
         ip_address = udp_tracker_v6_scrape_messages['header']['ip_address']
         udp_port = udp_tracker_v6_scrape_messages['header']['udp_port']
         info_hash = udp_tracker_v6_scrape_messages['header']['info_hash']
-        state = udp_tracker_v6_scrape_messages['result']['state']
-        if state is True:
+        status = udp_tracker_v6_scrape_messages['result']['status']
+        if status is True:
             seeders = udp_tracker_v6_scrape_messages['result']['seeders']
             completed = udp_tracker_v6_scrape_messages['result']['completed']
             leechers = udp_tracker_v6_scrape_messages['result']['leechers']
@@ -234,7 +234,7 @@ class udp_tracker:
                 elif force_query is True:
                     time.sleep(60)
                     self.__work_ipv6_announce_started(explorer_database, explorer_krpc_v6, explorer_udp_tracker_v6, ip_address, udp_port, info_hash)
-        elif state is False:
+        elif status is False:
             tracker_domain_list = [ip_address, udp_port]
             if tracker_domain_list in bootstrap_udp_trackers.spider_bootstrap_udp_trackers_tracker_ipv6_list:
                 bootstrap_udp_trackers.spider_bootstrap_udp_trackers_tracker_ipv6_list.remove(tracker_domain_list)

@@ -69,7 +69,7 @@ def ut_metadata_progress():
                 'load_piece_number': 3,
                 'ip_address': '2001:4860:4860::8844',
                 'tcp_port': 51413,
-                'state': False,
+                'status': False,
                 'update_time': 1667672729
             }
             ...

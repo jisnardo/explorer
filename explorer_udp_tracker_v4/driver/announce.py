@@ -76,7 +76,7 @@ class announce:
                                 'leechers': leechers,
                                 'seeders': seeders,
                                 'peers': new_peers,
-                                'state': True
+                                'status': True
                             }
                             return result
                         elif announce_completed_messages[0] == 3 and announce_completed_messages[1] == transaction_id:
@@ -84,13 +84,13 @@ class announce:
                             error_message = announce_completed_messages[2]
                             result = {
                                 'error': error_message,
-                                'state': False
+                                'status': False
                             }
                             return result
                     else:
                         socket_server.close()
                         result = {
-                            'state': False
+                            'status': False
                         }
                         return result
                 elif connect_messages[0] == 3 and connect_messages[1] == transaction_id:
@@ -98,20 +98,20 @@ class announce:
                     error_message = connect_messages[2]
                     result = {
                         'error': error_message,
-                        'state': False
+                        'status': False
                     }
                     return result
             else:
                 socket_server.close()
                 result = {
-                    'state': False
+                    'status': False
                 }
                 return result
         except Exception as error:
             socket_server.close()
             result = {
                 'error': error,
-                'state': False
+                'status': False
             }
             return result
         finally:
@@ -162,7 +162,7 @@ class announce:
                                 'leechers': leechers,
                                 'seeders': seeders,
                                 'peers': new_peers,
-                                'state': True
+                                'status': True
                             }
                             return result
                         elif announce_none_messages[0] == 3 and announce_none_messages[1] == transaction_id:
@@ -170,13 +170,13 @@ class announce:
                             error_message = announce_none_messages[2]
                             result = {
                                 'error': error_message,
-                                'state': False
+                                'status': False
                             }
                             return result
                     else:
                         socket_server.close()
                         result = {
-                            'state': False
+                            'status': False
                         }
                         return result
                 elif connect_messages[0] == 3 and connect_messages[1] == transaction_id:
@@ -184,20 +184,20 @@ class announce:
                     error_message = connect_messages[2]
                     result = {
                         'error': error_message,
-                        'state': False
+                        'status': False
                     }
                     return result
             else:
                 socket_server.close()
                 result = {
-                    'state': False
+                    'status': False
                 }
                 return result
         except Exception as error:
             socket_server.close()
             result = {
                 'error': error,
-                'state': False
+                'status': False
             }
             return result
         finally:
@@ -248,7 +248,7 @@ class announce:
                                 'leechers': leechers,
                                 'seeders': seeders,
                                 'peers': new_peers,
-                                'state': True
+                                'status': True
                             }
                             return result
                         elif announce_started_messages[0] == 3 and announce_started_messages[1] == transaction_id:
@@ -256,13 +256,13 @@ class announce:
                             error_message = announce_started_messages[2]
                             result = {
                                 'error': error_message,
-                                'state': False
+                                'status': False
                             }
                             return result
                     else:
                         socket_server.close()
                         result = {
-                            'state': False
+                            'status': False
                         }
                         return result
                 elif connect_messages[0] == 3 and connect_messages[1] == transaction_id:
@@ -270,20 +270,20 @@ class announce:
                     error_message = connect_messages[2]
                     result = {
                         'error': error_message,
-                        'state': False
+                        'status': False
                     }
                     return result
             else:
                 socket_server.close()
                 result = {
-                    'state': False
+                    'status': False
                 }
                 return result
         except Exception as error:
             socket_server.close()
             result = {
                 'error': error,
-                'state': False
+                'status': False
             }
             return result
         finally:
@@ -334,7 +334,7 @@ class announce:
                                 'leechers': leechers,
                                 'seeders': seeders,
                                 'peers': new_peers,
-                                'state': True
+                                'status': True
                             }
                             return result
                         elif announce_stopped_messages[0] == 3 and announce_stopped_messages[1] == transaction_id:
@@ -342,13 +342,13 @@ class announce:
                             error_message = announce_stopped_messages[2]
                             result = {
                                 'error': error_message,
-                                'state': False
+                                'status': False
                             }
                             return result
                     else:
                         socket_server.close()
                         result = {
-                            'state': False
+                            'status': False
                         }
                         return result
                 elif connect_messages[0] == 3 and connect_messages[1] == transaction_id:
@@ -356,20 +356,20 @@ class announce:
                     error_message = connect_messages[2]
                     result = {
                         'error': error_message,
-                        'state': False
+                        'status': False
                     }
                     return result
             else:
                 socket_server.close()
                 result = {
-                    'state': False
+                    'status': False
                 }
                 return result
         except Exception as error:
             socket_server.close()
             result = {
                 'error': error,
-                'state': False
+                'status': False
             }
             return result
         finally:

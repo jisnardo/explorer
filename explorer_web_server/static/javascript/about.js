@@ -186,16 +186,16 @@ document.onreadystatechange = function () {
                 $('[data-toggle=\'search_button_tooltip\']').tooltip();
                 $('[data-toggle=\'search_input_tooltip\']').tooltip();
                 $('#search_button').click(function () {
-                    var search_input_string = $('#search_input').val().replace(/^\s+|\s+$/g, '');
-                    var search_input_string = validator.blacklist(search_input_string, '~!@#$%^&*');
-                    if(validator.isLength(search_input_string, {min: 2, max: 30}) == true) {
+                    var keyword = $('#search_input').val().replace(/^\s+|\s+$/g, '');
+                    var keyword = validator.blacklist(keyword, '~!@#$%^&*');
+                    if(validator.isLength(keyword, {min: 2, max: 30}) == true) {
                         Cookies.set('search_card_view', false);
                         Cookies.set('search_page_number', 1);
                         Cookies.set('search_page_size', 10);
                         Cookies.set('search_search_text', '');
                         Cookies.set('search_sort_name', '');
                         Cookies.set('search_sort_order', '');
-                        window.location.href = window.location.protocol + '//' + window.location.host + '/search?search_input=' + encodeURIComponent(search_input_string);
+                        window.location.href = window.location.protocol + '//' + window.location.host + '/search?keyword=' + encodeURIComponent(keyword);
                     } else {
                         $('#search_input').css('background-color', '#fff3cd');
                     };
@@ -203,16 +203,16 @@ document.onreadystatechange = function () {
                 $('#search_input').each(function () {
                     $(this).keypress(function (event) {
                         if(event.which == 13) {
-                            var search_input_string = $('#search_input').val().replace(/^\s+|\s+$/g, '');
-                            var search_input_string = validator.blacklist(search_input_string, '~!@#$%^&*');
-                            if(validator.isLength(search_input_string, {min: 2, max: 30}) == true) {
+                            var keyword = $('#search_input').val().replace(/^\s+|\s+$/g, '');
+                            var keyword = validator.blacklist(keyword, '~!@#$%^&*');
+                            if(validator.isLength(keyword, {min: 2, max: 30}) == true) {
                                 Cookies.set('search_card_view', false);
                                 Cookies.set('search_page_number', 1);
                                 Cookies.set('search_page_size', 10);
                                 Cookies.set('search_search_text', '');
                                 Cookies.set('search_sort_name', '');
                                 Cookies.set('search_sort_order', '');
-                                window.location.href = window.location.protocol + '//' + window.location.host + '/search?search_input=' + encodeURIComponent(search_input_string);
+                                window.location.href = window.location.protocol + '//' + window.location.host + '/search?keyword=' + encodeURIComponent(keyword);
                             } else {
                                 $('#search_input').css('background-color', '#fff3cd');
                             };
