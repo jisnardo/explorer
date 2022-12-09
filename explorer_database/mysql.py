@@ -137,12 +137,20 @@ class mysql:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
                 cursor.execute(
+                    'lock tables `torrent_information_table` write;'
+                )
+                connection.commit()
+                cursor.execute(
                     'alter table `torrent_information_table` auto_increment = 1;'
                 )
                 connection.commit()
                 cursor.execute(
                     'insert ignore into `torrent_information_table`(`info_hash`, `torrent_name`, `torrent_contents`, `torrent_size`) values(\'{}\', \'{}\', \'{}\', \'{}\');'
                     .format(info_hash, pymysql.converters.escape_string(torrent_name), pymysql.converters.escape_string(torrent_contents), torrent_size)
+                )
+                connection.commit()
+                cursor.execute(
+                    'unlock tables;'
                 )
                 connection.commit()
                 result = True
