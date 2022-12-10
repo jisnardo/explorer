@@ -3,7 +3,7 @@ import tempfile
 class memory:
     application_cache_config = {
         'CACHE_DEFAULT_TIMEOUT': 60,
-        'CACHE_DIR': tempfile.gettempdir(),
+        'CACHE_DIR': tempfile.gettempdir() + '/explorer',
         'CACHE_IGNORE_ERRORS': True,
         'CACHE_THRESHOLD': 1000,
         'CACHE_TYPE': 'filesystem'
