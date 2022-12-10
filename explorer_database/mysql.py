@@ -51,7 +51,17 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
-                cursor.execute('select count(*) from `torrent_information_table`;')
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'select count(*) from `torrent_information_table`;'
+                )
                 connection.commit()
                 result = cursor.fetchall()
                 cursor.close()
@@ -69,6 +79,14 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
                 cursor.execute(
                     'select count(*) from `torrent_information_table` where date_format(`discovered_on`, \'%Y-%m-%d\') = \'{}\';'
                     .format(day)
@@ -91,6 +109,14 @@ class mysql:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
                 cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
+                cursor.execute(
                     'select count(*) from `torrent_information_table` where date_format(`discovered_on`, \'%Y-%m\') = \'{}\';'
                     .format(month)
                 )
@@ -111,6 +137,14 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
                 cursor.execute(
                     'select count(*) from `torrent_information_table` where `info_hash` = \'{}\';'
                     .format(info_hash)
@@ -136,6 +170,14 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
                 cursor.execute(
                     'lock tables `torrent_information_table` write;'
                 )
@@ -181,7 +223,17 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
-                cursor.execute('select * from `torrent_information_table`;')
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'select * from `torrent_information_table`;'
+                )
                 connection.commit()
                 result = cursor.fetchall()
                 cursor.close()
@@ -199,6 +251,14 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
                 cursor.execute(
                     'select * from `torrent_information_table` where date_format(`discovered_on`, \'%Y-%m-%d\') = \'{}\';'
                     .format(day)
@@ -221,6 +281,14 @@ class mysql:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
                 cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
+                cursor.execute(
                     'select * from `torrent_information_table` where `info_hash` = \'{}\';'
                     .format(info_hash)
                 )
@@ -242,6 +310,14 @@ class mysql:
                 try:
                     connection = pymysql.connect(**self.__load_config())
                     cursor = connection.cursor()
+                    cursor.execute(
+                        'start transaction;'
+                    )
+                    connection.commit()
+                    cursor.execute(
+                        'set autocommit = 0;'
+                    )
+                    connection.commit()
                     cursor.execute(
                         'select * from `torrent_information_table` where `torrent_name` like \'%{}%\';'
                         .format(keyword)
@@ -266,6 +342,14 @@ class mysql:
                 try:
                     connection = pymysql.connect(**self.__load_config())
                     cursor = connection.cursor()
+                    cursor.execute(
+                        'start transaction;'
+                    )
+                    connection.commit()
+                    cursor.execute(
+                        'set autocommit = 0;'
+                    )
+                    connection.commit()
                     cursor.execute(sql_statement)
                     connection.commit()
                     result = cursor.fetchall()
@@ -284,7 +368,17 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
-                cursor.execute('select `torrent_size` from `torrent_information_table`;')
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'select `torrent_size` from `torrent_information_table`;'
+                )
                 connection.commit()
                 result = cursor.fetchall()
                 cursor.close()
@@ -302,6 +396,14 @@ class mysql:
             try:
                 connection = pymysql.connect(**self.__load_config())
                 cursor = connection.cursor()
+                cursor.execute(
+                    'start transaction;'
+                )
+                connection.commit()
+                cursor.execute(
+                    'set autocommit = 0;'
+                )
+                connection.commit()
                 cursor.execute(
                     'select `torrent_size` from `torrent_information_table` where date_format(`discovered_on`, \'%Y-%m-%d\') = \'{}\';'
                     .format(day)
