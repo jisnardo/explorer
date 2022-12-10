@@ -2,6 +2,7 @@ document.onreadystatechange = function () {
     if(document.readyState == 'interactive') {
         loadjs([
             'css!https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/css/OverlayScrollbars.css',
+            'css!https://cdn.jsdelivr.net/npm/jquery-resizable-columns@latest/dist/jquery.resizableColumns.css',
             'css!https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.css',
             'css!https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css',
             'css!https://cdn.jsdelivr.net/npm/bootstrap-fileinput@latest/css/fileinput.css',
@@ -9,6 +10,7 @@ document.onreadystatechange = function () {
             'css!https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.css',
             'css!./static/css/about.css',
             'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.js',
+            'https://cdn.jsdelivr.net/npm/jquery-resizable-columns@latest/dist/jquery.resizableColumns.js',
             'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@latest/tableExport.min.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-fileinput@latest/js/fileinput.js',
@@ -61,6 +63,7 @@ document.onreadystatechange = function () {
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/bootstrap-table-locale-all.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/export/bootstrap-table-export.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.js',
+            'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/resizable/bootstrap-table-resizable.js',
             'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/js/all.js',
             'https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/js/OverlayScrollbars.js',
             'https://cdn.jsdelivr.net/npm/validator@latest/validator.js',

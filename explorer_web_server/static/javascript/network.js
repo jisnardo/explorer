@@ -2,6 +2,7 @@ document.onreadystatechange = function () {
     if(document.readyState == 'interactive') {
         loadjs([
             'css!https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/css/OverlayScrollbars.css',
+            'css!https://cdn.jsdelivr.net/npm/jquery-resizable-columns@latest/dist/jquery.resizableColumns.css',
             'css!https://cdn.jsdelivr.net/npm/jquery-treegrid@latest/css/jquery.treegrid.css',
             'css!https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.css',
             'css!https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css',
@@ -10,8 +11,9 @@ document.onreadystatechange = function () {
             'css!https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.css',
             'css!./static/css/network.css',
             'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.js',
-            'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@latest/tableExport.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery-resizable-columns@latest/dist/jquery.resizableColumns.js',
             'https://cdn.jsdelivr.net/npm/jquery-treegrid@latest/js/jquery.treegrid.min.js',
+            'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@latest/tableExport.min.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-fileinput@latest/js/fileinput.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-fileinput@latest/js/locales/ar.js',
@@ -64,6 +66,7 @@ document.onreadystatechange = function () {
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/export/bootstrap-table-export.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.js',
+            'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/resizable/bootstrap-table-resizable.js',
             'https://cdn.jsdelivr.net/npm/bootstrap-table@latest/dist/extensions/treegrid/bootstrap-table-treegrid.js',
             'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/js/all.js',
             'https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/js/OverlayScrollbars.js',
