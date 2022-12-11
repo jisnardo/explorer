@@ -90,6 +90,10 @@ Pull requests and other contributions are welcome.
 
 If this application helps you, I hope you can give a star.
 
+## Notice
+
+Please don't share the data explorer crawled to the Internet. Because sometimes it crawls sensitive/copyrighted/porn data.
+
 ## License
 
 This repository is released under license GNU Affero General Public License Version 3.

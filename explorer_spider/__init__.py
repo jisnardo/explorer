@@ -104,6 +104,9 @@ def launch(explorer_database, explorer_http_tracker, explorer_krpc_v4, explorer_
         explorer_udp_tracker_v4: explorer_udp_tracker_v4 package
         explorer_udp_tracker_v6: explorer_udp_tracker_v6 package
 
+    Returns:
+        None
+
     '''
     append_info_hash().start(explorer_database)
     bootstrap_http_trackers().start()
